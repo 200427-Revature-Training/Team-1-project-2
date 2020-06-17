@@ -7,6 +7,7 @@ import { ProfileComponent } from '../profile-components/profile-component';
 
 
 
+
 const MainComponent: React.FC = () => {
   return (
       <BrowserRouter>
@@ -24,6 +25,7 @@ const MainComponent: React.FC = () => {
             </Route>
             <Route exact path='/profile'>
                 <ProfileComponent></ProfileComponent>
+
             </Route>
 
 

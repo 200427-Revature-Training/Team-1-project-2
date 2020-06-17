@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@types/react-router-dom": "^5.1.5",
+    "websocket-extensions": "^0.1.4"
+  }
+}
