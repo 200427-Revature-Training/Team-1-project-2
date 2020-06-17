@@ -4,6 +4,8 @@ import { HomeComponent } from '../home-components/home-component';
 import { FeedComponent } from '../feed-components/feed-component';
 import { ConcertPageComponent } from '../concert-components/concert-page-component';
 import { ProfileComponent } from '../profile-components/profile-component';
+import  LoginComponent from '../login-components/login-component';
+import HeaderComponent from './header-component';
 
 
 
@@ -13,7 +15,7 @@ const MainComponent: React.FC = () => {
       <BrowserRouter>
       <div>
         <main>
-      <h1>Hello this is the main component</h1>
+            <HeaderComponent></HeaderComponent>
             <Route exact path='/home'>
                 <HomeComponent></HomeComponent>
             </Route>
@@ -26,6 +28,9 @@ const MainComponent: React.FC = () => {
             <Route exact path='/profile'>
                 <ProfileComponent></ProfileComponent>
 
+            </Route>
+            <Route exact path='/login'>
+                <LoginComponent/>
             </Route>
 
 
