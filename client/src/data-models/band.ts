@@ -1,4 +1,4 @@
-import { ConcertEventModel } from "./event-modol";
+import { ConcertEventModel } from "./event-model";
 import { User } from "./user-model";
 import { stringify } from "querystring";
 
