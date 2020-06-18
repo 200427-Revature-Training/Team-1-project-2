@@ -19,13 +19,17 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
     
 
     return (
-
         <section>
             <h1>Your Concert Finder</h1>
             <div className="col center">
                 <div className='container'>
                     <form>
 
+        <section>
+            <h1>Your Concert Finder</h1>
+            <div className="col center">
+                <div className='container'>
+                    <form>
                         <div className='col'>
 
                         </div>
@@ -44,7 +48,8 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
                     <button type='submit' >Login</button>
                 </div>
             </div>
-        </section>)
+        </section>
+    )
 }
 
 export default withRouter(LoginComponent);
