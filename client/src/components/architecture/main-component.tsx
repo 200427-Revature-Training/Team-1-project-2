@@ -13,7 +13,6 @@ import HeaderComponent from './header-component';
 const MainComponent: React.FC = () => {
   return (
       <BrowserRouter>
-      <div>
         <main>
             <HeaderComponent></HeaderComponent>
             <Route exact path='/home'>
@@ -36,7 +35,6 @@ const MainComponent: React.FC = () => {
 
 
         </main>
-      </div>
     </BrowserRouter>
   );
 }
