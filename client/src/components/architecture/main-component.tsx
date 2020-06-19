@@ -18,9 +18,6 @@ const MainComponent: React.FC = () => {
             <Route exact path='/home'>
                 <HomeComponent></HomeComponent>
             </Route>
-            <Route exact path='/feed'>
-                <FeedComponent></FeedComponent>
-            </Route>
             <Route exact path='/concert'>
                 <ConcertPageComponent></ConcertPageComponent>
             </Route>
