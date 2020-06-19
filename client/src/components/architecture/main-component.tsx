@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { HomeComponent } from '../home-components/home-feed-component';
-import { FeedComponent } from '../feed-components/feed-component';
 import { ConcertPageComponent } from '../concert-components/profile-feed-component';
 import { ProfileComponent } from '../profile-components/profile-component';
 import  LoginComponent from '../login-components/login-component';
@@ -13,8 +12,8 @@ import HeaderComponent from './header-component';
 const MainComponent: React.FC = () => {
   return (
       <BrowserRouter>
+        <HeaderComponent></HeaderComponent>
         <main>
-            <HeaderComponent></HeaderComponent>
             <Route exact path='/home'>
                 <HomeComponent></HomeComponent>
             </Route>
@@ -23,14 +22,10 @@ const MainComponent: React.FC = () => {
             </Route>
             <Route exact path='/profile'>
                 <ProfileComponent></ProfileComponent>
-
             </Route>
             <Route exact path='/login'>
                 <LoginComponent/>
             </Route>
-
-
-
         </main>
     </BrowserRouter>
   );
