@@ -4,22 +4,24 @@ export class ConcertEventModel {
     eId:number;
     eName:string;
     eDate:Date;
-    eLocation:string;
+    city:string;
+    state:string;
     eBandList:Band[];
 
 
     static from(obj: ConcertEventModelRow)
     {
-        const concertEvent = new ConcertEventModel(obj.e_id, obj.e_name, obj.e_date, obj.e_location, obj.e_band_list);
+        const concertEvent = new ConcertEventModel(obj.e_id, obj.e_name, obj.e_date, obj.city, obj.state, obj.e_band_list);
         return concertEvent;
     }
 
-    constructor(eId:number, eName:string, eDate:Date, eLocation:string, eBandList:Band[])
+    constructor(eId:number, eName:string, eDate:Date, city:string, state:string, eBandList:Band[])
     {
         this.eId = eId;
         this.eName = eName;
         this.eDate = eDate;
-        this.eLocation = eLocation;
+        this.city = city;
+        this.state = state;
         this.eBandList = eBandList;
     }
 }
@@ -28,6 +30,7 @@ export interface ConcertEventModelRow{
     e_id:number;
     e_name:string;
     e_date:Date;
-    e_location:string;
+    city:string;
+    state:string;
     e_band_list:Band[];
 }
