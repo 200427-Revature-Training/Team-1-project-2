@@ -6,9 +6,6 @@ import { ProfileComponent } from '../profile-components/profile-component';
 import  LoginComponent from '../login-components/login-component';
 import HeaderComponent from './header-component';
 
-
-
-
 const MainComponent: React.FC = () => {
   return (
       <BrowserRouter>
