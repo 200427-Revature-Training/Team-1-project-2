@@ -24,12 +24,6 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
             <div className="col center">
                 <div className='container'>
                     <form>
-
-        <section>
-            <h1>Your Concert Finder</h1>
-            <div className="col center">
-                <div className='container'>
-                    <form>
                         <div className='col'>
 
                         </div>
