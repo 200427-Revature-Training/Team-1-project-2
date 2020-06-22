@@ -23,7 +23,24 @@ export const SignupComponent: React.FC = () => {
                         </div>
                         <br></br>
                         <div className='col'>
-                            <input type='text'  placeholder='Firstname'>
+                            <input type='text'  placeholder='Email'>
+                            </input>
+                        </div>
+                        <br></br>
+                        <div className='col'>
+                            <input type='text'  placeholder='First Name'>
+                            </input>
+                        </div>
+                        <br></br>
+                        <div className='col'>
+                            <input type='text'  placeholder='Last Name'>
+                            </input>
+                        </div>
+                        <br></br>
+                        <div className='col'>
+                            <h5>Profile Picture</h5>
+                            <div></div>
+                            <input type='file'  >
                             </input>
                         </div>
                         <br></br>
