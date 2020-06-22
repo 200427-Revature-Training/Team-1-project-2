@@ -94,7 +94,7 @@ export const ConcertDetailsComponent: React.FC = () => {
         </div>
         */
         
-           <div className="my-container row">
+           <div className="concert-details row">
                <div className="col-3 profile-pic">
                    <br></br>
                    <img className ="" 
@@ -123,7 +123,7 @@ export const ConcertDetailsComponent: React.FC = () => {
                    </ul>
                    <h4>Bio</h4>
                    <ul className="myList">
-                       <p>This is a description about me hqwudbwjnveuirbgfvnemwcmuiwenrfnlkamdspoji wbefyuieuicmeiworcnuiwehrcuweicu wemrciweiurfnuiwerhbviuniuw nuweuirvbiurwtvhwruthv</p>
+                       <p>concert description</p>
                    </ul>
                </div>
                <div className="col-5 iframe-container">
