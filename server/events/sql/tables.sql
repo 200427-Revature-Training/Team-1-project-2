@@ -37,7 +37,10 @@ CREATE TABLE events.user_roles (
 
 CREATE TABLE events.users (
 	id serial NOT NULL,
-	name varchar(50) NULL,
+	first_name varchar(50) NULL,
+	last_name varchar(50) NULL,
+	email varchar(50) NULL,
+	username varchar(50) NULL,
 	password varchar(150) NULL,
 	picture_url varchar(255) NULL,
 	bio varchar(255) NULL,
@@ -80,8 +83,10 @@ CREATE TABLE events.band_event (
 ALTER TABLE events.band_event ADD CONSTRAINT band_event_band_id_fkey FOREIGN KEY (band_id) REFERENCES events.bands(id);
 ALTER TABLE events.band_event ADD CONSTRAINT band_event_event_id_fkey FOREIGN KEY (event_id) REFERENCES events.events(id);
 
+--#####################################################################################3
 
-
+SELECT * FROM users u 
+SELECT * FROM user_roles ur 
 /** Creating roles */
 /*
 

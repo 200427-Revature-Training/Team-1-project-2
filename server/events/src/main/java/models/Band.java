@@ -1,38 +1,43 @@
 package models;
 
-import java.util.Arrays;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.Table;
+import javax.persistence.Column;
+
+import org.hibernate.annotations.Check;
 
 @Entity
+@Table(name = "bands")
+@Check(constraints = "char_length(location) > 0")
 public class Band {
 	
 	@Id
 	@GeneratedValue
 	private int id;
 	private String name;
-	@OneToMany
-	private User[] members;
-	private byte image;
-	@OneToMany
-	private Song[] songlist;
-	@OneToMany(mappedBy = "band")
-	private Tour[] eventlist;
 	
-	protected Band() {
-	}
-
-	public Band(int id, String name, User[] members, byte image, Song[] songlist, Tour[] eventlist) {
+	@Column(name = "picture_url")
+	private String picture;
+	private String genre;
+	
+	@JoinColumn(name = "id")
+	@Column(name = "featured_song_id")
+	private int featuredSongId;
+	
+	public Band(int id, String name, String picture, String genre, int featuredSongId) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.members = members;
-		this.image = image;
-		this.songlist = songlist;
-		this.eventlist = eventlist;
+		
+		
+		this.picture = picture;
+		this.genre = genre;
+		
+		
+		this.featuredSongId = featuredSongId;
 	}
 
 	public int getId() {
@@ -51,44 +56,33 @@ public class Band {
 		this.name = name;
 	}
 
-	public User[] getMembers() {
-		return members;
+	public String getPicture() {
+		return picture;
 	}
 
-	public void setMembers(User[] members) {
-		this.members = members;
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
-	public byte getImage() {
-		return image;
+	public String getGenre() {
+		return genre;
 	}
 
-	public void setImage(byte image) {
-		this.image = image;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
-	public Song[] getSonglist() {
-		return songlist;
-	}
+	//public Song getFeaturedSongId() {
+	//	return featuredSongId;
+	//}
 
-	public void setSonglist(Song[] songlist) {
-		this.songlist = songlist;
-	}
-
-	public Tour[] getEventlist() {
-		return eventlist;
-	}
-
-	public void setEventlist(Tour[] eventlist) {
-		this.eventlist = eventlist;
+	public void setFeaturedSongId(int featuredSongId) {
+		this.featuredSongId = featuredSongId;
 	}
 
 	@Override
 	public String toString() {
-		return "Band [id=" + id + ", name=" + name + ", members=" + Arrays.toString(members) + ", image=" + image + "]";
+		return "Band [id=" + id + ", name=" + name + ", picture=" + picture + ", genre=" + genre + ", featuredSongId="
+				+ featuredSongId + "]";
 	}
-	
-	
-	
-
 }
