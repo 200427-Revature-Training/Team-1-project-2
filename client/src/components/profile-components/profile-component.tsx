@@ -95,6 +95,7 @@ export const ProfileComponent: React.FC = () => {
 
                             </Select>
                         </FormControl>
+                        <br></br>
                         <FormControl >
                             <Form.Label className='myFormStyle'>State</Form.Label>
                             <Select

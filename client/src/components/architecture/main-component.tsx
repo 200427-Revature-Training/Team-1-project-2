@@ -19,7 +19,7 @@ const MainComponent: React.FC = () => {
             <Route exact path='/concert'>
                 <ConcertPageComponent></ConcertPageComponent>
             </Route>
-            <Route exact path='/concert-details'>
+            <Route exact path='/concert/details'>
                 <ConcertDetailsComponent></ConcertDetailsComponent>
             </Route>
             <Route exact path='/profile'>
