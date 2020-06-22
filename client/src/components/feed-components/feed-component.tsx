@@ -13,6 +13,7 @@ interface FeedProps {
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
+
     let addButton = props.upcoming  ?<Button className="btn btn-success" onClick={() => addButtonEvent()}>Add Show</Button>:<span></span>;
     let removeButton = props.yourShow  ?<Button className="btn btn-danger" onClick={() => removeButtonEvent()}>Remove</Button>:<span></span>;
 
@@ -30,8 +31,8 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         console.log('i am the view button event on feed component');
         
     }
-    const [redirect, setRedirect] = useState(false);
 
+    const [redirect, setRedirect] = useState(false);
 
     const handleClick = () => {
         localStorage.setItem('eventID',props.concertEvents.eId+'');
