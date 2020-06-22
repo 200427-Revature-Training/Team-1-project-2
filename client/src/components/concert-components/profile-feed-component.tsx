@@ -14,6 +14,7 @@ export const ConcertPageComponent: React.FC = () => {
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} upcoming={true} yourShow={false}></FeedComponent>)
         })
     }
+    
     return (
 
         <div>
