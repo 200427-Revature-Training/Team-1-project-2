@@ -18,7 +18,8 @@ const event1:ConcertEventModel[] = [{
     eDate:new Date(),
     city:"San Francisco",
     state:"California",
-    eBandList:[]
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
     eId:1,
@@ -26,7 +27,8 @@ const event1:ConcertEventModel[] = [{
     eDate:new Date(),
     city:"San Diego",
     state:"California",
-    eBandList:[]
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
     eId:1,
@@ -34,7 +36,8 @@ const event1:ConcertEventModel[] = [{
     eDate:new Date(),
     city:"Fresno",
     state:"California",
-    eBandList:[]
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
     eId:1,
@@ -42,7 +45,8 @@ const event1:ConcertEventModel[] = [{
     eDate:new Date(),
     city:"Oakland",
     state:"California",
-    eBandList:[]
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
     eId:1,
@@ -50,7 +54,8 @@ const event1:ConcertEventModel[] = [{
     eDate:new Date(),
     city:"Las Angles",
     state:"California",
-    eBandList:[]
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 }]
 
 export const getUser = async () => {
