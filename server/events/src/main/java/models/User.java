@@ -6,6 +6,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -24,6 +25,8 @@ public class User {
 	@Column(name = "last_name")
 	private String lastName;
 	private String email;
+	
+	@Column(name = "username")
 	private String userName;
 	private String password;
 	
@@ -32,15 +35,15 @@ public class User {
 	private String bio;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@Column(name = "role_id")
+	@JoinColumn(name = "role_id")
 	private UserRole role;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@Column(name = "band_id")
+	@JoinColumn(name = "band_id")
 	private Band band;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@Column(name = "favorite_song_id")
+	@JoinColumn(name = "favorite_song_id")
 	private Song song;
 
 	public User(int id, String firstName, String lastName, String email, String userName, String password,

@@ -5,11 +5,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name = "songs")
-@Check(constraints = "char_length(location) > 0")
 public class Song {
 	@Id
 	@GeneratedValue

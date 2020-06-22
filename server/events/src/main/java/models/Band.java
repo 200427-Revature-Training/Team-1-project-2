@@ -1,21 +1,22 @@
 package models;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
-import org.hibernate.annotations.Check;
 
 @Entity
 @Table(name = "bands")
-@Check(constraints = "char_length(location) > 0")
 public class Band {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	
@@ -23,21 +24,17 @@ public class Band {
 	private String picture;
 	private String genre;
 	
-	@JoinColumn(name = "id")
-	@Column(name = "featured_song_id")
-	private int featuredSongId;
-	
-	public Band(int id, String name, String picture, String genre, int featuredSongId) {
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "favorite_song_id")
+	private Song song;
+
+	public Band(int id, String name, String picture, String genre, Song song) {
 		super();
 		this.id = id;
 		this.name = name;
-		
-		
 		this.picture = picture;
 		this.genre = genre;
-		
-		
-		this.featuredSongId = featuredSongId;
+		this.song = song;
 	}
 
 	public int getId() {
@@ -72,17 +69,17 @@ public class Band {
 		this.genre = genre;
 	}
 
-	//public Song getFeaturedSongId() {
-	//	return featuredSongId;
-	//}
+	public Song getSong() {
+		return song;
+	}
 
-	public void setFeaturedSongId(int featuredSongId) {
-		this.featuredSongId = featuredSongId;
+	public void setSong(Song song) {
+		this.song = song;
 	}
 
 	@Override
 	public String toString() {
-		return "Band [id=" + id + ", name=" + name + ", picture=" + picture + ", genre=" + genre + ", featuredSongId="
-				+ featuredSongId + "]";
-	}
+		return "Band [id=" + id + ", name=" + name + ", picture=" + picture + ", genre=" + genre + ", song=" + song
+				+ "]";
+	}	
 }

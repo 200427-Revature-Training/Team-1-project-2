@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 
 import models.Band;
 import models.Event;
+import models.Place;
 import models.Song;
 import models.Tour;
 import models.User;
@@ -50,7 +51,7 @@ public class DaoUtilities {
 						.addAnnotatedClass(UserRole.class)
 						.addAnnotatedClass(Event.class)
 						.addAnnotatedClass(Song.class)
-						.addAnnotatedClass(Tour.class)
+						.addAnnotatedClass(Place.class)
 						.addAnnotatedClass(Band.class);
 
 

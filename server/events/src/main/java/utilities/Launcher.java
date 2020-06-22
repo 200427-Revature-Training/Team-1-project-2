@@ -42,6 +42,5 @@ public class Launcher {
 			e.printStackTrace();
 			sf.close();
 		}
-
 	}
 }
