@@ -35,7 +35,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const [concertImage, setConcertImage] = useState('');
 
     const [bandName, setBandName] = useState('');
-    const [bandId, setBandID] = useState();
+    const [bandId, setBandID] = useState(0);
 
     const addConcert = (list: ConcertEventModel) => {
         setConcert([...concert, list])
