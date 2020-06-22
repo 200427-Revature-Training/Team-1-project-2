@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import './login-page.css'
+import { Link } from 'react-router-dom';
 
 
 export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
@@ -41,6 +42,8 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
                         <br></br>
                     </form>
                     <button type='submit' >Login</button>
+                    <br></br>
+                    <Link to='/signup'>Signup</Link>
                 </div>
             </div>
         </section>
