@@ -2,6 +2,7 @@ import React from 'react'
 import './feed.css'
 import { Button } from 'react-bootstrap'
 import { ConcertEventModel } from '../../data-models/event-model';
+import * as userRemote from '../../remotes/user-remote';
 
 interface FeedProps{
     upcoming:boolean;
@@ -11,9 +12,23 @@ interface FeedProps{
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
-    let addButton = props.upcoming  ?<Button className="btn btn-success" >Add Show</Button>:<span></span>;
-    let removeButton = props.yourShow  ?<Button className="btn btn-danger" >Remove</Button>:<span></span>;
+    let addButton = props.upcoming  ?<Button className="btn btn-success" onClick={() => addButtonEvent()}>Add Show</Button>:<span></span>;
+    let removeButton = props.yourShow  ?<Button className="btn btn-danger" onClick={() => removeButtonEvent()}>Remove</Button>:<span></span>;
 
+    const addButtonEvent = () => {
+        console.log('I am the add button event on feed component add event to my favorites now');
+        userRemote.userAddEvent(props.concertEvents.eId);
+    }
+
+    const removeButtonEvent = () => {
+        console.log('i am the remove button event in feed component remove this event from my favorites now');
+        userRemote.userRemoveEvent(props.concertEvents.eId);
+    }
+
+    const viewButtonEvent = () => {
+        console.log('i am the view button event on feed component');
+        
+    }
 
     return (
 

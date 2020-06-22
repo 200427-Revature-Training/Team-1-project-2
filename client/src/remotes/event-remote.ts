@@ -17,6 +17,13 @@ export const getAllUserEvents = async () => {
     //return response;
 }
 
+
+export const addConcertEvent = async (concert:ConcertEventModel) => {
+        //const response = await internalAxios.get<ConcertEventModel[]>('/events/add');
+        return event1;
+        //return response;
+}
+
 const bandA:User[] = [{
     userId: 0,
     userName: "member1",
