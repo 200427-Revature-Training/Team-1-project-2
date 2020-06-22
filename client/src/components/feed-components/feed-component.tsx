@@ -1,10 +1,12 @@
 import React from 'react'
 import './feed.css'
 import { Button } from 'react-bootstrap'
+import { ConcertEventModel } from '../../data-models/event-model';
 
 interface FeedProps{
     upcoming:boolean;
     yourShow:boolean;
+    concertEvents:ConcertEventModel;
 }
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
@@ -17,10 +19,11 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
 
         <div className="col-4">
             <div className="card" >
-                <img className="card-img-top" src="https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg" alt="Card image cap"/>
+                <img className="card-img-top" src={props.concertEvents.sourceImage} alt="Card image cap"/>
                     <div className="card-body">
-                        <h5 className="card-title">Concert name/band names</h5>
-                        <p className="card-text">Event location</p>
+                        <h5 className="card-title">{props.concertEvents.eName}</h5>
+                        <p className="card-text">{props.concertEvents.city}</p>
+                        <p className="card-text">{props.concertEvents.state}</p>
                         <Button href="#" className="btn btn-primary">View</Button>
                         {addButton}
                         {removeButton}

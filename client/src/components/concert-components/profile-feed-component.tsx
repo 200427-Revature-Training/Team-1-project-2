@@ -1,8 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
+import { ConcertEventModel } from '../../data-models/event-model';
+
+const concerts:ConcertEventModel[] = [];
 
 export const ConcertPageComponent: React.FC = () => {
+    const [concert, setConcert] = useState<ConcertEventModel[]>(concerts);
 
+    const renderFeedComp = () => {
+ 
+
+        return concert.map(concertEvent => {
+            return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} upcoming={true} yourShow={false}></FeedComponent>)
+        })
+    }
     return (
 
         <div>
@@ -11,10 +22,7 @@ export const ConcertPageComponent: React.FC = () => {
             <div className="my-feed-container">
                 <div className='row'>
 
-                <FeedComponent upcoming={false} yourShow={true}/>
-                <FeedComponent upcoming={false} yourShow={true}/>
-                <FeedComponent upcoming={false} yourShow={true}/>
-                <FeedComponent upcoming={false} yourShow={true}/>
+                    {renderFeedComp()}
 
 
                 </div>

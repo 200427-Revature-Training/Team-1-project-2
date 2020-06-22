@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { HomeComponent } from '../home-components/home-feed-component';
+import HomeComponent from '../home-components/home-feed-component';
 import { ConcertPageComponent } from '../concert-components/profile-feed-component';
 import { ProfileComponent } from '../profile-components/profile-component';
 import  LoginComponent from '../login-components/login-component';
