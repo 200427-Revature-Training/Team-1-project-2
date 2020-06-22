@@ -12,19 +12,16 @@ export const ConcertDetailsComponent: React.FC = () => {
                 </div>
                <div className="col-4">
                    <br></br>
-                   <h4>Genres</h4>
+                   <h4>Genre</h4>
                    <ul className="myList">
                        <li>Rock</li>
-                       <li>Metal</li>
-                       <li>classNameic Rock</li>
                    </ul>
                    <h4>Bands</h4>
                    <ul className="myList">
                        <li>Rolling stones</li>
-                       <li>insert band name here</li>
                        <li>And here too</li>
                    </ul>
-                   <h4>Hometown</h4>
+                   <h4>Location</h4>
                    <ul className="myList">
 
                    <p>Louisville, KY</p>
