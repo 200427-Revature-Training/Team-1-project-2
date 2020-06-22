@@ -23,8 +23,13 @@ p{
     text-align:left;
 }
 
-
-
+.form-label{
+    margin-bottom:0;
+}
+label + .MuiInput-formControl{
+    margin-top:0 !important;
+    margin-bottom:20px;
+}
 
 
 .iframe-container {
