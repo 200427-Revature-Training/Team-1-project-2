@@ -5,14 +5,14 @@ import { ConcertEventModel } from '../../data-models/event-model';
 import { Redirect } from 'react-router';
 
 interface FeedProps {
-    upcoming: boolean;
+    homePage: boolean;
     yourShow: boolean;
     concertEvents: ConcertEventModel;
 }
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
-    let addButton = props.upcoming ? <Button className="btn btn-success" >Add Show</Button> : <span></span>;
+    let addButton = props.homePage ? <Button className="btn btn-success" >Add Show</Button> : <span></span>;
     let removeButton = props.yourShow ? <Button className="btn btn-danger" >Remove</Button> : <span></span>;
 
     const [redirect, setRedirect] = useState(false);
