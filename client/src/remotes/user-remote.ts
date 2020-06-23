@@ -12,7 +12,7 @@ const user1:User = {
     userRollId:0
 }
 
-const event1:ConcertEventModel[] = [{
+export const event1:ConcertEventModel[] = [{
     eId:0,
     eName:"Tour Of Destruction",
     eDate:new Date(),

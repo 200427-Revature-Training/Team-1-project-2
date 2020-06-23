@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import { ConcertEventModel } from '../../data-models/event-model';
+import * as UserEventRemote from '../../remotes/user-remote';
 
-const concerts: ConcertEventModel[] = [];
+const concerts: ConcertEventModel[] = UserEventRemote.event1;
 
 export const ConcertPageComponent: React.FC = () => {
     const [concert, setConcert] = useState<ConcertEventModel[]>(concerts);
+
 
     const sortFx = (a: ConcertEventModel, b: ConcertEventModel) => {
         if (a.state === 'California') {
@@ -24,11 +26,11 @@ export const ConcertPageComponent: React.FC = () => {
         }
     }
 
+
     const renderFeedComp = () => {
 
-
-        return concert.sort().map(concertEvent => {
-            return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} upcoming={true} yourShow={false}></FeedComponent>)
+        return concert.sort(sortFx).map(concertEvent => {
+            return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={false} yourShow={true}></FeedComponent>)
         })
     }
     
