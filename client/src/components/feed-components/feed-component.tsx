@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import './feed.css'
 import { Button } from 'react-bootstrap'
 import { ConcertEventModel } from '../../data-models/event-model';
@@ -13,9 +13,13 @@ interface FeedProps {
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
-
     let addButton = props.upcoming  ?<Button className="btn btn-success" onClick={() => addButtonEvent()}>Add Show</Button>:<span></span>;
     let removeButton = props.yourShow  ?<Button className="btn btn-danger" onClick={() => removeButtonEvent()}>Remove</Button>:<span></span>;
+
+    useEffect(() => {
+        addButtonEvent();
+        removeButtonEvent();
+    }, []);
 
     const addButtonEvent = () => {
         console.log('I am the add button event on feed component add event to my favorites now');
@@ -45,7 +49,7 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
     else {
         return (
 
-            <div className="col-4">
+            <div  onClick={handleClick} className="col-4">
                 <div className="card" >
                     <img className="card-img-top" src={props.concertEvents.sourceImage} alt="Card image cap" />
                     <div className="card-body">
