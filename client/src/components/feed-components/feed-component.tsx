@@ -17,8 +17,8 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
     let removeButton = props.yourShow  ?<Button className="btn btn-danger" onClick={() => removeButtonEvent()}>Remove</Button>:<span></span>;
 
     useEffect(() => {
-        addButtonEvent();
-        removeButtonEvent();
+       // addButtonEvent();
+      //  removeButtonEvent();
     }, []);
 
     const addButtonEvent = () => {
@@ -49,9 +49,9 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
     else {
         return (
 
-            <div  onClick={handleClick} className="col-4">
+            <div className="col-4">
                 <div className="card" >
-                    <img className="card-img-top" src={props.concertEvents.sourceImage} alt="Card image cap" />
+                    <img onClick={handleClick} className="card-img-top" src={props.concertEvents.sourceImage} alt="Card image cap" />
                     <div className="card-body">
                         <h5 className="card-title">{props.concertEvents.eName}</h5>
                         <p className="card-text">{props.concertEvents.city}</p>
