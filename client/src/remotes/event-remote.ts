@@ -17,6 +17,16 @@ export const getAllUserEvents = async () => {
     //return response;
 }
 
+
+export const addConcertEvent = (concert:ConcertEventModel) => {
+    console.log('adding a concert' + event1.length);
+    event1.push(concert);// hack for now
+    console.log('adding a concert' + event1.length);
+        //const response = await internalAxios.get<ConcertEventModel[]>('/events/add');
+        return event1;
+        //return response;
+}
+
 const bandA:User[] = [{
     userId: 0,
     userName: "member1",

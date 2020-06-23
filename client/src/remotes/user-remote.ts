@@ -68,15 +68,28 @@ export const event1:ConcertEventModel[] = [{
 }]
 
 export const getUser = async () => {
-    const response = await internalAxios.get<User>('/user');
+    //const response = await internalAxios.get<User>('/user');
     return user1;
     //return response.data;
 }
 
 export const getUserEvents = async () => {
-    const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts');
+    //const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts');
     return event1;
  //   return response.data;
 }
 
+//tell the server what concert to remove from my list
+export const userRemoveEvent = async (payload:number) => {
+    //const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/remove');
+    return event1;
+ //   return response.data;
+}
+
+// tell the server what concert to add to my list
+export const userAddEvent = async (payload:number) => {
+   // const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/add');
+    return event1;
+ //   return response.data;
+}
 
