@@ -5,3 +5,8 @@
 .card :hover {
     cursor:pointer;
 }
+
+.band-list {
+    text-align: center;
+    padding: 4px;
+}

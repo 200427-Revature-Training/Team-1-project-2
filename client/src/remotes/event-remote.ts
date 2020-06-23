@@ -18,7 +18,10 @@ export const getAllUserEvents = async () => {
 }
 
 
-export const addConcertEvent = async (concert:ConcertEventModel) => {
+export const addConcertEvent = (concert:ConcertEventModel) => {
+    console.log('adding a concert' + event1.length);
+    event1.push(concert);// hack for now
+    console.log('adding a concert' + event1.length);
         //const response = await internalAxios.get<ConcertEventModel[]>('/events/add');
         return event1;
         //return response;

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import './home.css'
 import { ConcertEventModel } from '../../data-models/event-model'
@@ -7,6 +7,8 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import * as concertEventRemote from '../../remotes/event-remote';
 import { Band } from '../../data-models/band';
 import { TextField, Typography } from '@material-ui/core';
+
+let getFeed = true;
 
 const concerts:ConcertEventModel[] = [];
 let bandsForEvent:Band[] = [{
@@ -24,8 +26,11 @@ let bandsForEvent:Band[] = [{
 
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
+        // remove this after server is hooked up
+   
+
     const [bandModelVisible, setBandModalVisible] = useState(false);
-    const [concert, setConcert] = useState<ConcertEventModel[]>(concerts);
+    const [concert, setConcerts] = useState<ConcertEventModel[]>(concerts);
     const [modalVisible, setModalVisible] = useState(false);
     const [concertName, setConcertName] = useState('');
     const [concertDate, setConcertDate] = useState(new Date());
@@ -37,15 +42,17 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const [bandName, setBandName] = useState('');
     const [bandId, setBandID] = useState(0);
 
-    const addConcert = (list: ConcertEventModel) => {
-        setConcert([...concert, list])
-    }
+  //  const addConcert = (list: ConcertEventModel) => {
+  //      setConcerts([...concert, list])
+  //  }
 
     const getAllEvents = () => {
         concertEventRemote.getAllEvents().then(con => {
-            return setConcert(con);
+            return setConcerts(con);
         })
     }
+
+    getAllEvents();//**remove this line after server is hooked up */
 
     const addManageButtons = () => {
 
@@ -55,29 +62,51 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     }
 
     const setConcertDateString = (input:string) => {
-
         const dNow = new Date(input);
-       // setConcertDate(dNow);
+        setConcertDate(dNow);
     }
 
     const createEventButton = () => {
-        console.log('create the event');
+        console.log('create the event' + concerts.length);
         const payload:ConcertEventModel = {
-            eId:0,
-            eBandList:[],
-            city:'fresno',
-            state:'california',
-            sourceImage:'',
-            eName:'Marshmellow Roast',
-            eDate:new Date()
+            eId:7,// this wil be set by server
+            eBandList:concertBands,
+            city:concertCity,
+            state:concertState,
+            sourceImage:concertImage,
+            eName:concertName,
+            eDate:concertDate
         }
 
-        concertEventRemote.addConcertEvent(payload).then(con => {
-            return setConcert(con);
-        })
+        bandsForEvent.length=0;
+        
+        setConcertBands(bandsForEvent);
+        setConcertCity('');
+        setConcertDate(new Date());
+        setConcertImage('');
+        setConcertName('');
+        setConcertState('');
+
+        // hack for now remove this and uncomment the lines underneath
+        concertEventRemote.addConcertEvent(payload);
+      
+      //  concertEventRemote.addConcertEvent(payload).then(con => {
+       //     return setConcerts(con);
+      //  })
     }
 
-    const removeBandFromEvent = () => {
+    const removeBandFromEvent = (idToRemove:number) => {
+
+        for(let i =0;i < bandsForEvent.length; i++)
+        {
+            if(bandsForEvent[i].id == idToRemove)
+            {
+                bandsForEvent.splice(i, 1);
+            }
+        }
+
+        // this seams to be doing nothing
+        // setConcertBands(bandsForEvent);
 
     }
 
@@ -91,7 +120,10 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             events:[]
         }
 
-        bandsForEvent.push(newBand)
+        bandsForEvent.push(newBand);
+
+        setBandID(0);
+        setBandName('');
     }
 
     const bandModelEventButton = (shouldShow:boolean) => {
@@ -101,27 +133,28 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const renderBandList = () => {
         return concertBands.map(ce => {
-        return         (           
+        return (           
             <div key={ce.id}>
-                <Typography >
+                <Typography>
+         
                     {ce.name} 
-                    <button onClick={() => removeBandFromEvent()}>Remove</button>
+                    <button onClick={() => removeBandFromEvent(ce.id)}>Remove</button>
                     </Typography>
-                    </div>
-                    
-        )
-    })
+                    </div>    
+             )
+         })
     }
 
     const renderFeedComponents = () => {
-
         return concert.map(concertEvent => {
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} upcoming={true} yourShow={false}></FeedComponent>)
         })
     }
 
-    // remove this after server is hooked up
-    getAllEvents();//**remove this line after server is hooked up */
+    useEffect(() => {
+
+    }, []);
+
     return (
 
         <div>
@@ -216,20 +249,19 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                         />
                     </div>
                     </form>
-                    <div>
-                        <Typography>Band list</Typography>
-                        {renderBandList()}
+                    <div >
+                        <Typography className='band-list'>Band list</Typography>
+                     </div>
+                      <div>
+                            {renderBandList()}
                         </div>
-                    <button type="submit" className="btn btn-primary" onClick={() => createEventButton()}>Submit</button>
                 </Modal.Body>
                 <Modal.Footer>
+                <button className="btn btn-primary" onClick={() => createEventButton()}>Create Event</button>
                     <Button onClick={() => bandModelEventButton(true)}>Add Band</Button>
                     <Button onClick={() => setModalVisible(false)}>Close</Button>
                 </Modal.Footer>
             </Modal>
-
-
-
 
 
             <Modal show={bandModelVisible} onHide={() => setBandModalVisible(false)}>
@@ -238,7 +270,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                 </Modal.Header>
                 <Modal.Body>
                 <form>
-                    <div>
+                    <div >
                     <TextField
                             variant="outlined"
                             margin="normal"
@@ -253,14 +285,30 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                             onChange={(e) => setBandName(e.target.value) }
                         />
                     </div>
+                    <div>
+                    <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="Band ID"
+                            label="Band ID"
+                            name="Band ID"
+                            autoComplete={bandId.toString()}
+                            value={bandId}
+                            autoFocus
+                            onChange={(e) => setBandID(parseInt(e.target.value)) }
+                        />
+                    </div>
 
                     </form>
-                    <div>
-                        <Typography>Band list</Typography>
+                    <div >
+                        <Typography className='band-list'>Band list</Typography>
                         {renderBandList()}
-                        </div>
-                        <Button onClick={() => addBandToEventHandler()}>Add Band to Event</Button>
+                    </div>
+              
                 </Modal.Body>
+                <Button onClick={() => addBandToEventHandler()}>Add Band to Event</Button>
                 <Modal.Footer>
   
                     <Button onClick={() => bandModelEventButton(false)}>Close</Button>
@@ -270,11 +318,4 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     )
 }
 
-
 export default withRouter(HomeComponent);
-
-
-//                    <div className="form-group">
-//<label className="control-label">Date</label>
-//<input className="form-control" id="date" name="date" placeholder="MM/DD/YYY" type="text"/>
-//</div>
