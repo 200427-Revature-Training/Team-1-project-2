@@ -145,6 +145,13 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
          })
     }
 
+    const renderFeedComponents = () => {
+
+        return concert.sort(sortFx).map(concertEvent => {
+            return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
+        })
+    }
+
     const sortFx = (a:ConcertEventModel,b:ConcertEventModel)=>{
         if (a.state === 'California') {
 
@@ -160,12 +167,6 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         else {
             return 0;
         }
-    }
-    
-    const renderFeedComponents = () => {
-        return concert.sort(sortFx).map(concertEvent => {
-            return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} upcoming={true} yourShow={false}></FeedComponent>)
-        })
     }
 
     useEffect(() => {
