@@ -31,7 +31,7 @@ const event1:ConcertEventModel[] = [{
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
-    eId:1,
+    eId:2,
     eName:"Night Of the Living",
     eDate:new Date(),
     city:"Fresno",
@@ -40,7 +40,7 @@ const event1:ConcertEventModel[] = [{
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
-    eId:1,
+    eId:3,
     eName:"Day Of The Dead",
     eDate:new Date(),
     city:"Oakland",
@@ -49,7 +49,16 @@ const event1:ConcertEventModel[] = [{
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 },
 {
-    eId:1,
+    eId:4,
+    eName:"Road to Redemtion",
+    eDate:new Date(),
+    city:"Las Angles",
+    state:"California",
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
+},
+{
+    eId:5,
     eName:"Road to Redemtion",
     eDate:new Date(),
     city:"Las Angles",

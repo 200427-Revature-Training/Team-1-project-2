@@ -1,6 +1,12 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const SignupComponent: React.FC = () => {
+
+    const [username, setUsername]=useState('');
+    const [password, setPassword] = useState('');
+    const [email, setEmail]=useState('');
+    const [first, setFirst]= useState('');
+    const [last, setLast]=useState('')
 
     return (
         <section>
@@ -13,37 +19,31 @@ export const SignupComponent: React.FC = () => {
                         </div>
                         <br></br>
                         <div className='col'>
-                            <input type='text'  placeholder='Username'>
+                            <input type='text' value={username} onChange={(e)=>setUsername(e.target.value)} placeholder='Username'>
                             </input>
                         </div>
                         <br></br>
                         <div className='col'>
-                            <input type='password'   placeholder='Password'>
+                            <input type='password' value={password} onChange={(e)=>setPassword(e.target.value)} placeholder='Password'>
                             </input>
                         </div>
                         <br></br>
                         <div className='col'>
-                            <input type='text'  placeholder='Email'>
+                            <input type='text' value={email} onChange={(e)=>setEmail(e.target.value)} placeholder='Email'>
                             </input>
                         </div>
                         <br></br>
                         <div className='col'>
-                            <input type='text'  placeholder='First Name'>
+                            <input type='text' value={first} onChange={(e)=>setFirst(e.target.value)} placeholder='First Name'>
                             </input>
                         </div>
                         <br></br>
                         <div className='col'>
-                            <input type='text'  placeholder='Last Name'>
+                            <input type='text' value={last} onChange={(e)=>setLast(e.target.value)} placeholder='Last Name'>
                             </input>
                         </div>
                         <br></br>
-                        <div className='col'>
-                            <h5>Profile Picture</h5>
-                            <div></div>
-                            <input type='file'  >
-                            </input>
-                        </div>
-                        <br></br>
+
                     </form>
                     <button type='submit' >Submit</button>
                     <div></div>
