@@ -32,10 +32,26 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const renderFeedComponents = () => {
 
-        return concert.map(concertEvent => {
+        return concert.sort(sortFx).map(concertEvent => {
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} upcoming={true} yourShow={false}></FeedComponent>)
         })
 
+    }
+    const sortFx = (a:ConcertEventModel,b:ConcertEventModel)=>{
+        if (a.state === 'California') {
+
+            if (b.state === 'California' && b.city === 'San Diego') {
+                return 1;
+            }
+            else {
+                return -1;
+            }
+        } else if (b.state === 'California') {
+            return 1;
+        }
+        else {
+            return 0;
+        }
     }
 
     // remove this after server is hooked up
