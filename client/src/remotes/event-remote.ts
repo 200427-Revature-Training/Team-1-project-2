@@ -17,6 +17,16 @@ export const getAllUserEvents = async () => {
     //return response;
 }
 
+
+export const addConcertEvent = (concert:ConcertEventModel) => {
+    console.log('adding a concert' + event1.length);
+    event1.push(concert);// hack for now
+    console.log('adding a concert' + event1.length);
+        //const response = await internalAxios.get<ConcertEventModel[]>('/events/add');
+        return event1;
+        //return response;
+}
+
 const bandA:User[] = [{
     userId: 0,
     userName: "member1",
@@ -80,6 +90,15 @@ const event1:ConcertEventModel[] = [{
     eDate:new Date(),
     city:"Las Angles",
     state:"California",
+    eBandList:[],
+    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
+},
+{
+    eId:5,
+    eName:"Boston Calling",
+    eDate:new Date(),
+    city:"Boston",
+    state:"Massachusetts",
     eBandList:[],
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 }]
