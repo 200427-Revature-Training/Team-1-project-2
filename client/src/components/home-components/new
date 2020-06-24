@@ -1,0 +1,50 @@
+const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.setters.setConcertDate(new Date(event.target.value.replace("T","\ ")));
+}
+
+
+
+
+const date = props.states.concertDate;
+const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
+                        + "T" + ("0"+props.states.concertDate.getHours()).slice(-2) + ":" + ("0" + props.states.concertDate.getMinutes()).slice(-2);
+
+
+
+
+    return (
+        <div>
+            <Modal show={props.states.modalVisible} onHide={() => props.setters.setModalVisible(false)}>
+                <Modal.Header>
+                    <Modal.Title>New Concert Event</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <form>
+                        <div>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="Name"
+                                label="Name Of Event"
+                                name="Name"
+                                autoComplete={props.states.concertName}
+                                value={props.states.concertName}
+                                autoFocus
+                                onChange={(e) => props.setters.setConcertName(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                                <label>Concert Date/Time</label>
+                                <br></br>
+                                <TextField
+                                id="datetime-local"
+                                type="datetime-local"
+                                value = {dateString}
+                                onChange={handleTimeChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                            />
+                        </div>
