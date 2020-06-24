@@ -13,10 +13,8 @@ interface FeedProps {
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
-
     let addButton = props.homePage ? <Button className="btn btn-success" >Add Show</Button> : <span></span>;
     let removeButton = props.yourShow ? <Button className="btn btn-danger" >Remove</Button> : <span></span>;
-
 
     useEffect(() => {
        // addButtonEvent();
@@ -33,11 +31,6 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         userRemote.userRemoveEvent(props.concertEvents.eId);
     }
 
-    const viewButtonEvent = () => {
-        console.log('i am the view button event on feed component');
-        
-    }
-
     const [redirect, setRedirect] = useState(false);
 
     const handleClick = () => {
@@ -45,6 +38,14 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         //set concert id in local storage then...
         setRedirect(true);
     }
+
+    const renderBands = () => {
+        console.log ('bands length = ' + props.concertEvents.eBandList.length);
+            return props.concertEvents.eBandList.map(bList => {
+            return <p className="card-text">Band name = {bList.name}</p>
+            })
+    }
+
     if (redirect) {
         return <Redirect to='concert/details/' />
     }
@@ -58,12 +59,19 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
                         <h5 className="card-title">{props.concertEvents.eName}</h5>
                         <p className="card-text">{props.concertEvents.city}</p>
                         <p className="card-text">{props.concertEvents.state}</p>
-                        <Button onClick={handleClick} className="btn btn-primary">View</Button>
-                        {addButton}
-                        {removeButton}
-
+                        <p className="card-text">{props.concertEvents.eDate.toLocaleDateString()}</p>
+                        <div>
+                        {renderBands()}
+                        </div>
+                        
                     </div>
                 </div>
+                <div>
+                    <Button onClick={handleClick} className="btn btn-primary">View</Button>
+                    {addButton}
+                    {removeButton}
+                </div>
+
             </div>
         )
     }
