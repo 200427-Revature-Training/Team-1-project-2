@@ -11,6 +11,13 @@ import models.User;
 import models.UserRole;
 
 public class UserDaoImpl implements UserDao {
+	
+	SessionFactory sf;
+	
+	public UserDaoImpl() {
+		super();
+		sf = DaoUtilities.getSessionFactory();
+	}
 
 	@Override
 	public List<User> getAllUsers() {
@@ -35,22 +42,19 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<UserRole> getAllRoles() {
-		List<UserRole> roles = new ArrayList<UserRole>();
-
-		SessionFactory sf = null;
-
 		try {
 			sf = DaoUtilities.configureHibernate();
-			Session session = sf.openSession();
-
-			@SuppressWarnings("unchecked")
-			Query<UserRole> res = session.createQuery("from UserRole");
-			roles = (ArrayList<UserRole>) res.list();
 		} catch (Exception e) {
 			System.out.println("Could not create connection!");
 			e.printStackTrace();
 		}
-		return roles;
+		List<UserRole> roles = new ArrayList<UserRole>();
+		try(Session session = sf.openSession()) {
+			String hql = "FROM UserRole";
+			Query<UserRole> query = session.createQuery(hql, UserRole.class);
+			roles = query.getResultList();
+			return roles;
+		} 
 	}
 
 	@Override

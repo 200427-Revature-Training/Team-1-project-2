@@ -20,10 +20,14 @@ public class DaoUtilities {
 	
 	// static Logger logger = Logger.getRootLogger();
 
-	private static ServiceRegistry reg = null;
-	private static SessionFactory sf = null;
+	private static ServiceRegistry reg;
+	private static SessionFactory sf;
 	
 	private static UserDaoImpl userDaoImpl;
+	
+	public static SessionFactory getSessionFactory() {
+		return sf;
+	}
 
 
 	public static synchronized UserDao getUserDao() {
@@ -37,16 +41,20 @@ public class DaoUtilities {
 		if (reg == null || sf == null) {
 			try {
 				System.out.println("inside try catch");
-				
+				// Change the DB name from yukajuco to postgres
+				String jdbcUrl = String.format("jdbc:postgresql://%s:5432/yukajuco",
+						"localhost");
 
-				//System.out.println(jdbcUrl);
+				System.out.println(jdbcUrl);
 				System.out.println(reg);
 				System.out.println(sf);
 				// Create configuration instance
 				Configuration configuration = new Configuration()
 						.configure()
+						// change postgres to system env variable
 						.setProperty("hibernate.connection.username", "postgres")
-						.setProperty("hibernate.connection.url", "localhost")
+						.setProperty("hibernate.connection.url", jdbcUrl)
+						// change "" to system env variable
 						.setProperty("hibernate.connection.password", "")
 						.addAnnotatedClass(User.class)
 						.addAnnotatedClass(Band.class)
