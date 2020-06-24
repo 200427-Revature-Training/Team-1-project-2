@@ -115,6 +115,16 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
 
 
 
+    const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        props.setters.setConcertDate(new Date(event.target.value.replace("T","\ ")));
+    }
+
+
+
+
+    const date = props.states.concertDate;
+    const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
+                            + "T" + ("0"+props.states.concertDate.getHours()).slice(-2) + ":" + ("0" + props.states.concertDate.getMinutes()).slice(-2);
 
 
 
@@ -146,18 +156,13 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
                         </div>
                         <div>
                             <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="Date"
-                                label="Date of Event"
-                                name="Date Of Event"
-                                autoComplete={props.states.concertDate.toISOString()}
-                                value={props.states.concertDate.toDateString()}
-                                autoFocus
-                                typeof='Date'
-                                onChange={(e) => setConcertDateString(e.target.value)}
+                                id="datetime-local"
+                                type="datetime-local"
+                                value = {dateString}
+                                onChange={handleTimeChange}
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
                             />
                         </div>
                         <div>
