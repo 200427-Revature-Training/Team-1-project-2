@@ -10,23 +10,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
-
 @Entity
-@Table(name = "bands")
+@Table(name = "events.bands")
 public class Band {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	
+
 	@Column(name = "picture_url")
 	private String picture;
 	private String genre;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "favorite_song_id")
 	private Song song;
+
+	public Band() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Band(int id, String name, String picture, String genre, Song song) {
 		super();
@@ -78,8 +82,49 @@ public class Band {
 	}
 
 	@Override
-	public String toString() {
-		return "Band [id=" + id + ", name=" + name + ", picture=" + picture + ", genre=" + genre + ", song=" + song
-				+ "]";
-	}	
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
+		result = prime * result + ((song == null) ? 0 : song.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Band other = (Band) obj;
+		if (genre == null) {
+			if (other.genre != null)
+				return false;
+		} else if (!genre.equals(other.genre))
+			return false;
+		if (id != other.id)
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (picture == null) {
+			if (other.picture != null)
+				return false;
+		} else if (!picture.equals(other.picture))
+			return false;
+		if (song == null) {
+			if (other.song != null)
+				return false;
+		} else if (!song.equals(other.song))
+			return false;
+		return true;
+	}
+
 }

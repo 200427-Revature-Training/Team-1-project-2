@@ -12,7 +12,6 @@ import models.Band;
 import models.Event;
 import models.Place;
 import models.Song;
-import models.Tour;
 import models.User;
 import models.UserRole;
 
@@ -34,36 +33,42 @@ public class DaoUtilities {
 		return userDaoImpl;
 	}
 
-	static synchronized SessionFactory configureHibernate() throws SQLException {
+	static SessionFactory configureHibernate() throws SQLException {
 		if (reg == null || sf == null) {
 			try {
+				System.out.println("inside try catch");
+				
 
-				String jdbcUrl = String.format("jdbc:postgresql://%s:5432/postgres", 
-						System.getenv("TEAM1_DB_URL"));
-
+				//System.out.println(jdbcUrl);
+				System.out.println(reg);
+				System.out.println(sf);
 				// Create configuration instance
 				Configuration configuration = new Configuration()
 						.configure()
-						.setProperty("hibernate.connection.username", System.getenv("TEAM1_DB_ROLE"))
-						.setProperty("hibernate.connection.url", jdbcUrl)
-						.setProperty("hibernate.connection.password", System.getenv("TEAM1_DB_PASS"))
+						.setProperty("hibernate.connection.username", "postgres")
+						.setProperty("hibernate.connection.url", "localhost")
+						.setProperty("hibernate.connection.password", "")
 						.addAnnotatedClass(User.class)
-						.addAnnotatedClass(UserRole.class)
+						.addAnnotatedClass(Band.class)
 						.addAnnotatedClass(Event.class)
-						.addAnnotatedClass(Song.class)
 						.addAnnotatedClass(Place.class)
-						.addAnnotatedClass(Band.class);
+						.addAnnotatedClass(Song.class)
+						.addAnnotatedClass(UserRole.class);
 
 
 				reg = new StandardServiceRegistryBuilder()
 						.applySettings(configuration.getProperties()).build();
+				System.out.println("REGISTRY!!!!!!!!!!!!!!!!!!!!");
+				System.out.println(reg);
 				sf = configuration.buildSessionFactory(reg);
-
+				System.out.println("SESSION FACTORY!!!!!!!!!!!!!!!!!!!!");
+				System.out.println(sf);
+				return sf;
 			} catch (Exception e) {
 				System.out.println("There was an error with the registry configuration.");
 				e.printStackTrace();
 			}
 		}
-		return (SessionFactory) reg;
+		return sf;
 	}
 }

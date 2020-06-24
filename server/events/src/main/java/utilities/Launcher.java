@@ -9,6 +9,7 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.SessionFactory;
 
+import daos.DaoUtilities;
 import daos.UserDao;
 import daos.UserDaoImpl;
 //import models.User;
@@ -16,11 +17,13 @@ import models.UserRole;
 
 public class Launcher {
 	
-	private static SessionFactory sf;
+	//private static SessionFactory sf;
 
-	public static SessionFactory getSessionFactory() {
-		return sf;
-	}
+	//public static SessionFactory getSessionFactory() {
+	//	return sf;
+	//}
+	
+
 	
 	public static void main(String[] args) throws SQLException {
 		
@@ -29,7 +32,8 @@ public class Launcher {
 		
 
 		try {
-			UserDao userDao = new UserDaoImpl();
+			UserDao userDao = DaoUtilities.getUserDao();
+			// UserDao userDao = new UserDaoImpl();
 			// users = userDao.getAllUsers();
 			roles = userDao.getAllRoles();
 			
@@ -40,7 +44,6 @@ public class Launcher {
 			// runQueryDemo();
 		} catch(PersistenceException e) {
 			e.printStackTrace();
-			sf.close();
 		}
 	}
 }
