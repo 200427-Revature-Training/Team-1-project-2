@@ -1,4 +1,4 @@
-package daos;
+/*package daos;
 
 import java.util.List;
 
@@ -12,3 +12,4 @@ public interface UserDao {
 	void saveUser(User userToSave) throws Exception;
 	void patchUser(User userToPatch) throws Exception;
 }
+*/
