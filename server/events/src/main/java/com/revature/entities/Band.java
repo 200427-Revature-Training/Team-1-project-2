@@ -1,8 +1,5 @@
-package models;
+package com.revature.entities;
 
-import java.util.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,38 +8,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Column;
 
 @Entity
-@Table(name = "events.events")
-public class Event {
-	
+@Table(name = "events.bands")
+public class Band {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
-	private Date date;
-	
+
 	@Column(name = "picture_url")
 	private String picture;
-	private String description;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "place_id")
-	private Place place;
+	private String genre;
 
-	public Event() {
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "favorite_song_id")
+	private Song song;
+
+	public Band() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Event(int id, String name, Date date, String picture, String description, Place place) {
+	public Band(int id, String name, String picture, String genre, Song song) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.date = date;
 		this.picture = picture;
-		this.description = description;
-		this.place = place;
+		this.genre = genre;
+		this.song = song;
 	}
 
 	public int getId() {
@@ -61,14 +57,6 @@ public class Event {
 		this.name = name;
 	}
 
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
 	public String getPicture() {
 		return picture;
 	}
@@ -77,32 +65,31 @@ public class Event {
 		this.picture = picture;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getGenre() {
+		return genre;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
-	public Place getPlace() {
-		return place;
+	public Song getSong() {
+		return song;
 	}
 
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setSong(Song song) {
+		this.song = song;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((date == null) ? 0 : date.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
-		result = prime * result + ((place == null) ? 0 : place.hashCode());
+		result = prime * result + ((song == null) ? 0 : song.hashCode());
 		return result;
 	}
 
@@ -114,16 +101,11 @@ public class Event {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Event other = (Event) obj;
-		if (date == null) {
-			if (other.date != null)
+		Band other = (Band) obj;
+		if (genre == null) {
+			if (other.genre != null)
 				return false;
-		} else if (!date.equals(other.date))
-			return false;
-		if (description == null) {
-			if (other.description != null)
-				return false;
-		} else if (!description.equals(other.description))
+		} else if (!genre.equals(other.genre))
 			return false;
 		if (id != other.id)
 			return false;
@@ -137,19 +119,12 @@ public class Event {
 				return false;
 		} else if (!picture.equals(other.picture))
 			return false;
-		if (place == null) {
-			if (other.place != null)
+		if (song == null) {
+			if (other.song != null)
 				return false;
-		} else if (!place.equals(other.place))
+		} else if (!song.equals(other.song))
 			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Event [id=" + id + ", name=" + name + ", date=" + date + ", picture=" + picture + ", description="
-				+ description + ", place=" + place + "]";
-	}
-	
-	
 }
