@@ -9,7 +9,6 @@ import javax.persistence.PersistenceException;
 
 import org.hibernate.SessionFactory;
 
-import daos.DaoUtilities;
 import daos.UserDao;
 import daos.UserDaoImpl;
 //import models.User;
@@ -27,6 +26,8 @@ public class Launcher {
 	
 	public static void main(String[] args) throws SQLException {
 		
+		
+		
 		//List<User> users = new ArrayList<User>();
 		List<UserRole> roles = new ArrayList<UserRole>();
 		
@@ -41,6 +42,7 @@ public class Launcher {
 				System.out.println(ur);
 			}
 			
+
 			// runQueryDemo();
 		} catch(PersistenceException e) {
 			e.printStackTrace();
