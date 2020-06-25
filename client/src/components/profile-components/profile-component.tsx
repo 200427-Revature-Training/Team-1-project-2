@@ -6,6 +6,9 @@ import Select from '@material-ui/core/Select';
 import { MenuItem } from '@material-ui/core';
 import {ProfileModal} from './profile-modal'
 
+
+
+
 export const ProfileComponent: React.FC = () => {
     const [show, setShow] = useState(false);
     const [genre, setGenre] = useState('Rock')

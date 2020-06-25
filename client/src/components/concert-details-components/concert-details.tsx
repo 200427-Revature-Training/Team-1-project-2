@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import './concert-details.css'
-import { Button, Modal, Form } from 'react-bootstrap'
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { MenuItem } from '@material-ui/core';
-import { Band } from '../../data-models/band';
+import * as concertEventRemote from '../../remotes/event-remote';
+import { ConcertEventModel } from '../../data-models/event-model';
+
+
 
 export const ConcertDetailsComponent: React.FC = () => {
     const [name, setName] = useState("Example Concert");
@@ -13,13 +12,23 @@ export const ConcertDetailsComponent: React.FC = () => {
     const [location, setLocation] = useState('Happy Town');
     const [bio, setBio] = useState('description');
 
-    const states = {name:name, genre:genre, band:band, location:location};
-    const setters ={setName:setName,setGenre:setGenre,setBio:setBio};
-    
+    const [concert,setConcert] = useState<ConcertEventModel>();
 
+
+    
+    const eid = localStorage.getItem("eventID");//pulls event id for specific concert from local storage
+    if(eid&&!concert){//check to see eid is not null
+        setConcert(concertEventRemote.event1[parseInt(eid)]);//pull concert from temp database and set the state
+    }    
+    if(concert){//set all the states in here
+
+        console.log(concert.eName);
+    }
+
+    
     return (
         
-           <div className="concert-details row">
+           <div className="concert-details my-container row">
                <div className="col-3 profile-pic">
                    <br></br>
                     <h3>{name}</h3>
