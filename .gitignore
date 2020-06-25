@@ -26,4 +26,13 @@ yarn-error.log*
 node_modules
 server/events/.project
 server/events/.classpath
+<<<<<<< Updated upstream
+=======
+ server/events/target
+server/events/.settings
+server/events/target
+server/events/src/main/java/utilities/Conn.java
+>>>>>>> Stashed changes
 server/.project
+server/events/src/main/java/models/Tour.java
+server/events/.project
