@@ -63,6 +63,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const renderFeedComponents = () => {
         console.log(typeof setters);
         return concert.sort(sortFx).map(concertEvent => {
+            console.log("lenthc of bands home feed" + concertEvent.eBandList.length);
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
