@@ -4,9 +4,9 @@ spring:
   application:
     name: events
   datasource:
-    url: jdbc:postgresql://${NODE_APP_URL}:5432/postgres
-    username: ${NODE_APP_ROLE}
-    password: ${NODE_APP_PASS}
+    url: jdbc:postgresql://${TEAM1_DB_URL}:5432/postgres
+    username: ${TEAM1_DB_ROLE}
+    password: ${TEAM1_DB_PASS}
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQL95Dialect
