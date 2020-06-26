@@ -1,4 +1,4 @@
-package models;
+package com.revature.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,12 +42,19 @@ public class User {
 	@JoinColumn(name = "band_id")
 	private Band band;
 	
+	private String song;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "favorite_song_id")
-	private Song song;
+	@JoinColumn(name = "place_id")
+	private Place place;
+
+	public User() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public User(int id, String firstName, String lastName, String email, String userName, String password,
-			String picture, String bio, UserRole role, Band band, Song song) {
+			String picture, String bio, UserRole role, Band band, String song, Place place) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -60,6 +67,7 @@ public class User {
 		this.role = role;
 		this.band = band;
 		this.song = song;
+		this.place = place;
 	}
 
 	public int getId() {
@@ -142,24 +150,20 @@ public class User {
 		this.band = band;
 	}
 
-	public Song getSong() {
+	public String getSong() {
 		return song;
 	}
 
-	public void setSong(Song song) {
+	public void setSong(String song) {
 		this.song = song;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", userName=" + userName + ", password=" + password + ", picture=" + picture + ", bio=" + bio
-				+ ", role=" + role + ", band=" + band + ", song=" + song + "]";
+	public Place getPlace() {
+		return place;
 	}
 
-	public User() {
-		super();
-		// TODO Auto-generated constructor stub
+	public void setPlace(Place place) {
+		this.place = place;
 	}
 
 	@Override
@@ -174,6 +178,7 @@ public class User {
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
+		result = prime * result + ((place == null) ? 0 : place.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((song == null) ? 0 : song.hashCode());
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
@@ -226,6 +231,11 @@ public class User {
 				return false;
 		} else if (!picture.equals(other.picture))
 			return false;
+		if (place == null) {
+			if (other.place != null)
+				return false;
+		} else if (!place.equals(other.place))
+			return false;
 		if (role == null) {
 			if (other.role != null)
 				return false;
@@ -243,6 +253,13 @@ public class User {
 			return false;
 		return true;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", userName=" + userName + ", password=" + password + ", picture=" + picture + ", bio=" + bio
+				+ ", role=" + role + ", band=" + band + ", song=" + song + ", place=" + place + "]";
+	}
+
 	
 }
