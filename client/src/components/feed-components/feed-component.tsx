@@ -61,9 +61,8 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
                         <p className="card-text">{props.concertEvents.state}</p>
                         <p className="card-text">{props.concertEvents.eDate.toLocaleDateString()}</p>
                         <div>
-                        {renderBands()}
+                            {renderBands()}
                         </div>
-                        
                     </div>
                 </div>
                 <div>
@@ -71,7 +70,6 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
                     {addButton}
                     {removeButton}
                 </div>
-
             </div>
         )
     }
