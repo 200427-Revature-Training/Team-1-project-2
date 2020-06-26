@@ -21,7 +21,11 @@ export const ConcertDetailsComponent: React.FC = () => {
         setConcert(concertEventRemote.event1[parseInt(eid)]);//pull concert from temp database and set the state
     }    
     if(concert){//set all the states in here
-
+        const [name, setName] = useState<ConcertEventModel>();
+        const [genre, setGenre] = useState<ConcertEventModel>();
+        const [band, setBand] = useState<ConcertEventModel>();
+        const [location, setLocation] = useState<ConcertEventModel>();
+        const [bio, setBio] = useState<ConcertEventModel>;
         console.log(concert.eName);
     }
 
