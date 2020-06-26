@@ -37,10 +37,9 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const [bandName, setBandName] = useState('');
     const [bandId, setBandID] = useState(0);
 
-    const [citySearch, setCitySearch] = useState('San Francisco');
-    const [stateSearch, setStateSearch] = useState('California');
+    const [citySearch, setCitySearch] = useState('');
+    const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
-
     const states = {
         bandModelVisible: bandModelVisible, concert: concert, modalVisible: modalVisible, concertName: concertName, concertDate: concertDate, concertState: concertState, concertCity: concertCity,
         concertBands: concertBands, concertImage: concertImage, bandName: bandName, bandId: bandId
@@ -70,18 +69,21 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
 
     const renderFeedComponents = () => {
-        return concert.sort(sortFx).map(concertEvent => {
+        return concert.filter(concert => concert.eDate >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
+    }
+
+    const sortDate = (a: ConcertEventModel, b: ConcertEventModel)=>{
+        return a.eDate<b.eDate?1:-1;
     }
 
     const sortFx = (a: ConcertEventModel, b: ConcertEventModel) => {
         const aState = a.state.toLowerCase();
         const bState = b.state.toLowerCase();
-        const bCity = b.city.toLowerCase()
+        const bCity = b.city.toLowerCase();
         const sSearch = stateSearch.toLowerCase();
         const cSearch = citySearch.toLowerCase();
-        console.log(bState === sSearch||bCity === cSearch);
         if (aState === sSearch) {
 
             if (bState === sSearch && bCity === cSearch) {
@@ -90,7 +92,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             else {
                 return -1;
             }
-        } else if (!(bState === sSearch||bCity === cSearch)) {
+        } else if (!(bState === sSearch || bCity === cSearch)) {
             return -1;
         }
 
@@ -100,15 +102,15 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     }
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchConcertDate(new Date(event.target.value.replace("T","\ ")));
+        setSearchConcertDate(new Date(event.target.value.replace("T", "\ ")));
     }
 
 
 
 
     const date = searchConcertDate;
-    const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
-                            + "T" + ("0"+searchConcertDate.getHours()).slice(-2) + ":" + ("0" + searchConcertDate.getMinutes()).slice(-2);
+    const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0]
+        + "T" + ("0" + searchConcertDate.getHours()).slice(-2) + ":" + ("0" + searchConcertDate.getMinutes()).slice(-2);
 
 
     getAllEvents();//**remove this line after server is hooked up */
@@ -130,22 +132,22 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                         <input type="text" value={stateSearch} onChange={(e) => setStateSearch(e.target.value)} />
                     </div>
                     <div className="col-3">
-                        <label>Search by city</label>
+                        <label>Search by City</label>
                         <br></br>
                         <input type="text" value={citySearch} onChange={(e) => setCitySearch(e.target.value)} />
                     </div>
                     <div className="col-3">
-                        <label>Search by Date</label>
+                        <label>Showing Concerts After</label>
                         <br></br>
                         <TextField
-                                id="datetime-local"
-                                type="datetime-local"
-                                value = {dateString}
-                                onChange={handleTimeChange}
-                                InputLabelProps={{
-                                    shrink: true,
-                                }}
-                            />
+                            id="datetime-local"
+                            type="datetime-local"
+                            value={dateString}
+                            onChange={handleTimeChange}
+                            InputLabelProps={{
+                                shrink: true,
+                            }}
+                        />
                     </div>
                     <div className="text-right col-3">
                         <br></br>
