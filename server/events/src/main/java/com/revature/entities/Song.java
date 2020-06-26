@@ -1,4 +1,4 @@
-package models;
+package com.revature.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
