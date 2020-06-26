@@ -34,7 +34,7 @@ export const ProfileComponent: React.FC = () => {
             <div className="my-container row">
                 <div className="col-3 profile-pic">
                     <br></br>
-                    <img className="" src={image} />
+                    <img src={image} />
                     <h3>{name}</h3>
                     <br></br>
                     <h5>{email}</h5>
