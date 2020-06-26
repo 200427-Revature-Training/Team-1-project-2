@@ -70,6 +70,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const renderFeedComponents = () => {
         return concert.filter(concert => concert.eDate >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
+            console.log("lenthc of bands home feed" + concertEvent.eBandList.length);
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }

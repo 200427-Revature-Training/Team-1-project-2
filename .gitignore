@@ -36,3 +36,9 @@ server/events/src/main/java/utilities/Conn.java
 server/.project
 server/events/src/main/java/models/Tour.java
 server/events/.project
+server/.project
+server/.classpath
+server/events/.project
+server/events/.classpath
+server/events/src/main/java/daos
+server/events/src/main/java/utilities
