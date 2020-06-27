@@ -1,6 +1,8 @@
 package com.revature.controllers;
 
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,15 +15,17 @@ import com.revature.entities.User;
 import com.revature.services.UserService;
 
 
-
-
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@GetMapping
+	public Collection<User> getAllUsers(){
+		return userService.getAllUsers();
+	}
 	
 	@PostMapping
 	public User saveFood(@RequestBody User user) {
