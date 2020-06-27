@@ -15,7 +15,7 @@ const user1:User = {
 export const event1:ConcertEventModel[] = [{
     eId:0,
     eName:"Tour Of Destruction",
-    eDate:new Date(),
+    eDate:new Date("2020-07-25T00:00"),
     city:"San Francisco",
     state:"California",
     eBandList:[],
@@ -24,7 +24,7 @@ export const event1:ConcertEventModel[] = [{
 {
     eId:1,
     eName:"Road to Redemtion",
-    eDate:new Date(),
+    eDate:new Date("2020-07-26T00:00"),
     city:"San Diego",
     state:"California",
     eBandList:[],
@@ -33,7 +33,7 @@ export const event1:ConcertEventModel[] = [{
 {
     eId:2,
     eName:"Night Of the Living",
-    eDate:new Date(),
+    eDate:new Date("2020-08-25T00:00"),
     city:"Fresno",
     state:"California",
     eBandList:[],
@@ -42,7 +42,7 @@ export const event1:ConcertEventModel[] = [{
 {
     eId:3,
     eName:"Day Of The Dead",
-    eDate:new Date(),
+    eDate:new Date("2021-07-25T00:00"),
     city:"Oakland",
     state:"California",
     eBandList:[],
@@ -51,7 +51,7 @@ export const event1:ConcertEventModel[] = [{
 {
     eId:4,
     eName:"Road to Redemtion",
-    eDate:new Date(),
+    eDate:new Date("2020-06-30T00:00"),
     city:"Las Angles",
     state:"California",
     eBandList:[],
@@ -60,7 +60,7 @@ export const event1:ConcertEventModel[] = [{
 {
     eId:5,
     eName:"Road to Redemtion",
-    eDate:new Date(),
+    eDate:new Date("2020-06-25T00:00"),
     city:"Las Angles",
     state:"California",
     eBandList:[],
