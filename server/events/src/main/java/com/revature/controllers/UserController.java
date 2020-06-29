@@ -21,7 +21,7 @@ import com.revature.services.UserService;
 @CrossOrigin(origins = "*", 
 methods = {RequestMethod.GET, RequestMethod.PUT, 
 			RequestMethod.PATCH, RequestMethod.POST},
-allowedHeaders = {"Content-Type","Access-Control","Allow-Origin"})
+allowedHeaders = {"*"})
 public class UserController {
 
 	@Autowired
@@ -34,6 +34,7 @@ public class UserController {
 
 	@PostMapping
 	public User saveUser(@RequestBody User user) {
+		System.out.println(user);
 		return userService.save(user);
 	}
 
