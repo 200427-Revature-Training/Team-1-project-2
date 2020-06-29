@@ -26,7 +26,7 @@ import com.revature.services.UserService;
 @CrossOrigin(origins = "*", 
 methods = {RequestMethod.GET, RequestMethod.PUT, 
 			RequestMethod.PATCH, RequestMethod.POST},
-allowedHeaders = {"Content-Type"})
+allowedHeaders = {"Content-Type","Access-Control","Allow-Origin"})
 public class UserController {
 
 	@Autowired

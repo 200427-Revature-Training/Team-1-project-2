@@ -5,7 +5,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { MenuItem } from '@material-ui/core';
 import {ProfileModal} from './profile-modal'
-
+import * as userRemote from '../../remotes/user-remote'
 
 
 
@@ -25,6 +25,15 @@ export const ProfileComponent: React.FC = () => {
     const setters ={setShow:setShow,setGenre:setGenre,setBand:setBand,setHomeCity:setHomeCity,setHomeState:setHomeState,
                     setName:setName,setBio:setBio,setEmail:setEmail,setSong:setSong,setImage:setImage}
     
+
+    const load = async () =>{
+        const users = await userRemote.getUser();
+        console.log(users.data);
+
+        
+    
+    }
+    load();
     return (
         <section>
 
