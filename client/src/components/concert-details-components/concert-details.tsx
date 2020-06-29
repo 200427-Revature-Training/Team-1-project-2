@@ -13,6 +13,7 @@ export const ConcertDetailsComponent: React.FC = () => {
     const [bio, setBio] = useState('description');
     const [concert,setConcert] = useState<ConcertEventModel>();
     const [band, setBands] = useState<Band[]>([]);
+    const [image, setImage] = useState<string>();
     
     const eid = localStorage.getItem("eventID");//pulls event id for specific concert from local storage
     if(eid&&!concert){//check to see eid is not null
@@ -21,7 +22,7 @@ export const ConcertDetailsComponent: React.FC = () => {
     if(concert){//set all the states in here
         setName(concert.eName);
         setBands(concert.eBandList);
-       
+        setImage(concert.sourceImage)
     }
 
     
@@ -30,6 +31,7 @@ export const ConcertDetailsComponent: React.FC = () => {
            <div className="concert-details my-container row">
                <div className="col-3 profile-pic">
                    <br></br>
+                   <img src={image} />
                     <h3>{name}</h3>
                 </div>
                <div className="col-4">
