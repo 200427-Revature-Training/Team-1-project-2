@@ -33,22 +33,25 @@ public class UserController {
 	
 
 	@PostMapping
-	public User saveFood(@RequestBody User user) {
+	public User saveUser(@RequestBody User user) {
 		return userService.save(user);
 	}
 
-	@GetMapping
-	public Page<User> getSports(Pageable pageable, @RequestParam(required = false) Integer id,
-			@RequestParam(required = false) Integer minimumPlayers) {
+	  @GetMapping("/{id}") public User getUserById(@PathVariable int id) { 
+		  return  userService.getUserById(id); }
+	 
+	//@GetMapping
+	//public Page<User> getSports(Pageable pageable, @RequestParam(required = false) Integer id,
+	//		@RequestParam(required = false) Integer minimumPlayers) {
 
 		/*if (id != null) {
 			return userService.getUsersById(pageable, id);
 		} else if (minimumPlayers != null) {
 			return userService.getSportsByMinimumPlayersLessThan(pageable, minimumPlayers);
 		} else {*/
-			return userService.getSports(pageable);
+	//		return userService.getSports(pageable);
 		//}
-	}
+	//}
 	/*
 	 * // GET food by ID
 	 * 
