@@ -1,7 +1,5 @@
 package com.revature.controllers;
 
-import java.util.List;
-
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +42,8 @@ public class UserController {
 
 
 	  @GetMapping("/{id}") public User getUserById(@PathVariable int id) { 
-		  return  userService.getUserById(id); }
+		  return  userService.getUserById(id);
+	}
 	 
 	//@GetMapping
 	//public Page<User> getSports(Pageable pageable, @RequestParam(required = false) Integer id,
