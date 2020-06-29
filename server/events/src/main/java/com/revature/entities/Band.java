@@ -1,5 +1,6 @@
 package com.revature.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -8,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Column;
 
 @Entity
 @Table(name = "bands", schema = "events")
@@ -21,18 +21,21 @@ public class Band {
 
 	@Column(name = "picture_url")
 	private String picture;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "genre_id")
 	private String genre;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "favorite_song_id")
-	private Song song;
+	@JoinColumn(name = "featured_song")
+	private String song;
 
 	public Band() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Band(int id, String name, String picture, String genre, Song song) {
+	public Band(int id, String name, String picture, String genre, String song) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,11 +76,11 @@ public class Band {
 		this.genre = genre;
 	}
 
-	public Song getSong() {
+	public String getSong() {
 		return song;
 	}
 
-	public void setSong(Song song) {
+	public void setSong(String song) {
 		this.song = song;
 	}
 
