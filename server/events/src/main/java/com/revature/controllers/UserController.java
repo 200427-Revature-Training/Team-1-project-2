@@ -43,6 +43,10 @@ public class UserController {
 	//@GetMapping
 	//public Page<User> getSports(Pageable pageable, @RequestParam(required = false) Integer id,
 	//		@RequestParam(required = false) Integer minimumPlayers) {
+/*
+	@GetMapping
+	public Page<User> getSports(Pageable pageable, @RequestParam(required = false) Integer id,
+			@RequestParam(required = false) Integer minimumPlayers) {
 
 		/*if (id != null) {
 			return userService.getUsersById(pageable, id);
@@ -50,6 +54,8 @@ public class UserController {
 			return userService.getSportsByMinimumPlayersLessThan(pageable, minimumPlayers);
 		} else {*/
 	//		return userService.getSports(pageable);
+	//	} else {
+		//	return userService.getSports(pageable);
 		//}
 	//}
 	/*
