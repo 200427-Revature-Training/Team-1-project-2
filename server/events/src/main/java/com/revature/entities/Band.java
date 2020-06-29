@@ -11,7 +11,7 @@ import javax.persistence.Table;
 import javax.persistence.Column;
 
 @Entity
-@Table(name = "bands", schema = "events")
+@Table(name = "events.bands")
 public class Band {
 
 	@Id
