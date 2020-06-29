@@ -12,7 +12,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "events.users")
+@Table(name = "users", schema = "events")
 public class User {
 	
 	@Id
@@ -42,6 +42,7 @@ public class User {
 	@JoinColumn(name = "band_id")
 	private Band band;
 	
+	@Column(name = "favorite_song")
 	private String song;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
