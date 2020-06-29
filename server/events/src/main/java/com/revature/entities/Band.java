@@ -24,10 +24,9 @@ public class Band {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "genre_id")
-	private String genre;
+	private Genre genre;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "featured_song")
+	@Column(name = "featured_song")
 	private String song;
 
 	public Band() {
@@ -35,7 +34,7 @@ public class Band {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Band(int id, String name, String picture, String genre, String song) {
+	public Band(int id, String name, String picture, Genre genre, String song) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -68,11 +67,11 @@ public class Band {
 		this.picture = picture;
 	}
 
-	public String getGenre() {
+	public Genre getGenre() {
 		return genre;
 	}
 
-	public void setGenre(String genre) {
+	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
 
