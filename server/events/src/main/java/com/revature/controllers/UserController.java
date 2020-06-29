@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -16,12 +18,19 @@ import org.springframework.web.bind.annotation.RestController;
 import com.revature.entities.User;
 import com.revature.services.UserService;
 
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
 
 	@Autowired
 	UserService userService;
+	
+	@GetMapping
+	public Collection<User> getAllUsers(){
+		return userService.getAllUsers();
+	}
+	
 
 	@PostMapping
 	public User saveFood(@RequestBody User user) {

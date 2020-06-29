@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,9 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
+	public Collection<User> getAllUsers(){
+		return userRepository.findAll();
+	}
 	public Page<User> getSports(Pageable pageable) {
 		return userRepository.findAll(pageable);
 	}
@@ -29,7 +33,7 @@ public class UserService {
 	}
 	/*
 	public User getUserById(int id) {
-		return userRepository.getUserById(id)
+		return userRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}*/
 	

@@ -1,5 +1,7 @@
 package com.revature.repositories;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -13,15 +15,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
+
 
 import com.revature.entities.User;
 
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>  {
-	
+public interface UserRepository extends JpaRepository<User, Integer>{
+
 	@Query("FROM User u WHERE :id = u.id")
 	Page<User> getUserById(Pageable pageable, int id);
 	
