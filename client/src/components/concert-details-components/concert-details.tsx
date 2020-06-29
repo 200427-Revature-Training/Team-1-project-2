@@ -2,31 +2,26 @@ import React, { useState } from 'react'
 import './concert-details.css'
 import * as concertEventRemote from '../../remotes/event-remote';
 import { ConcertEventModel } from '../../data-models/event-model';
+import { Band } from '../../data-models/band';
 
 
 
 export const ConcertDetailsComponent: React.FC = () => {
     const [name, setName] = useState("Example Concert");
-    const [genre, setGenre] = useState('Rock');
-    const [band, setBand] = useState('Rolling Stones');
+    const [genre, setGenre] = useState('Rock');;
     const [location, setLocation] = useState('Happy Town');
     const [bio, setBio] = useState('description');
-
     const [concert,setConcert] = useState<ConcertEventModel>();
-
-
+    const [band, setBands] = useState<Band[]>([]);
     
     const eid = localStorage.getItem("eventID");//pulls event id for specific concert from local storage
     if(eid&&!concert){//check to see eid is not null
         setConcert(concertEventRemote.event1[parseInt(eid)]);//pull concert from temp database and set the state
     }    
     if(concert){//set all the states in here
-        const [name, setName] = useState<ConcertEventModel>();
-        const [genre, setGenre] = useState<ConcertEventModel>();
-        const [band, setBand] = useState<ConcertEventModel>();
-        const [location, setLocation] = useState<ConcertEventModel>();
-        const [bio, setBio] = useState<ConcertEventModel>;
-        console.log(concert.eName);
+        setName(concert.eName);
+        setBands(concert.eBandList);
+       
     }
 
     
