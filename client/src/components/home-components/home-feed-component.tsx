@@ -32,7 +32,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const [concertDate, setConcertDate] = useState(new Date());
     const [concertState, setConcertState] = useState('');
     const [concertCity, setConcertCity] = useState('');
-    const [concertBands, setConcertBands] = useState<Band[]>(bandsForEvent);
+    const [concertBands, setConcertBands] = useState<Band[]>([]);
     const [concertImage, setConcertImage] = useState('');
     const [bandName, setBandName] = useState('');
     const [bandId, setBandID] = useState(0);
