@@ -7,25 +7,27 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.entities.User;
-import com.revature.repositories.UserRepository;
+import com.revature.entities.Band;
+import com.revature.repositories.BandRepository;
 
 @Service
-public class UserService {
-	
+public class BandService {
 	@Autowired
-	UserRepository userRepository;
+	BandRepository bandRepository;
 	
-	public Collection<User> getAllUsers(){
-		return userRepository.findAll();
+	public Collection<Band> getAllBands(){
+		return bandRepository.findAll();
 	}
 	
-	public User save(User user) {
-		return userRepository.save(user);
+	public Band save(Band band) {
+		return bandRepository.save(band);
 	}
 
-	public User getUserById(int id) {
-		return userRepository.findById(id)
+	public Band getBandById(int id) {
+		return bandRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
+	
+	
+
 }
