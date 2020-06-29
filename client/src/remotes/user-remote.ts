@@ -68,8 +68,7 @@ export const event1:ConcertEventModel[] = [{
 }]
 
 export const getUser = async () => {
-    //const response = await internalAxios.get<User>('/user');
-    return user1;
+    return await internalAxios.get<User>('/users');;
     //return response.data;
 }
 
