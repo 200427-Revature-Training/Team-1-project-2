@@ -21,7 +21,7 @@ import com.revature.services.UserService;
 @CrossOrigin(origins = "*", 
 methods = {RequestMethod.GET, RequestMethod.PUT, 
 			RequestMethod.PATCH, RequestMethod.POST},
-allowedHeaders = {"Content-Type"})
+allowedHeaders = {"Content-Type","Access-Control","Allow-Origin"})
 public class UserController {
 
 	@Autowired
@@ -31,12 +31,12 @@ public class UserController {
 	public Collection<User> getAllUsers(){
 		return userService.getAllUsers();
 	}
-	
 
 	@PostMapping
 	public User saveUser(@RequestBody User user) {
 		return userService.save(user);
 	}
+
 
 	  @GetMapping("/{id}") public User getUserById(@PathVariable int id) { 
 		  return  userService.getUserById(id); }
