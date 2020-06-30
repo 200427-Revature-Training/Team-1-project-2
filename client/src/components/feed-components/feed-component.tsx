@@ -8,7 +8,7 @@ import { Redirect } from 'react-router';
 interface FeedProps {
     homePage: boolean;
     yourShow: boolean;
-    concertEvents: ConcertEventModel;
+    concertEvents: any;
 }
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
@@ -39,29 +39,27 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         setRedirect(true);
     }
 
-    const renderBands = () => {
+    /*const renderBands = () => {
         console.log ('bands length = ' + props.concertEvents.eBandList.length);
             return props.concertEvents.eBandList.map(bList => {
             return <p className="card-text">Band name = {bList.name}</p>
             })
     }
-
+*/
     if (redirect) {
         return <Redirect to='concert/details/' />
     }
     else {
         return (
-
             <div className="col-4">
-                <div className="card" >
-                    <img onClick={handleClick} className="card-img-top" src={props.concertEvents.sourceImage} alt="Card image cap" />
+                <div className="card feed-card" >
+                    <img onClick={handleClick} className="card-img-top" src={props.concertEvents.picture} alt="Card image cap" />
                     <div className="card-body">
-                        <h5 className="card-title">{props.concertEvents.eName}</h5>
-                        <p className="card-text">{props.concertEvents.city}</p>
-                        <p className="card-text">{props.concertEvents.state}</p>
-                        <p className="card-text">{props.concertEvents.eDate.toLocaleDateString()}</p>
+                        <h5 className="card-title">{props.concertEvents.name}</h5>
+                        <p className="card-text">{props.concertEvents.place.city}</p>
+                        <p className="card-text">{props.concertEvents.place.state}</p>
+                        <p className="card-text">{props.concertEvents.date.toLocaleDateString()}</p>
                         <div>
-                            {renderBands()}
                         </div>
                     </div>
                 </div>
