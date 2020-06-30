@@ -7,9 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
-import com.revature.repositories.UserRepository;
-
 import com.revature.entities.User;
+import com.revature.repositories.UserRepository;
 
 @Service
 public class UserService {

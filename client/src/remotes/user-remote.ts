@@ -3,15 +3,6 @@ import { internalAxios } from './internal-axios';
 import { ConcertEventModel } from '../data-models/event-model';
 import { send } from 'process';
 
-const user1:User = {
-    userId: 0,
-    userName: "user 1",
-    userPassword: "kd",
-    userFirstName:"user",
-    userLastName:"me",
-    userEmail:"",
-    userRollId:0
-}
 
 export const event1:ConcertEventModel[] = [{
     eId:0,
@@ -67,6 +58,9 @@ export const event1:ConcertEventModel[] = [{
     eBandList:[],
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 }]
+export const getAllUsers = async () =>{
+    return await internalAxios.get('/users');
+}
 
 export const getUser = async () => {
     return await internalAxios.get<User>('/users/3');;
@@ -78,6 +72,10 @@ export const getAllEvents = async () => {
     const response = await internalAxios.get<ConcertEventModel[]>('/events');
     console.log('get all events' + response.data);
     return response;
+}
+
+export const postUser = async (body:any)=>{
+    return await internalAxios.post('/users',body);
 }
 
 export const getUserEvents = async () => {

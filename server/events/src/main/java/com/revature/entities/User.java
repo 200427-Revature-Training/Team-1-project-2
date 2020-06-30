@@ -30,7 +30,7 @@ public class User {
 	private String userName;
 	private String password;
 	
-	@Column(name = "picture_url")
+	@Column(name = "picture_url",length=65535, columnDefinition="TEXT")
 	private String picture;
 	private String bio;
 	
@@ -38,16 +38,15 @@ public class User {
 	@JoinColumn(name = "role_id")
 	private UserRole role;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "band_id")
-	private Band band;
+	@Column(name = "favorite_band")
+	private String band;
 	
 	@Column(name = "favorite_song")
 	private String song;
 	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "place_id")
-	private Place place;
+	private String city;
+	
+	private String state;
 
 	public User() {
 		super();
@@ -55,7 +54,7 @@ public class User {
 	}
 
 	public User(int id, String firstName, String lastName, String email, String userName, String password,
-			String picture, String bio, UserRole role, Band band, String song, Place place) {
+			String picture, String bio, UserRole role, String band, String song, String city, String state) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -68,7 +67,109 @@ public class User {
 		this.role = role;
 		this.band = band;
 		this.song = song;
-		this.place = place;
+		this.city = city;
+		this.state = state;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+				+ ", userName=" + userName + ", password=" + password + ", picture=" + "too long" + ", bio=" + bio
+				+ ", role=" + role + ", band=" + band + ", song=" + song + ", city=" + city + ", state=" + state + "]";
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((band == null) ? 0 : band.hashCode());
+		result = prime * result + ((bio == null) ? 0 : bio.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + id;
+		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
+		result = prime * result + ((song == null) ? 0 : song.hashCode());
+		result = prime * result + ((state == null) ? 0 : state.hashCode());
+		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		User other = (User) obj;
+		if (band == null) {
+			if (other.band != null)
+				return false;
+		} else if (!band.equals(other.band))
+			return false;
+		if (bio == null) {
+			if (other.bio != null)
+				return false;
+		} else if (!bio.equals(other.bio))
+			return false;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (id != other.id)
+			return false;
+		if (lastName == null) {
+			if (other.lastName != null)
+				return false;
+		} else if (!lastName.equals(other.lastName))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (picture == null) {
+			if (other.picture != null)
+				return false;
+		} else if (!picture.equals(other.picture))
+			return false;
+		if (role == null) {
+			if (other.role != null)
+				return false;
+		} else if (!role.equals(other.role))
+			return false;
+		if (song == null) {
+			if (other.song != null)
+				return false;
+		} else if (!song.equals(other.song))
+			return false;
+		if (state == null) {
+			if (other.state != null)
+				return false;
+		} else if (!state.equals(other.state))
+			return false;
+		if (userName == null) {
+			if (other.userName != null)
+				return false;
+		} else if (!userName.equals(other.userName))
+			return false;
+		return true;
 	}
 
 	public int getId() {
@@ -143,11 +244,11 @@ public class User {
 		this.role = role;
 	}
 
-	public Band getBand() {
+	public String getBand() {
 		return band;
 	}
 
-	public void setBand(Band band) {
+	public void setBand(String band) {
 		this.band = band;
 	}
 
@@ -159,108 +260,20 @@ public class User {
 		this.song = song;
 	}
 
-	public Place getPlace() {
-		return place;
+	public String getCity() {
+		return city;
 	}
 
-	public void setPlace(Place place) {
-		this.place = place;
+	public void setCity(String city) {
+		this.city = city;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((band == null) ? 0 : band.hashCode());
-		result = prime * result + ((bio == null) ? 0 : bio.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result + id;
-		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
-		result = prime * result + ((place == null) ? 0 : place.hashCode());
-		result = prime * result + ((role == null) ? 0 : role.hashCode());
-		result = prime * result + ((song == null) ? 0 : song.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		return result;
+	public String getState() {
+		return state;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		User other = (User) obj;
-		if (band == null) {
-			if (other.band != null)
-				return false;
-		} else if (!band.equals(other.band))
-			return false;
-		if (bio == null) {
-			if (other.bio != null)
-				return false;
-		} else if (!bio.equals(other.bio))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (id != other.id)
-			return false;
-		if (lastName == null) {
-			if (other.lastName != null)
-				return false;
-		} else if (!lastName.equals(other.lastName))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (picture == null) {
-			if (other.picture != null)
-				return false;
-		} else if (!picture.equals(other.picture))
-			return false;
-		if (place == null) {
-			if (other.place != null)
-				return false;
-		} else if (!place.equals(other.place))
-			return false;
-		if (role == null) {
-			if (other.role != null)
-				return false;
-		} else if (!role.equals(other.role))
-			return false;
-		if (song == null) {
-			if (other.song != null)
-				return false;
-		} else if (!song.equals(other.song))
-			return false;
-		if (userName == null) {
-			if (other.userName != null)
-				return false;
-		} else if (!userName.equals(other.userName))
-			return false;
-		return true;
+	public void setState(String state) {
+		this.state = state;
 	}
 
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
-				+ ", userName=" + userName + ", password=" + password + ", picture=" + picture + ", bio=" + bio
-				+ ", role=" + role + ", band=" + band + ", song=" + song + ", place=" + place + "]";
-	}
-
-	
 }
