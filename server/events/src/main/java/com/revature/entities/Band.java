@@ -2,12 +2,9 @@ package com.revature.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -22,8 +19,6 @@ public class Band {
 	@Column(name = "picture_url")
 	private String picture;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "genre_id")
 	private String genre;
 
 	@Column(name = "featured_song")

@@ -42,3 +42,5 @@ server/events/.project
 server/events/.classpath
 server/events/src/main/java/daos
 server/events/src/main/java/utilities
+.project
+.settings
