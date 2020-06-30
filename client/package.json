@@ -10,6 +10,8 @@
     "@types/enzyme": "^3.10.5",
     "@types/enzyme-adapter-react-16": "^1.0.6",
     "@types/react-router-dom": "^5.1.5",
+    "argon2": "^0.26.2",
+    "aws-sdk": "^2.707.0",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
     "react": "^16.13.1",

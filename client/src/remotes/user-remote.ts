@@ -1,6 +1,7 @@
 import { User } from '../data-models/user-model';
 import { internalAxios } from './internal-axios';
 import { ConcertEventModel } from '../data-models/event-model';
+import * as argon2 from "argon2";
 
 
 export const event1:ConcertEventModel[] = [{
@@ -64,7 +65,23 @@ export const getUser = async () => {
     return await internalAxios.get('/users/17');;
     //return response.data;
 }
+
+export const hash = async (password: string) => {
+    try {
+        return await argon2.hash(password, {
+            hashLength: 50
+        })
+    } catch (err) {
+        console.log(err)
+    }
+}
 export const postUser = async (body:any)=>{
+    if (body.password) {
+        hash(body.password).then(hashed => {
+            body.password = hashed
+            return internalAxios.post('/users',body);
+        })
+    }
     return await internalAxios.post('/users',body);
 }
 export const getUserEvents = async () => {
