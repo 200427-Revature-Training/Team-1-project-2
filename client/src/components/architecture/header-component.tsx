@@ -10,6 +10,7 @@ const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
         <span className="sr-only">(current)</span>:<span></span>
     }
     const logout = ()=>{
+        localStorage.clear();
         props.history.push('/login');
     }
     return (

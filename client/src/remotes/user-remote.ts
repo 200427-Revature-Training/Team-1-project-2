@@ -1,6 +1,7 @@
 import { User } from '../data-models/user-model';
 import { internalAxios } from './internal-axios';
 import { ConcertEventModel } from '../data-models/event-model';
+import { send } from 'process';
 
 
 export const event1:ConcertEventModel[] = [{
@@ -60,17 +61,27 @@ export const event1:ConcertEventModel[] = [{
 export const getAllUsers = async () =>{
     return await internalAxios.get('/users');
 }
+
 export const getUser = async () => {
-    return await internalAxios.get('/users/17');;
+    return await internalAxios.get<User>('/users/3');;
     //return response.data;
 }
+
+export const getAllEvents = async () => {
+    
+    const response = await internalAxios.get<ConcertEventModel[]>('/events');
+    console.log('get all events' + response.data);
+    return response;
+}
+
 export const postUser = async (body:any)=>{
     return await internalAxios.post('/users',body);
 }
+
 export const getUserEvents = async () => {
-    //const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts');
-    return event1;
- //   return response.data;
+    const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts');
+   // return event1;
+    return response.data;
 }
 
 //tell the server what concert to remove from my list
@@ -87,3 +98,43 @@ export const userAddEvent = async (payload:number) => {
  //   return response.data;
 }
 
+interface UserLoginInterface{
+        id: number,
+        firstName: string,
+        lastName: string,
+        email: string,
+        userName: string,
+        password: string,
+        picture: string
+        bio: string,
+        role: {
+            id: number,
+            role: string
+        },
+        band: any,
+        song: string,
+        place: {
+            id: number,
+            zipCode: number,
+            state: string,
+            city: string,
+            streetAddress: string
+        }
+}
+
+export const login = async (payload:any) => {
+    const response = await internalAxios.post<UserLoginInterface>('/users/login', payload);
+    console.log(response.data);
+
+    if (response.data)
+    {
+    const userRoleString = response.data.role.id.toString();
+   // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
+    localStorage.setItem('userRole', userRoleString);
+    localStorage.setItem('userId', response.data.id.toString());
+    localStorage.setItem('userName', response.data.userName);
+    localStorage.setItem('userCity', response.data.place.city);
+    localStorage.setItem('userState', response.data.place.state);
+    }
+    return response;
+}

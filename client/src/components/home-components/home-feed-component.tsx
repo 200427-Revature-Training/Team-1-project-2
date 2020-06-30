@@ -64,8 +64,9 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const addManageButtons = () => {
 
         // check authentification and manager role_id
-        //if (auth && managerRoleID == 1)
-        return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
+        const userId = localStorage.getItem("userId");
+        if (userId === '4')
+            return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
     }
 
 
@@ -107,15 +108,12 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         setSearchConcertDate(new Date(event.target.value.replace("T", "\ ")));
     }
 
-
-
-
     const date = searchConcertDate;
     const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0]
         + "T" + ("0" + searchConcertDate.getHours()).slice(-2) + ":" + ("0" + searchConcertDate.getMinutes()).slice(-2);
 
 
-    getAllEvents();//**remove this line after server is hooked up */
+  //  getAllEvents();//**remove this line after server is hooked up */
 
     useEffect(() => { }, []);
 
