@@ -63,7 +63,8 @@ export const getAllUsers = async () =>{
 }
 
 export const getUser = async () => {
-    return await internalAxios.get<User>('/users/3');;
+    const id = localStorage.getItem('userId');
+    return await internalAxios.get<UserLoginInterface>('/users/'+id);;
     //return response.data;
 }
 
@@ -113,13 +114,8 @@ interface UserLoginInterface{
         },
         band: any,
         song: string,
-        place: {
-            id: number,
-            zipCode: number,
-            state: string,
-            city: string,
-            streetAddress: string
-        }
+        state: string,
+        city: string
 }
 
 export const login = async (payload:any) => {
@@ -133,8 +129,8 @@ export const login = async (payload:any) => {
     localStorage.setItem('userRole', userRoleString);
     localStorage.setItem('userId', response.data.id.toString());
     localStorage.setItem('userName', response.data.userName);
-    localStorage.setItem('userCity', response.data.place.city);
-    localStorage.setItem('userState', response.data.place.state);
+    localStorage.setItem('userCity', response.data.city);
+    localStorage.setItem('userState', response.data.state);
     }
     return response;
 }

@@ -43,7 +43,7 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
         props.setters.setConcertState('');
 
         // hack for now remove this and uncomment the lines underneath
-        concertEventRemote.addConcertEvent(payload);
+        //concertEventRemote.addConcertEvent(payload);
 
         //  concertEventRemote.addConcertEvent(payload).then(con => {
         //     return setConcerts(con);

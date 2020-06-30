@@ -4,16 +4,16 @@ import { User } from '../data-models/user-model';
 
 
 export const getAllEvents = async () => {
-
+    
     //const response = await internalAxios.get<ConcertEventModel[]>('/events');
-    return event1;
-   
-   // return response.data;
+    return internalAxios.get('/events');
+    
+    // return response.data;
 }
 
 export const getAllUserEvents = async () => {
     //const response = await internalAxios.get<ConcertEventModel[]>('/events/id');
-    return event1;
+    return ;
     //return response;
 }
 
@@ -22,9 +22,9 @@ export const addConcertEvent = (concert:ConcertEventModel) => {
     console.log('adding a concert' + event1.length);
     event1.push(concert);// hack for now
     console.log('adding a concert' + event1.length);
-        //const response = await internalAxios.get<ConcertEventModel[]>('/events/add');
-        return event1;
-        //return response;
+    //const response = await internalAxios.get<ConcertEventModel[]>('/events/add');
+    return event1;
+    //return response;
 }
 
 const bandA:User[] = [{
@@ -45,7 +45,6 @@ const bandA:User[] = [{
     userEmail:"me@Mail.com",
     userRollId:1 
 }];
-
 
 
 export const event1:ConcertEventModel[] = [{
@@ -102,3 +101,5 @@ export const event1:ConcertEventModel[] = [{
     eBandList:[],
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 }]
+/*
+*/

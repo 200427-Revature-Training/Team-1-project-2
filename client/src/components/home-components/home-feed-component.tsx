@@ -53,10 +53,11 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     //      setConcerts([...concert, list])
     //  }
 
-    const getAllEvents = () => {
-        concertEventRemote.getAllEvents().then(con => {
-            return setConcerts(con);
-        })
+    const getAllEvents =async () => {
+        const response = await concertEventRemote.getAllEvents();
+        console.log(response.data);
+        setConcerts(response.data);
+        
     }
 
 
