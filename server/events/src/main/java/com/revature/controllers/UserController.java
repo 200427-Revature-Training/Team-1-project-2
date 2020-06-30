@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -21,7 +22,7 @@ import com.revature.services.UserService;
 @CrossOrigin(origins = "*", 
 methods = {RequestMethod.GET, RequestMethod.PUT, 
 			RequestMethod.PATCH, RequestMethod.POST},
-allowedHeaders = {"Content-Type","Access-Control","Allow-Origin"})
+allowedHeaders = {"*"})
 public class UserController {
 
 	@Autowired
@@ -38,7 +39,17 @@ public class UserController {
 	}
 
 
-	  @GetMapping("/{id}") public User getUserById(@PathVariable int id) { 
-		  return  userService.getUserById(id); }
-	 
+	@GetMapping("/{id}")
+	public User getUserById(@PathVariable int id) { 
+		  return  userService.getUserById(id); 
+	}
+	
+	@PostMapping("/login")
+	public User loginUser(@RequestBody User user) {
+		System.out.println(user);
+		System.out.println("I am logging in usercontrol" + user.getUserName());
+		//String username = user.getUserName();
+		
+		return userService.login(user);
+	}
 }

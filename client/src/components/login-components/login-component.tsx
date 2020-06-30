@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router';
 import './login-page.css'
 import { Link } from 'react-router-dom';
-
+import * as userRemote from '../../remotes/user-remote';
 
 export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
 
@@ -10,11 +10,28 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
 
-    
-
         //logs the user in
+    const signIn = async () => {
+        if(username.length < 1 || password.length < 1)
+            return;
 
+        const payload = {userName: username, password: password};
 
+        const response = await userRemote.login(payload).then(() => {
+                console.log('im login component');
+                // we need to get the data for the home page
+
+                if(localStorage.getItem('userId'))
+                    props.history.push('/home');
+        })    
+    }
+
+    const getAllConcerts = async () => {
+        const userID = localStorage.getItem('userId')
+        const concerts = await userRemote.getAllEvents().then(() => {
+            console.log('i got concerts');
+        });
+    }
         //if the user somehow landed on the login screen and already has a valid role, redirect them to the landing page
 
     
@@ -41,7 +58,7 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
                         </div>
                         <br></br>
                     </form>
-                    <button type='submit' >Login</button>
+                    <button type='submit' onClick={() => signIn()}>Login</button>
                     <br></br>
                     <Link to='/signup'>Signup</Link>
                 </div>
