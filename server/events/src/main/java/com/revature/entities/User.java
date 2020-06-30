@@ -46,6 +46,9 @@ public class User {
 	
 	private String city;
 	
+	@Column(name = "favorite_genre")
+	private String genre;
+	
 	private String state;
 
 	public User() {
