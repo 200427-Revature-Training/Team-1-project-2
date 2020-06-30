@@ -28,4 +28,16 @@ public class UserService {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
+	
+	public User login(User user) {
+		String userName = user.getUserName();
+		System.out.println("I am trying to log in");
+		User tempUser = userRepository.login(userName);
+		System.out.println(tempUser.getPassword() + " == " + user.getPassword());
+		if(user.getPassword().equals(tempUser.getPassword()))
+			return userRepository.login(userName);
+		else
+			return null;
+				
+	}
 }

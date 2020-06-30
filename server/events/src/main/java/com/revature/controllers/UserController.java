@@ -1,6 +1,7 @@
 package com.revature.controllers;
 
 import java.util.Collection;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -38,9 +39,17 @@ public class UserController {
 		return userService.save(user);
 	}
 
-
-	  @GetMapping("/{id}") public User getUserById(@PathVariable int id) { 
-		  return  userService.getUserById(id);
+	@GetMapping("/{id}")
+	public User getUserById(@PathVariable int id) { 
+		  return  userService.getUserById(id); 
 	}
-	 
+	
+	@PostMapping("/login")
+	public User loginUser(@RequestBody User user) {
+		System.out.println(user);
+		System.out.println("I am logging in usercontrol" + user.getUserName());
+		//String username = user.getUserName();
+		
+		return userService.login(user);
+	}
 }
