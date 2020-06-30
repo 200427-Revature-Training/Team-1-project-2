@@ -124,9 +124,7 @@ export const login = async (payload:any) => {
 
     if (response.data)
     {
-    const userRoleString = response.data.role.id.toString();
    // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
-    localStorage.setItem('userRole', userRoleString);
     localStorage.setItem('userId', response.data.id.toString());
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);

@@ -26,7 +26,7 @@ let bandsForEvent: Band[] = [{
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const [bandModelVisible, setBandModalVisible] = useState(false);
-    const [concert, setConcerts] = useState<ConcertEventModel[]>(concerts);
+    const [concert, setConcerts] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [concertName, setConcertName] = useState('');
     const [concertDate, setConcertDate] = useState(new Date());
@@ -53,13 +53,6 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     //      setConcerts([...concert, list])
     //  }
 
-    const getAllEvents =async () => {
-        const response = await concertEventRemote.getAllEvents();
-        console.log(response.data);
-        setConcerts(response.data);
-        
-    }
-
 
     const addManageButtons = () => {
 
@@ -69,26 +62,26 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
     }
 
-
+    //
     const renderFeedComponents = () => {
-        return concert.filter(concert => concert.eDate >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
-            console.log("lenthc of bands home feed" + concertEvent.eBandList.length);
-            return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
+        return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
+            //concertEvent.date= new Date(concertEvent.date)
+            return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
-
-    const sortDate = (a: ConcertEventModel, b: ConcertEventModel)=>{
-        return a.eDate<b.eDate?1:-1;
+    
+    const sortDate = (a: any, b: any) => {
+        return a.eDate < b.eDate ? 1 : -1;
     }
-
-    const sortFx = (a: ConcertEventModel, b: ConcertEventModel) => {
-        const aState = a.state.toLowerCase();
-        const bState = b.state.toLowerCase();
-        const bCity = b.city.toLowerCase();
+    
+    const sortFx = (a: any, b: any) => {
+        const aState = a.place.state.toLowerCase();
+        const bState = b.place.state.toLowerCase();
+        const bCity = b.place.city.toLowerCase();
         const sSearch = stateSearch.toLowerCase();
         const cSearch = citySearch.toLowerCase();
         if (aState === sSearch) {
-
+            
             if (bState === sSearch && bCity === cSearch) {
                 return 1;
             }
@@ -98,10 +91,21 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         } else if (!(bState === sSearch || bCity === cSearch)) {
             return -1;
         }
-
+        
         else {
             return 0;
         }
+    }
+    
+    const getAllEvents = async () => {
+        const response = await concertEventRemote.getAllEvents();
+        const con = response.data;
+        const fixedDates = con.map(c=>{
+            c.date = new Date(c.date);
+            return c;
+        })
+        setConcerts(fixedDates);
+
     }
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -113,9 +117,11 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         + "T" + ("0" + searchConcertDate.getHours()).slice(-2) + ":" + ("0" + searchConcertDate.getMinutes()).slice(-2);
 
 
-  //  getAllEvents();//**remove this line after server is hooked up */
+    //  getAllEvents();//**remove this line after server is hooked up */
 
-    useEffect(() => { }, []);
+    useEffect(() => {
+        getAllEvents();
+    }, []);
 
     return (
 
@@ -159,9 +165,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             <div>
             </div>
             <div className="my-feed-container">
-                <div className='row'>
-                    {renderFeedComponents()}
-                </div>
+                {renderFeedComponents()}
             </div>
 
 
