@@ -3,61 +3,6 @@ import { internalAxios } from './internal-axios';
 import { ConcertEventModel } from '../data-models/event-model';
 import { send } from 'process';
 
-
-export const event1:ConcertEventModel[] = [{
-    eId:0,
-    eName:"Tour Of Destruction",
-    eDate:new Date("2020-07-25T00:00"),
-    city:"San Francisco",
-    state:"California",
-    eBandList:[],
-    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
-},
-{
-    eId:1,
-    eName:"Road to Redemtion",
-    eDate:new Date("2020-07-26T00:00"),
-    city:"San Diego",
-    state:"California",
-    eBandList:[],
-    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
-},
-{
-    eId:2,
-    eName:"Night Of the Living",
-    eDate:new Date("2020-08-25T00:00"),
-    city:"Fresno",
-    state:"California",
-    eBandList:[],
-    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
-},
-{
-    eId:3,
-    eName:"Day Of The Dead",
-    eDate:new Date("2021-07-25T00:00"),
-    city:"Oakland",
-    state:"California",
-    eBandList:[],
-    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
-},
-{
-    eId:4,
-    eName:"Road to Redemtion",
-    eDate:new Date("2020-06-30T00:00"),
-    city:"Las Angles",
-    state:"California",
-    eBandList:[],
-    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
-},
-{
-    eId:5,
-    eName:"Road to Redemtion",
-    eDate:new Date("2020-06-25T00:00"),
-    city:"Las Angles",
-    state:"California",
-    eBandList:[],
-    sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
-}]
 export const getAllUsers = async () =>{
     return await internalAxios.get('/users');
 }
@@ -65,7 +10,6 @@ export const getAllUsers = async () =>{
 export const getUser = async () => {
     const id = localStorage.getItem('userId');
     return await internalAxios.get<UserLoginInterface>('/users/'+id);;
-    //return response.data;
 }
 
 export const getAllEvents = async () => {
@@ -79,24 +23,25 @@ export const postUser = async (body:any)=>{
     return await internalAxios.post('/users',body);
 }
 
+// not tested
 export const getUserEvents = async () => {
     const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts');
-   // return event1;
     return response.data;
 }
 
+// not tested
 //tell the server what concert to remove from my list
 export const userRemoveEvent = async (payload:number) => {
-    //const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/remove');
-    return event1;
- //   return response.data;
+    const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/remove');
+   // return event1;
+   return response.data;
 }
 
 // tell the server what concert to add to my list
 export const userAddEvent = async (payload:number) => {
-   // const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/add');
-    return event1;
- //   return response.data;
+    const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/add');
+
+    return response.data;
 }
 
 interface UserLoginInterface{
@@ -121,12 +66,12 @@ interface UserLoginInterface{
 
 export const login = async (payload:any) => {
     const response = await internalAxios.post<UserLoginInterface>('/users/login', payload);
-    console.log(response.data);
+    console.log("loggin" +response.data.role.id);
 
     if (response.data)
     {
    // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
-    localStorage.setItem('userId', response.data.id.toString());
+    localStorage.setItem('userId', response.data.role.id.toString());
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);
     localStorage.setItem('userState', response.data.state);
