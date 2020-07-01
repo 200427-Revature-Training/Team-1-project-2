@@ -9,19 +9,7 @@ import { Band } from '../../data-models/band';
 import { NewEventModalComponent } from './new-event-modal';
 import { TextField } from '@material-ui/core'
 
-const concerts: ConcertEventModel[] = [];
-let bandsForEvent: Band[] = [{
-    id: 0,
-    name: "team 1",
-    members: [],
-    events: []
-},
-{
-    id: 1,
-    name: "team 2",
-    members: [],
-    events: []
-}];
+// const concerts: ConcertEventModel[] = [];
 
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
@@ -103,7 +91,6 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return c;
         })
         setConcerts(fixedDates);
-
     }
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
