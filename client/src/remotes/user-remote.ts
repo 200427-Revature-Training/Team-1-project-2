@@ -29,7 +29,11 @@ export const getUserEvents = async () => {
     return response.data;
 }
 
-// not tested
+export const update = async (user:any) =>{
+    const response = await internalAxios.put('/users',user)
+}
+
+
 //tell the server what concert to remove from my list
 export const userRemoveEvent = async (payload:number) => {
     const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/remove');

@@ -20,11 +20,13 @@ export const getEventById = async (eid:string) => {
     return internalAxios.get('/events/'+eid)
 }
 
+
 // working on it
 export const addConcertEvent = async (concert:ConcertEventModel) => {
     const response = await internalAxios.post<ConcertEventModel[]>('/events');
     return response;
 }
+
 interface createEvent
 {
     "id": 2,
@@ -40,3 +42,4 @@ interface createEvent
         "streetAddress": "401 Channelside Dr"
     }
 }
+
