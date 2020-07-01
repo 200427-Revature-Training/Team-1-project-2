@@ -29,13 +29,14 @@ public class Event {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "place_id")
 	private Place place;
+	private String bands;
 
 	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Event(int id, String name, Date date, String picture, String description, Place place) {
+	public Event(int id, String name, Date date, String picture, String description, Place place, String bands) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -43,6 +44,26 @@ public class Event {
 		this.picture = picture;
 		this.description = description;
 		this.place = place;
+		this.bands = bands;
+	}
+
+	public Event(Event e) {
+		super();
+		this.id = e.id;
+		this.name = e.name;
+		this.date = e.date;
+		this.picture = e.picture;
+		this.description = e.description;
+		this.place = e.place;
+		this.bands = e.bands;
+	}
+
+	public String getBands() {
+		return bands;
+	}
+
+	public void setBands(String bands) {
+		this.bands = bands;
 	}
 
 	public int getId() {
@@ -97,6 +118,7 @@ public class Event {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((bands == null) ? 0 : bands.hashCode());
 		result = prime * result + ((date == null) ? 0 : date.hashCode());
 		result = prime * result + ((description == null) ? 0 : description.hashCode());
 		result = prime * result + id;
@@ -115,6 +137,11 @@ public class Event {
 		if (getClass() != obj.getClass())
 			return false;
 		Event other = (Event) obj;
+		if (bands == null) {
+			if (other.bands != null)
+				return false;
+		} else if (!bands.equals(other.bands))
+			return false;
 		if (date == null) {
 			if (other.date != null)
 				return false;
