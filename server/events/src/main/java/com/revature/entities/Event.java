@@ -41,12 +41,9 @@ public class Event {
 		// TODO Auto-generated constructor stub
 	}
 
-<<<<<<< HEAD
-	public Event(int id, String name, Date date, String picture, String description, Place place, String bands) {
-=======
 
-	public Event(int id, String name, Date date, String picture, String description, String song, Place place) {
->>>>>>> bad03ef6ab8cbde9d67c9ca31fc032aef912c4a6
+	public Event(int id, String name, Date date, String picture, String description, String song, Place place,
+			String bands) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -57,7 +54,6 @@ public class Event {
 		this.place = place;
 		this.bands = bands;
 	}
-
 	public Event(Event e) {
 		super();
 		this.id = e.id;
@@ -69,19 +65,10 @@ public class Event {
 		this.bands = e.bands;
 	}
 
-	public String getBands() {
-		return bands;
-	}
-
-	public void setBands(String bands) {
-		this.bands = bands;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", date=" + date + ", picture=" + picture + ", description="
-				+ description + ", song=" + song + ", place=" + place + "]";
+				+ description + ", song=" + song + ", place=" + place + ", bands=" + bands + "]";
 	}
 
 
@@ -220,6 +207,14 @@ public class Event {
 		this.place = place;
 	}
 
-	
-	
+
+	public String getBands() {
+		return bands;
+	}
+
+
+	public void setBands(String bands) {
+		this.bands = bands;
+	}
+
 }
