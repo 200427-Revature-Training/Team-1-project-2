@@ -33,9 +33,14 @@ public class EventController {
 	Event Event(@RequestBody Event event) {
 		return eventService.save(event);
 	}
-	
+
 	@GetMapping("/user/{id}")
 	Collection<Event> getUserEventsAttended(@PathVariable int id) {
 		return eventService.getUserEventsAttended(id);
+	}
+
+	@GetMapping("/{id}")
+	public Event getEventById(@PathVariable int id) {
+		return eventService.getUserByID(id);
 	}
 }

@@ -13,9 +13,6 @@ interface FeedProps {
 
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
-    let addButton = props.homePage ? <Button className="btn btn-success" >Add Show</Button> : <span></span>;
-    let removeButton = props.yourShow ? <Button className="btn btn-danger" >Remove</Button> : <span></span>;
-
     useEffect(() => {
        // addButtonEvent();
       //  removeButtonEvent();
@@ -34,11 +31,38 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
     const [redirect, setRedirect] = useState(false);
 
     const handleClick = () => {
-        localStorage.setItem('eventID',props.concertEvents.eId+'');
+        localStorage.setItem('eventID',props.concertEvents.id+'');
         //set concert id in local storage then...
         setRedirect(true);
     }
 
+    const addConcertToList = () => {
+
+    }
+
+    const removeConcerFromList = () => {
+
+    }
+    
+    const renderButtons = () => {
+       if(localStorage.getItem('userName'))
+        {
+            if(props.yourShow){
+                return (
+                    <div>
+                        <Button className="btn btn-danger" onClick={() => removeConcerFromList()}>Remove</Button>
+                    </div>
+                )
+            }else
+            {
+                return(
+                <div>
+                <Button className="btn btn-success" onClick={() => addConcertToList()}>Add Show</Button>
+                 </div>
+                )
+            }
+        }
+    }
     /*const renderBands = () => {
         console.log ('bands length = ' + props.concertEvents.eBandList.length);
             return props.concertEvents.eBandList.map(bList => {
@@ -65,8 +89,7 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
                 </div>
                 <div>
                     <Button onClick={handleClick} className="btn btn-primary">View</Button>
-                    {addButton}
-                    {removeButton}
+                    {renderButtons()}
                 </div>
             </div>
         )

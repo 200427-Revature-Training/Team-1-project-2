@@ -9,19 +9,7 @@ import { Band } from '../../data-models/band';
 import { NewEventModalComponent } from './new-event-modal';
 import { TextField } from '@material-ui/core'
 
-const concerts: ConcertEventModel[] = [];
-let bandsForEvent: Band[] = [{
-    id: 0,
-    name: "team 1",
-    members: [],
-    events: []
-},
-{
-    id: 1,
-    name: "team 2",
-    members: [],
-    events: []
-}];
+// const concerts: ConcertEventModel[] = [];
 
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
@@ -54,10 +42,24 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     //  }
 
 
+    const addEventHandler = async () => {
+
+        const payload:ConcertEventModel = {
+            eId:0,
+            city:concertCity,
+            state:concertState,
+            eBandList:concertBands,
+            eDate:concertDate,
+            eName:concertName,
+            sourceImage:concertImage
+        }
+        concertEventRemote.addConcertEvent(payload);
+    }
     const addManageButtons = () => {
 
         // check authentification and manager role_id
         const userId = localStorage.getItem("userId");
+        console.log('whats user id = ' + userId);
         if (userId === '4')
             return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
     }
@@ -103,7 +105,6 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return c;
         })
         setConcerts(fixedDates);
-
     }
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -26,23 +26,34 @@ public class Event {
 	private String picture;
 	private String description;
 	
+	@Column(name="featured_song")
+	private String song;
+	
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "place_id")
 	private Place place;
 	private String bands;
+
 
 	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+<<<<<<< HEAD
 	public Event(int id, String name, Date date, String picture, String description, Place place, String bands) {
+=======
+
+	public Event(int id, String name, Date date, String picture, String description, String song, Place place) {
+>>>>>>> bad03ef6ab8cbde9d67c9ca31fc032aef912c4a6
 		super();
 		this.id = id;
 		this.name = name;
 		this.date = date;
 		this.picture = picture;
 		this.description = description;
+		this.song = song;
 		this.place = place;
 		this.bands = bands;
 	}
@@ -66,53 +77,13 @@ public class Event {
 		this.bands = bands;
 	}
 
-	public int getId() {
-		return id;
+
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", name=" + name + ", date=" + date + ", picture=" + picture + ", description="
+				+ description + ", song=" + song + ", place=" + place + "]";
 	}
 
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public Date getDate() {
-		return date;
-	}
-
-	public void setDate(Date date) {
-		this.date = date;
-	}
-
-	public String getPicture() {
-		return picture;
-	}
-
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public Place getPlace() {
-		return place;
-	}
-
-	public void setPlace(Place place) {
-		this.place = place;
-	}
 
 	@Override
 	public int hashCode() {
@@ -125,8 +96,10 @@ public class Event {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
 		result = prime * result + ((place == null) ? 0 : place.hashCode());
+		result = prime * result + ((song == null) ? 0 : song.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -169,14 +142,84 @@ public class Event {
 				return false;
 		} else if (!place.equals(other.place))
 			return false;
+		if (song == null) {
+			if (other.song != null)
+				return false;
+		} else if (!song.equals(other.song))
+			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "Event [id=" + id + ", name=" + name + ", date=" + date + ", picture=" + picture + ", description="
-				+ description + ", place=" + place + "]";
+
+	public int getId() {
+		return id;
 	}
+
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+
+	public Date getDate() {
+		return date;
+	}
+
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+
+	public String getPicture() {
+		return picture;
+	}
+
+
+	public void setPicture(String picture) {
+		this.picture = picture;
+	}
+
+
+	public String getDescription() {
+		return description;
+	}
+
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+
+	public String getSong() {
+		return song;
+	}
+
+
+	public void setSong(String song) {
+		this.song = song;
+	}
+
+
+	public Place getPlace() {
+		return place;
+	}
+
+
+	public void setPlace(Place place) {
+		this.place = place;
+	}
+
 	
 	
 }

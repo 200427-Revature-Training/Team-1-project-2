@@ -14,6 +14,35 @@ const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
         props.history.push('/login');
     }
     const username = (localStorage.getItem('userName')) ? (localStorage.getItem('userName')) : 'Guest';
+    
+    const renderButtons = () => {
+        if (username != 'Guest')
+        {
+            return (
+                <div>
+                    <li className="nav-item">
+                    <Link className='nav-links' to='/profile'>Your Profile</Link>
+                    </li>
+                    <li className="nav-item">
+                    <Link className='nav-links' to='/concert'>Your Concerts</Link>
+                    </li>
+                    <li>
+                        <Button className='btn-dark nav-btn' onClick={logout}>Logout</Button>
+                    </li>
+                </div>
+            )
+        }
+        else {
+            return (
+                <div>
+                <li>
+                  <Button className='btn-dark nav-btn' onClick={logout}>Login</Button>
+               </li>
+              </div>
+            )
+        }
+    }
+    
     return (
         <nav className="navbar navbar-dark bg-dark">
             <a className="navbar-brand" href="/login">Your Concert Finder</a>
@@ -26,15 +55,7 @@ const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
                     <li className="nav-item active">
                         <Link className='nav-links' to="/home">Home <span className="sr-only">(current)</span></Link>
                     </li>
-                    <li className="nav-item">
-                    <Link className='nav-links' to='/profile'>Your Profile</Link>
-                    </li>
-                    <li className="nav-item">
-                    <Link className='nav-links' to='/concert'>Your Concerts</Link>
-                    </li>
-                    <li>
-                        <Button className='btn-dark nav-btn' onClick={logout}>Logout</Button>
-                    </li>
+                    {renderButtons()}
                 </ul>
             </div>
         </nav>
