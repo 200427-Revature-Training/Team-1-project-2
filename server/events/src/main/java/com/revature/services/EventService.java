@@ -35,6 +35,7 @@ public class EventService {
 			list2.add(new Event(iterator.next().getEvent()));
 		}
 		return list2;
+	}
 
 	public Event getUserByID(int id) {
 
