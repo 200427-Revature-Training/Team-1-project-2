@@ -42,10 +42,24 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     //  }
 
 
+    const addEventHandler = async () => {
+
+        const payload:ConcertEventModel = {
+            eId:0,
+            city:concertCity,
+            state:concertState,
+            eBandList:concertBands,
+            eDate:concertDate,
+            eName:concertName,
+            sourceImage:concertImage
+        }
+        concertEventRemote.addConcertEvent(payload);
+    }
     const addManageButtons = () => {
 
         // check authentification and manager role_id
         const userId = localStorage.getItem("userId");
+        console.log('whats user id = ' + userId);
         if (userId === '4')
             return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
     }
