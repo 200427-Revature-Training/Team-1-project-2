@@ -57,7 +57,8 @@ public class User {
 	}
 
 	public User(int id, String firstName, String lastName, String email, String userName, String password,
-			String picture, String bio, UserRole role, String band, String song, String city, String state) {
+			String picture, String bio, UserRole role, String band, String song, String city, String genre,
+			String state) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -71,6 +72,7 @@ public class User {
 		this.band = band;
 		this.song = song;
 		this.city = city;
+		this.genre = genre;
 		this.state = state;
 	}
 
@@ -78,7 +80,8 @@ public class User {
 	public String toString() {
 		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
 				+ ", userName=" + userName + ", password=" + password + ", picture=" + "too long" + ", bio=" + bio
-				+ ", role=" + role + ", band=" + band + ", song=" + song + ", city=" + city + ", state=" + state + "]";
+				+ ", role=" + role + ", band=" + band + ", song=" + song + ", city=" + city + ", genre=" + genre
+				+ ", state=" + state + "]";
 	}
 
 	@Override
@@ -90,6 +93,7 @@ public class User {
 		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result + ((genre == null) ? 0 : genre.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -134,6 +138,11 @@ public class User {
 			if (other.firstName != null)
 				return false;
 		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (genre == null) {
+			if (other.genre != null)
+				return false;
+		} else if (!genre.equals(other.genre))
 			return false;
 		if (id != other.id)
 			return false;
@@ -269,6 +278,14 @@ public class User {
 
 	public void setCity(String city) {
 		this.city = city;
+	}
+
+	public String getGenre() {
+		return genre;
+	}
+
+	public void setGenre(String genre) {
+		this.genre = genre;
 	}
 
 	public String getState() {

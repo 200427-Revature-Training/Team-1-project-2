@@ -28,23 +28,22 @@ export const ProfileComponent: React.FC = () => {
     }
     useEffect(() => {
         const load = async () => {
-            console.log(await userRemote.getAllUsers());
             const user = await userRemote.getUser();
             const userData = user.data;
+            console.log(userData);
             setName(userData.firstName + " " + userData.lastName);
             setBio(userData.bio);
             setEmail(userData.email);
             setBand(userData.band);
-            setHomeCity(userData.city);;
-            if(userData.song.includes('watch')){
+            setHomeCity(userData.city);
+            setGenre(userData.genre);
+            if (userData.song.includes('watch')) {
                 const str = userData.song.split("=");
-                const embed = "https://www.youtube.com/embed/"+str[1];
+                const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);
-                console.log(embed);
-            }else{
+            } else {
                 const str = userData.song.split("e/");
-                const embed = "https://www.youtube.com/embed/"+str[1];
-                console.log(embed);
+                const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);
             }
             setHomeState(userData.state);
@@ -53,55 +52,63 @@ export const ProfileComponent: React.FC = () => {
         };
         load();
     }, []);
-    
-   
-    return (
-        <section>
 
-            <ProfileModal states={states} setters={setters}></ProfileModal>
+    if (!name) {
+        return (
+            <div className="loading">
 
-
-            <div className="my-container row">
-                <div className="col-3 profile-pic">
-                    <br></br>
-                    <img src={image} />
-                    <h3>{name}</h3>
-                    <br></br>
-                    <h5>{email}</h5>
-                    <br></br>
-                    <Button onClick={() => setShow(true)}>Edit Profile</Button>
-                </div>
-                <div className="col-4">
-                    <br></br>
-                    <h4>Bio</h4>
-                    <ul className="myList">
-                        <p>{bio}</p>
-                    </ul>
-                    <br></br>
-
-                    <h4>Favorite Band</h4>
-                    <ul className="myList">
-                        <p>{band}</p>
-                    </ul>
-                    <h4>Favorite Genre</h4>
-                    <ul className="myList">
-                        <p>{genre}</p>
-                    </ul>
-                    <h4>Hometown</h4>
-                    <ul className="myList">
-
-                        <p>{homeCity}, {homeState}</p>
-                    </ul>
-
-                </div>
-                <div className="col-5 iframe-container">
-                    <h3>Favorite song</h3>
-                    <br></br>
-
-                    <iframe className='responsive-iframe' src={song} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe>
-                </div>
+                <img className="loading-img" src="https://media2.govtech.com/images/940*712/SHUTTERSTOCK_LOADING_SYMBOL_BROADBAND_INTERNET_SPEED.jpg" />
             </div>
-        </section>
+        )
+    } else {
+        return (
+            <section>
 
-    )
+                <ProfileModal states={states} setters={setters}></ProfileModal>
+
+
+                <div className="my-container row">
+                    <div className="col-3 profile-pic">
+                        <br></br>
+                        <img src={image} />
+                        <h3>{name}</h3>
+                        <br></br>
+                        <h5>{email}</h5>
+                        <br></br>
+                        <Button onClick={() => setShow(true)}>Edit Profile</Button>
+                    </div>
+                    <div className="col-4">
+                        <br></br>
+                        <h4>Bio</h4>
+                        <ul className="myList">
+                            <p>{bio}</p>
+                        </ul>
+                        <br></br>
+
+                        <h4>Favorite Band</h4>
+                        <ul className="myList">
+                            <p>{band}</p>
+                        </ul>
+                        <h4>Favorite Genre</h4>
+                        <ul className="myList">
+                            <p>{genre}</p>
+                        </ul>
+                        <h4>Hometown</h4>
+                        <ul className="myList">
+
+                            <p>{homeCity}, {homeState}</p>
+                        </ul>
+
+                    </div>
+                    <div className="col-5 iframe-container">
+                        <h3>Favorite song</h3>
+                        <br></br>
+
+                        <iframe className='responsive-iframe' src={song} allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" ></iframe>
+                    </div>
+                </div>
+            </section>
+
+        )
+    }
 }

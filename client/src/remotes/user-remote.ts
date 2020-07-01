@@ -115,7 +115,8 @@ interface UserLoginInterface{
         band: any,
         song: string,
         state: string,
-        city: string
+        city: string,
+        genre:string
 }
 
 export const login = async (payload:any) => {

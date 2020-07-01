@@ -42,3 +42,11 @@ label + .MuiInput-formControl{
     width: 100%;
     height: 80%;
   }
+  .loading{
+      height:100%;
+    }
+    .loading-img{
+        vertical-align: middle;
+        margin-top: 10%;
+
+  }
