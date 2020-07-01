@@ -13,7 +13,8 @@ export const ProfileComponent: React.FC = () => {
     const [show, setShow] = useState(false);
     const [genre, setGenre] = useState('')
     const [band, setBand] = useState('');
-    const [name, setName] = useState('');
+    const [first, setFirst] = useState('');
+    const [last, setLast]= useState('')
     const [bio, setBio] = useState(``)
     const [email, setEmail] = useState('')
     const [homeCity, setHomeCity] = useState('');
@@ -21,17 +22,18 @@ export const ProfileComponent: React.FC = () => {
     const [song, setSong] = useState('https://youtu.be/OueDEEP2byE');
     const [image, setImage] = useState('')
 
-    const states = { show: show, genre: genre, band: band, homeCity: homeCity, homeState: homeState, name: name, bio: bio, email: email, song: song, image: image };
+    const states = { show: show, genre: genre, band: band, homeCity: homeCity, homeState: homeState, first: first, last:last,bio: bio, email: email, song: song, image: image };
     const setters = {
         setShow: setShow, setGenre: setGenre, setBand: setBand, setHomeCity: setHomeCity, setHomeState: setHomeState,
-        setName: setName, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
+        setName: setFirst,setLast, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
     }
     useEffect(() => {
         const load = async () => {
             const user = await userRemote.getUser();
             const userData = user.data;
             console.log(userData);
-            setName(userData.firstName + " " + userData.lastName);
+            setFirst(userData.firstName);
+            setLast(userData.lastName)
             setBio(userData.bio);
             setEmail(userData.email);
             setBand(userData.band);
@@ -53,7 +55,7 @@ export const ProfileComponent: React.FC = () => {
         load();
     }, []);
 
-    if (!name) {
+    if (!first) {
         return (
             <div className="loading">
 
@@ -71,7 +73,7 @@ export const ProfileComponent: React.FC = () => {
                     <div className="col-3 profile-pic">
                         <br></br>
                         <img src={image} />
-                        <h3>{name}</h3>
+                        <h3>{first} {last}</h3>
                         <br></br>
                         <h5>{email}</h5>
                         <br></br>

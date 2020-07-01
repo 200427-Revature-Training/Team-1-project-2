@@ -1,6 +1,7 @@
 package com.revature.services;
 
 import java.util.Collection;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,5 +40,24 @@ public class UserService {
 		else
 			return null;
 				
+	}
+
+	public User update(User user) {
+		// TODO Auto-generated method stub
+		Optional<User> optU = userRepository.findById(user.getId());
+		User u = optU.get();
+		u.setBand(user.getBand());
+		u.setBio(user.getBio());
+		u.setCity(user.getCity());
+		u.setEmail(user.getEmail());
+		u.setFirstName(user.getFirstName());
+		u.setGenre(user.getGenre());
+		u.setLastName(user.getLastName());
+		u.setPicture(user.getPicture());
+		u.setSong(user.getSong());
+		u.setState(user.getState());
+		userRepository.save(u);
+		
+		return u;
 	}
 }

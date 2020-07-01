@@ -30,6 +30,7 @@ export const addConcertEvent = (concert:ConcertEventModel) => {
     //return response;
 }
 
+
 const bandA:User[] = [{
     userId: 0,
     userName: "member1",
@@ -104,5 +105,3 @@ export const event1:ConcertEventModel[] = [{
     eBandList:[],
     sourceImage: "https://static.billboard.com/files/media/concert-crowd-audience-stock-2019-u-billboard-1548-compressed.jpg"
 }]
-/*
-*/
