@@ -27,7 +27,6 @@ public class EventService {
 		return eventRepository.save(event);
 	}
 
-<<<<<<< HEAD
 	public Collection<Event> getUserEventsAttended(int id) {
 		Collection<User_Event> list = eventRepository.getUserEventsAttended(id);
 		Collection<Event> list2 = new ArrayList<Event>();
@@ -36,11 +35,11 @@ public class EventService {
 			list2.add(new Event(iterator.next().getEvent()));
 		}
 		return list2;
-=======
+
 	public Event getUserByID(int id) {
 
 		return eventRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
->>>>>>> bad03ef6ab8cbde9d67c9ca31fc032aef912c4a6
+
 	}
 }
