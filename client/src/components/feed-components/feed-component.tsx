@@ -34,7 +34,7 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
     const [redirect, setRedirect] = useState(false);
 
     const handleClick = () => {
-        localStorage.setItem('eventID',props.concertEvents.eId+'');
+        localStorage.setItem('eventID',props.concertEvents.id+'');
         //set concert id in local storage then...
         setRedirect(true);
     }

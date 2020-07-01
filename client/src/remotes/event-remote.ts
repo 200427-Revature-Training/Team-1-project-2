@@ -17,6 +17,9 @@ export const getAllUserEvents = async () => {
     //return response;
 }
 
+export const getEventById = async (eid:string) => {
+    return internalAxios.get('/events/'+eid)
+}
 
 export const addConcertEvent = (concert:ConcertEventModel) => {
     console.log('adding a concert' + event1.length);
