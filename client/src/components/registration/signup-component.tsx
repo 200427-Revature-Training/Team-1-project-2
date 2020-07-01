@@ -15,9 +15,10 @@ export const SignupComponent: React.FC = () => {
     const [bio, setBio] = useState('');
     const [homeCity, setHomeCity] = useState('');
     const [homeState, setHomeState] = useState('');
-    const [song, setSong] = useState('')
-    const [image, setImage] = useState('')
-    const [band, setBand] = useState('')
+    const [song, setSong] = useState('');
+    const [image, setImage] = useState('');
+    const [band, setBand] = useState('');
+    const [genre, setGenre] = useState('');
     const [submitted, setSubmit] = useState(false);
     /*id: 1, firstName: "Jordon", lastName: "Hill", email: "Hallstead2@gmail.com", userName: "Hallstead", …}
 band: null
@@ -48,8 +49,8 @@ userName: "Hallstead"*/
 
         }
     };
-    const post = () => {
-        userRemote.postUser({
+    const post = async () => {
+        const response = await userRemote.postUser({
             firstName:first,
             lastName:last,
             email:email,
@@ -60,8 +61,13 @@ userName: "Hallstead"*/
             song:song,
             city:homeCity,
             state:homeState,
-            picture:image
+            picture:image,
+            genre:genre
         });
+        localStorage.setItem("userId",response.data.id.toString());
+        localStorage.setItem('userName', response.data.userName);
+        localStorage.setItem('userCity', response.data.city);
+        localStorage.setItem('userState', response.data.state);
         setSubmit(true);
     }
     if (submitted){
@@ -101,7 +107,11 @@ userName: "Hallstead"*/
                         </Form.Group>
                         <Form.Group controlId="exampleForm.ControlInput1">
                             <Form.Label>Favorite Band Name</Form.Label>
-                            <Form.Control type="text" value={band} onChange={(e) => setBand(e.target.value)} placeholder="Last name" />
+                            <Form.Control type="text" value={band} onChange={(e) => setBand(e.target.value)} placeholder="Band name" />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Favorite Genre</Form.Label>
+                            <Form.Control type="text" value={genre} onChange={(e) => setGenre(e.target.value)} placeholder="Genre" />
                         </Form.Group>
 
                         <br></br>

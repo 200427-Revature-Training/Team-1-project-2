@@ -62,10 +62,8 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
     }
 
-    //
     const renderFeedComponents = () => {
         return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
-            //concertEvent.date= new Date(concertEvent.date)
             return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
@@ -117,7 +115,6 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         + "T" + ("0" + searchConcertDate.getHours()).slice(-2) + ":" + ("0" + searchConcertDate.getMinutes()).slice(-2);
 
 
-    //  getAllEvents();//**remove this line after server is hooked up */
 
     useEffect(() => {
         getAllEvents();
