@@ -41,6 +41,6 @@ public class EventController {
 
 	@GetMapping("/{id}")
 	public Event getEventById(@PathVariable int id) {
-		return eventService.getUserByID(id);
+		return eventService.getEventByID(id);
 	}
 }

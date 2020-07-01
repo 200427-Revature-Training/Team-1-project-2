@@ -40,13 +40,9 @@ public class Event {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
+	public Event(int id, String name, Date date, String picture, String description, String song, Place place, String bands) {
 
-<<<<<<< HEAD
-	public Event(int id, String name, Date date, String picture, String description, Place place, String bands) {
-=======
-
-	public Event(int id, String name, Date date, String picture, String description, String song, Place place) {
->>>>>>> bad03ef6ab8cbde9d67c9ca31fc032aef912c4a6
 		super();
 		this.id = id;
 		this.name = name;
