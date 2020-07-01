@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './profile.css'
 import { Button, Modal, Form } from 'react-bootstrap'
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { MenuItem } from '@material-ui/core';
 import { ProfileModal } from './profile-modal'
 import * as userRemote from '../../remotes/user-remote'
 
@@ -19,13 +16,13 @@ export const ProfileComponent: React.FC = () => {
     const [email, setEmail] = useState('')
     const [homeCity, setHomeCity] = useState('');
     const [homeState, setHomeState] = useState('');
-    const [song, setSong] = useState('https://youtu.be/OueDEEP2byE');
+    const [song, setSong] = useState('');
     const [image, setImage] = useState('')
 
     const states = { show: show, genre: genre, band: band, homeCity: homeCity, homeState: homeState, first: first, last:last,bio: bio, email: email, song: song, image: image };
     const setters = {
         setShow: setShow, setGenre: setGenre, setBand: setBand, setHomeCity: setHomeCity, setHomeState: setHomeState,
-        setName: setFirst,setLast, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
+        setFirst: setFirst,setLast:setLast, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
     }
     useEffect(() => {
         const load = async () => {
@@ -43,7 +40,11 @@ export const ProfileComponent: React.FC = () => {
                 const str = userData.song.split("=");
                 const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);
-            } else {
+            
+            }else if(userData.song.includes('embed')){
+                setSong(userData.song);
+            }
+             else {
                 const str = userData.song.split("e/");
                 const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);

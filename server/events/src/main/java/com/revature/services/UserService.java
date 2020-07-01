@@ -44,8 +44,10 @@ public class UserService {
 
 	public User update(User user) {
 		// TODO Auto-generated method stub
+		System.out.println(user);
 		Optional<User> optU = userRepository.findById(user.getId());
 		User u = optU.get();
+		System.out.println(u);
 		u.setBand(user.getBand());
 		u.setBio(user.getBio());
 		u.setCity(user.getCity());

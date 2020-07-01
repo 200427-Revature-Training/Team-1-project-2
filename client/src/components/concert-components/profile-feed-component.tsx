@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import { ConcertEventModel } from '../../data-models/event-model';
-import * as UserEventRemote from '../../remotes/user-remote';
 import { TextField } from '@material-ui/core';
 
-const concerts: ConcertEventModel[] = UserEventRemote.event1;
+const concerts: ConcertEventModel[] = [];
 
 export const ConcertPageComponent: React.FC = () => {
     const [concert, setConcert] = useState<ConcertEventModel[]>(concerts);
