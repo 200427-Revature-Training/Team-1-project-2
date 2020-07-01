@@ -14,4 +14,6 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	
 	@Query("From User u WHERE :username = u.userName")
 	User login(String username);
+
+
 }

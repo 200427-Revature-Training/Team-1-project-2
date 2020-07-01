@@ -48,18 +48,10 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
        if(localStorage.getItem('userName'))
         {
             if(props.yourShow){
-                return (
-                    <div>
-                        <Button className="btn btn-danger" onClick={() => removeConcerFromList()}>Remove</Button>
-                    </div>
-                )
+                return <Button className="btn btn-danger" onClick={() => removeConcerFromList()}>Remove</Button>
             }else
             {
-                return(
-                <div>
-                <Button className="btn btn-success" onClick={() => addConcertToList()}>Add Show</Button>
-                 </div>
-                )
+                return <Button className="btn btn-success" onClick={() => addConcertToList()}>Add Show</Button>
             }
         }
     }

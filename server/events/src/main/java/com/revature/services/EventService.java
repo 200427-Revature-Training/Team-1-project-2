@@ -38,7 +38,6 @@ public class EventService {
 	}
 
 	public Event getEventByID(int id) {
-
 		return eventRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
 }

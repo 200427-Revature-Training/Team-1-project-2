@@ -3,18 +3,17 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import { MenuItem } from '@material-ui/core';
+import * as userRemote from '../../remotes/user-remote'
 
-interface ModalComponents{
-    states:any
-    setters:any
+interface ModalComponents {
+    states: any
+    setters: any
 }
 
 export const ProfileModal: React.FC<ModalComponents> = (props) => {
 
 
-    const handleSelect = (event: React.ChangeEvent<{ value: unknown }>) => {
-        props.setters.setGenre(event.target.value as string);
-    };
+
     const handleSelectState = (event: React.ChangeEvent<{ value: unknown }>) => {
         props.setters.setHomeState(event.target.value as string);
     };
@@ -33,7 +32,28 @@ export const ProfileModal: React.FC<ModalComponents> = (props) => {
         }
     };
 
-    return(
+    const updateProfile = async () => {
+        props.setters.setShow(false);
+        const id = localStorage.getItem("userId");
+        if (id) {
+            userRemote.update({
+                id: id,
+                firstName: props.states.first,
+                lastName: props.states.last,
+                email: props.states.email,
+                bio: props.states.bio,
+                band: props.states.band,
+                song: props.states.song,
+                city: props.states.homeCity,
+                state: props.states.homeState,
+                picture: props.states.image,
+                genre: props.states.genre
+            }).then(()=>{
+                window.location.reload();
+            });
+        }
+    }
+    return (
         <div>
             <Modal show={props.states.show} onHide={() => props.setters.setShow(false)}>
                 <Modal.Header closeButton>
@@ -46,8 +66,12 @@ export const ProfileModal: React.FC<ModalComponents> = (props) => {
                             <Form.Control type="email" onChange={(e) => props.setters.setEmail(e.target.value)} value={props.states.email} placeholder="name@example.com" />
                         </Form.Group>
                         <Form.Group controlId="exampleForm.ControlInput1">
-                            <Form.Label>Name</Form.Label>
-                            <Form.Control type="text" value={props.states.name} onChange={(e) => props.setters.setName(e.target.value)} placeholder="Your name" />
+                            <Form.Label>First Name</Form.Label>
+                            <Form.Control type="text" value={props.states.first} onChange={(e) => props.setters.setFirst(e.target.value)} placeholder="First name" />
+                        </Form.Group>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Last Name</Form.Label>
+                            <Form.Control type="text" value={props.states.last} onChange={(e) => props.setters.setLast(e.target.value)} placeholder="Last name" />
                         </Form.Group>
                         <Form.Group controlId="exampleForm.ControlInput1">
                             <Form.Label>Bio</Form.Label>
@@ -57,23 +81,11 @@ export const ProfileModal: React.FC<ModalComponents> = (props) => {
                             <Form.Label>Favorite Band</Form.Label>
                             <Form.Control type="text" value={props.states.band} onChange={(e) => props.setters.setBand(e.target.value)} placeholder="Rolling Stones" />
                         </Form.Group>
-                        <FormControl className="myFormStyle">
-                            <Form.Label>Genre</Form.Label>
-                            <Select
-                                className='removeMargin'
-                                value={props.states.genre}
-                                onChange={handleSelect}
-                                displayEmpty
-                                inputProps={{ 'aria-label': 'Without label' }}
-                            >
-                                <MenuItem value="" disabled>Type</MenuItem>
-                                <MenuItem value={'Rock'}>Rock</MenuItem>
-                                <MenuItem value={'Hip-Hop'}>Hip-Hop</MenuItem>
-                                <MenuItem value={'Pop'}>Pop</MenuItem>
-                                <MenuItem value={'Jazz'}>Jazz</MenuItem>
-
-                            </Select>
-                        </FormControl>
+                        <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form.Label>Favorite Genre</Form.Label>
+                            <Form.Control type="text" value={props.states.genre} onChange={(e) => props.setters.setGenre(e.target.value)} placeholder="Rock" />
+                        </Form.Group>
+                        
                         <br></br>
                         <FormControl >
                             <Form.Label className='myFormStyle'>State</Form.Label>
@@ -84,7 +96,7 @@ export const ProfileModal: React.FC<ModalComponents> = (props) => {
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
                             >
-                                <MenuItem value="" disabled>Type</MenuItem>
+                                <MenuItem value="" disabled>State</MenuItem>
                                 <MenuItem value={'AL'}>Alabama</MenuItem>
                                 <MenuItem value={'AK'}>ALaska</MenuItem>
                                 <MenuItem value={'AZ'}>Arizona</MenuItem>
@@ -152,7 +164,7 @@ export const ProfileModal: React.FC<ModalComponents> = (props) => {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" onClick={() => props.setters.setShow(false)}>
+                    <Button variant="primary" onClick={updateProfile}>
                         Save Changes
           </Button>
                 </Modal.Footer>

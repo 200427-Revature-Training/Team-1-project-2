@@ -15,34 +15,32 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "events", schema = "events")
 public class Event {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private Date date;
-	
+
 	@Column(name = "picture_url")
 	private String picture;
 	private String description;
-	
-	@Column(name="featured_song")
+
+	@Column(name = "featured_song")
 	private String song;
-	
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "place_id")
 	private Place place;
 	private String bands;
 
-
 	public Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Event(int id, String name, Date date, String picture, String description, String song, Place place, String bands) {
 
+	public Event(int id, String name, Date date, String picture, String description, String song, Place place,
+			String bands) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -65,21 +63,11 @@ public class Event {
 		this.bands = e.bands;
 	}
 
-	public String getBands() {
-		return bands;
-	}
-
-	public void setBands(String bands) {
-		this.bands = bands;
-	}
-
-
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", date=" + date + ", picture=" + picture + ", description="
-				+ description + ", song=" + song + ", place=" + place + "]";
+				+ description + ", song=" + song + ", place=" + place + ", bands=" + bands + "]";
 	}
-
 
 	@Override
 	public int hashCode() {
@@ -95,7 +83,6 @@ public class Event {
 		result = prime * result + ((song == null) ? 0 : song.hashCode());
 		return result;
 	}
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -146,76 +133,68 @@ public class Event {
 		return true;
 	}
 
-
 	public int getId() {
 		return id;
 	}
-
 
 	public void setId(int id) {
 		this.id = id;
 	}
 
-
 	public String getName() {
 		return name;
 	}
-
 
 	public void setName(String name) {
 		this.name = name;
 	}
 
-
 	public Date getDate() {
 		return date;
 	}
-
 
 	public void setDate(Date date) {
 		this.date = date;
 	}
 
-
 	public String getPicture() {
 		return picture;
 	}
-
 
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
 
-
 	public String getDescription() {
 		return description;
 	}
-
 
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
-
 	public String getSong() {
 		return song;
 	}
-
 
 	public void setSong(String song) {
 		this.song = song;
 	}
 
-
 	public Place getPlace() {
 		return place;
 	}
-
 
 	public void setPlace(Place place) {
 		this.place = place;
 	}
 
-	
-	
+	public String getBands() {
+		return bands;
+	}
+
+	public void setBands(String bands) {
+		this.bands = bands;
+	}
+
 }

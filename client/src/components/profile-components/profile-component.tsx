@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './profile.css'
 import { Button, Modal, Form } from 'react-bootstrap'
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-import { MenuItem } from '@material-ui/core';
 import { ProfileModal } from './profile-modal'
 import * as userRemote from '../../remotes/user-remote'
 
@@ -13,25 +10,27 @@ export const ProfileComponent: React.FC = () => {
     const [show, setShow] = useState(false);
     const [genre, setGenre] = useState('')
     const [band, setBand] = useState('');
-    const [name, setName] = useState('');
+    const [first, setFirst] = useState('');
+    const [last, setLast]= useState('')
     const [bio, setBio] = useState(``)
     const [email, setEmail] = useState('')
     const [homeCity, setHomeCity] = useState('');
     const [homeState, setHomeState] = useState('');
-    const [song, setSong] = useState('https://youtu.be/OueDEEP2byE');
+    const [song, setSong] = useState('');
     const [image, setImage] = useState('')
 
-    const states = { show: show, genre: genre, band: band, homeCity: homeCity, homeState: homeState, name: name, bio: bio, email: email, song: song, image: image };
+    const states = { show: show, genre: genre, band: band, homeCity: homeCity, homeState: homeState, first: first, last:last,bio: bio, email: email, song: song, image: image };
     const setters = {
         setShow: setShow, setGenre: setGenre, setBand: setBand, setHomeCity: setHomeCity, setHomeState: setHomeState,
-        setName: setName, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
+        setFirst: setFirst,setLast:setLast, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
     }
     useEffect(() => {
         const load = async () => {
             const user = await userRemote.getUser();
             const userData = user.data;
             console.log(userData);
-            setName(userData.firstName + " " + userData.lastName);
+            setFirst(userData.firstName);
+            setLast(userData.lastName)
             setBio(userData.bio);
             setEmail(userData.email);
             setBand(userData.band);
@@ -41,7 +40,11 @@ export const ProfileComponent: React.FC = () => {
                 const str = userData.song.split("=");
                 const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);
-            } else {
+            
+            }else if(userData.song.includes('embed')){
+                setSong(userData.song);
+            }
+             else {
                 const str = userData.song.split("e/");
                 const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);
@@ -53,7 +56,7 @@ export const ProfileComponent: React.FC = () => {
         load();
     }, []);
 
-    if (!name) {
+    if (!first) {
         return (
             <div className="loading">
 
@@ -71,7 +74,7 @@ export const ProfileComponent: React.FC = () => {
                     <div className="col-3 profile-pic">
                         <br></br>
                         <img src={image} />
-                        <h3>{name}</h3>
+                        <h3>{first} {last}</h3>
                         <br></br>
                         <h5>{email}</h5>
                         <br></br>
