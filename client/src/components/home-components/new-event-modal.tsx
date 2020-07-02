@@ -7,10 +7,11 @@ import { ConcertEventModel } from '../../data-models/event-model';
 
 
 interface ModalComponents {
-    states: { bandModelVisible: boolean; concert: ConcertEventModel[], modalVisible: boolean; concertName: string; concertDate: Date; concertState: string; concertCity: string; concertBands: Band[]; concertImage: string; bandName: string; bandId: number; };
+    states: { bandModelVisible: boolean; concert: ConcertEventModel[], modalVisible: boolean; concertName: string; concertDate: Date; concertState: string; concertCity: string; concertBands: string; concertImage: string; bandName: string; bandId: number; concertDescription:string };
     setters: {
+        setConcertDescription:React.Dispatch<React.SetStateAction<string>>;
         setBandModalVisible: React.Dispatch<React.SetStateAction<boolean>>; setModalVisible: React.Dispatch<React.SetStateAction<boolean>>; setConcertName: React.Dispatch<React.SetStateAction<string>>; setConcertDate: React.Dispatch<React.SetStateAction<Date>>;
-        setConcertState: React.Dispatch<React.SetStateAction<string>>; setConcertCity: React.Dispatch<React.SetStateAction<string>>; setConcertBands: React.Dispatch<React.SetStateAction<Band[]>>; setConcertImage: React.Dispatch<React.SetStateAction<string>>;
+        setConcertState: React.Dispatch<React.SetStateAction<string>>; setConcertCity: React.Dispatch<React.SetStateAction<string>>; setConcertBands: React.Dispatch<React.SetStateAction<string>>; setConcertImage: React.Dispatch<React.SetStateAction<string>>;
         setBandName: React.Dispatch<React.SetStateAction<string>>; setBandID: React.Dispatch<React.SetStateAction<number>>;
     };
 }
@@ -22,8 +23,10 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
         props.setters.setConcertDate(dNow);
     }
 
-    const createEventButton = () => {
+    
+    const createEventButton = async () => {
         console.log('create the event' + props.states.concert.length);
+       
         const payload: ConcertEventModel = {
             eId: 7,// this wil be set by server
             eBandList: props.states.concertBands,
@@ -31,39 +34,38 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
             state: props.states.concertState,
             sourceImage: props.states.concertImage,
             eName: props.states.concertName,
-            eDate: props.states.concertDate
+            eDate: props.states.concertDate,
+            description: props.states.concertDescription
         }
+ 
+        concertEventRemote.addConcertEvent(payload);
 
-        props.states.concertBands.length = 0;
+        //props.states.concertBands.length = 0;
 
         props.setters.setConcertCity('');
         props.setters.setConcertDate(new Date());
         props.setters.setConcertImage('');
         props.setters.setConcertName('');
         props.setters.setConcertState('');
+        props.setters.setConcertDescription('');
 
-        // hack for now remove this and uncomment the lines underneath
-        //concertEventRemote.addConcertEvent(payload);
 
-        //  concertEventRemote.addConcertEvent(payload).then(con => {
-        //     return setConcerts(con);
-        //  })
+        console.log(' am i being clicked');
         props.setters.setModalVisible(false);
     }
-    const removeBandFromEvent = (idToRemove: number) => {
+ 
+    const removeBandFromEvent = (bandlist: string) => {
 
-        for (let i = 0; i < props.states.concertBands.length; i++) {
-            if (props.states.concertBands[i].id == idToRemove) {
-                let arrSpl = props.states.concertBands;
-                arrSpl.splice(i, 1);
-                props.setters.setConcertBands(arrSpl);
-            }
+        let newBandList = props.states.concertBands.split(',');
+        let trimedList = '';
+        for (let i = 0; i < newBandList.length; i++)
+        {
+            if(bandlist != newBandList[i])
+             trimedList = trimedList + ',';
         }
-
-        // this seams to be doing nothing
-        // setConcertBands(props.states.concertBands);
-
+        props.setters.setConcertBands(bandlist);
     }
+    
     const addBandToEventHandler = () => {
         // we will need to get all the band info then populate for now i hack it
         //concertEventRemote.();
@@ -73,14 +75,14 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
             members: [],
             events: []
         }
-        let arr = props.states.concertBands;
-        arr.push(newBand);
-        props.setters.setConcertBands(arr);
+        //let arr = props.states.concertBands;
+        //arr.push(newBand);
+        props.setters.setConcertBands('');
 
         props.setters.setBandID(0);
         props.setters.setBandName('');
     }
-
+ 
     const bandModelEventButton = (shouldShow: boolean) => {
         props.setters.setBandModalVisible(shouldShow);
         props.setters.setModalVisible(!shouldShow);
@@ -88,16 +90,22 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
 
 
     const renderBandList = () => {
-        return props.states.concertBands.map(ce => (
-            <div key={ce.id}>
+        const bandArray = props.states.concertBands.split(',');
+        let idForKey = 0;
+        return bandArray.map(() => {
+           return(
+           <div key={idForKey}>
                 <Typography>
 
-                    {ce.name}
-                    <button onClick={() => removeBandFromEvent(ce.id)}>Remove</button>
+                    {bandArray[idForKey]}
+                    <button onClick={() => removeBandFromEvent(bandArray[idForKey])}>Remove</button>
                 </Typography>
             </div>
-        ))
-    }
+           )
+           idForKey++;
+        })
+    };
+
     const handleImage = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files) {
             let reader = new FileReader();
@@ -112,24 +120,13 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
         }
     };
 
-
-
-
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.setters.setConcertDate(new Date(event.target.value.replace("T","\ ")));
     }
 
-
-
-
     const date = props.states.concertDate;
     const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
                             + "T" + ("0"+props.states.concertDate.getHours()).slice(-2) + ":" + ("0" + props.states.concertDate.getMinutes()).slice(-2);
-
-
-
-
-
 
     return (
         <div>

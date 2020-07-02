@@ -23,23 +23,42 @@ export const getEventById = async (eid:string) => {
 
 // working on it
 export const addConcertEvent = async (concert:ConcertEventModel) => {
-    const response = await internalAxios.post<ConcertEventModel[]>('/events');
+    console.log('adding event event remote')
+    const concertEvent:EventInterface = {
+        id: 0,
+        name: concert.eName,
+        date: concert.eDate.toISOString(),
+        picture: 'this image',//concert.sourceImage,
+        description: concert.description,
+        song:'this song',
+        place : {
+            id:1,
+            zipCode:44444,
+            city: concert.city,
+            state: concert.state,
+            streetAddress:'your moms house',
+        },
+        bands:'team 1, team 2'//concert.eBandList
+    }
+    const response = await internalAxios.post<EventInterface[]>('/events', concertEvent);
     return response;
 }
 
-interface createEvent
+interface EventInterface
 {
-    "id": 2,
-    "name": "No Kid's ALLOWED!",
-    "date": "2020-07-24T23:00:00.000+00:00",
-    "picture": "https://i1.wp.com/nafme.org/wp-content/files/2014/12/kids-concert.jpg?ssl=1",
-    "description": "Join team 1 in celebrating end of training",
-    "place": {
-        "id": 2,
-        "zipCode": 33602,
-        "state": "FL",
-        "city": "Tampa",
-        "streetAddress": "401 Channelside Dr"
-    }
+    id: number,
+    name: string,
+    date: string,
+    picture: string,
+    description: string,
+    song: string,
+    place: {
+        id: number,
+        zipCode: number,
+        state: string,
+        city: string,
+        streetAddress: string
+    },
+    bands: string
 }
 

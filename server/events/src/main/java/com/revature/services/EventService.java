@@ -40,4 +40,11 @@ public class EventService {
 	public Event getEventByID(int id) {
 		return eventRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
 	}
+	
+	public Event update(Event event) {
+		if(event.getId() == 0) {
+			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST); 
+		}
+		return save(event);
+	}
 }

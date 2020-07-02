@@ -20,21 +20,21 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     const [concertDate, setConcertDate] = useState(new Date());
     const [concertState, setConcertState] = useState('');
     const [concertCity, setConcertCity] = useState('');
-    const [concertBands, setConcertBands] = useState<Band[]>([]);
+    const [concertBands, setConcertBands] = useState('');
     const [concertImage, setConcertImage] = useState('');
     const [bandName, setBandName] = useState('');
     const [bandId, setBandID] = useState(0);
-
+    const [concertDescription, setConcertDescription] = useState('');
     const [citySearch, setCitySearch] = useState('');
     const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
     const states = {
         bandModelVisible: bandModelVisible, concert: concert, modalVisible: modalVisible, concertName: concertName, concertDate: concertDate, concertState: concertState, concertCity: concertCity,
-        concertBands: concertBands, concertImage: concertImage, bandName: bandName, bandId: bandId
+        concertBands: concertBands, concertImage: concertImage, bandName: bandName, bandId: bandId, concertDescription: concertDescription
     }
     const setters = {
         setBandModalVisible: setBandModalVisible, setModalVisible: setModalVisible, setConcertName: setConcertName, setConcertDate: setConcertDate, setConcertState: setConcertState,
-        setConcertCity: setConcertCity, setConcertBands: setConcertBands, setConcertImage: setConcertImage, setBandName: setBandName, setBandID: setBandID
+        setConcertCity: setConcertCity, setConcertBands: setConcertBands, setConcertImage: setConcertImage, setBandName: setBandName, setBandID: setBandID, setConcertDescription: setConcertDescription
     }
 
     //  const addConcert = (list: ConcertEventModel) => {
@@ -43,7 +43,6 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
 
     const addEventHandler = async () => {
-
         const payload:ConcertEventModel = {
             eId:0,
             city:concertCity,
@@ -51,7 +50,8 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             eBandList:concertBands,
             eDate:concertDate,
             eName:concertName,
-            sourceImage:concertImage
+            sourceImage:concertImage,
+            description:concertDescription
         }
         concertEventRemote.addConcertEvent(payload);
     }
