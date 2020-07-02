@@ -56,14 +56,20 @@ export const ProfileComponent: React.FC = () => {
         load();
     }, []);
 
-    if (!first) {
+    if (!localStorage.getItem('userId')){
+        return (<section>
+            <h1>Please login to view your profile.</h1>
+            <Button href = "/login">Login</Button>
+        </section>)
+    }else if (!first) {
         return (
             <div className="loading">
 
                 <img className="loading-img" src="https://media2.govtech.com/images/940*712/SHUTTERSTOCK_LOADING_SYMBOL_BROADBAND_INTERNET_SPEED.jpg" />
             </div>
         )
-    } else {
+    } 
+     else {
         return (
             <section>
 

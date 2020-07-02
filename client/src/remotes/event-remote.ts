@@ -20,6 +20,9 @@ export const getEventById = async (eid:string) => {
     return internalAxios.get('/events/'+eid)
 }
 
+export const getEventByUserId = async (uid:string)=>{
+    return internalAxios.get('events/user/'+uid);
+}
 
 // working on it
 export const addConcertEvent = async (concert:any) => {
