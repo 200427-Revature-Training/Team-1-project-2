@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Event;
-import com.revature.entities.User_Event;
+import com.revature.entities.User_Event_DTO;
 import com.revature.repositories.EventRepository;
 
 @Service
@@ -28,13 +28,15 @@ public class EventService {
 	}
 
 	public Collection<Event> getUserEventsAttended(int id) {
-		Collection<User_Event> list = eventRepository.getUserEventsAttended(id);
+		Collection<Event> list = eventRepository.getUserEventsAttended(id);
+		/*
 		Collection<Event> list2 = new ArrayList<Event>();
 		Iterator<User_Event> iterator = list.iterator();
 		while (iterator.hasNext()) {
 			list2.add(new Event(iterator.next().getEvent()));
 		}
-		return list2;
+		*/
+		return list;
 	}
 
 	public Event getEventByID(int id) {
