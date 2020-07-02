@@ -12,7 +12,8 @@ import com.revature.entities.User_Event;
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
-	@Query("FROM User_Event WHERE user_id = ?1")
+	@Query(value = "select * FROM  events.user_event ue JOIN events.events e ON ue.event_id = e.id WHERE ue.user_id = 17;",
+			nativeQuery=true)
 	Collection<User_Event> getUserEventsAttended(int id);
 	
 }

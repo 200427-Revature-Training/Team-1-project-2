@@ -1,15 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import { ConcertEventModel } from '../../data-models/event-model';
 import { TextField } from '@material-ui/core';
+import { Button } from 'react-bootstrap';
+import * as eventRemote from '../../remotes/event-remote';
 
 const concerts: ConcertEventModel[] = [];
 
 export const ConcertPageComponent: React.FC = () => {
     const [concert, setConcert] = useState<ConcertEventModel[]>(concerts);
 
-    const [citySearch, setCitySearch] = useState('San Francisco');
-    const [stateSearch, setStateSearch] = useState('California');
+    const [citySearch, setCitySearch] = useState('');
+    const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
 
 
@@ -56,10 +58,45 @@ export const ConcertPageComponent: React.FC = () => {
             return (<FeedComponent key={concertEvent.eId} concertEvents={concertEvent} homePage={false} yourShow={true}></FeedComponent>)
         })
     }
-    
-    return (
+    const getAllEvents = async () => {
+        const city = localStorage.getItem('userCity');
+        const state = localStorage.getItem('userState');
+        if(city!==null&&state!==null){
+            setCitySearch(city);
+            setStateSearch(state);
+        }
+        const id = localStorage.getItem('userId');
+        if(id!==null){
+            const response = await eventRemote.getEventByUserId(id);
+            console.log(response.data);
+        }
 
-        <div>
+        /*
+        const response = await concertEventRemote.getAllEvents();
+        const con = response.data;
+        const fixedDates = con.map(c => {
+            c.date = new Date(c.date);
+            return c;
+        })
+        setConcerts(fixedDates);
+       */
+    }
+
+    useEffect(() => {
+        getAllEvents();
+    }, []);
+
+
+    if (!localStorage.getItem('userId')){
+        return (<section>
+            <h1>Please login to view your Concerts.</h1>
+            <Button href = "/login">Login</Button>
+        </section>)
+    }else{
+
+        return (
+            
+            <div>
             <br></br>
             <h2>Your upcoming shows!</h2>
             <div className="container feed-container">
@@ -86,7 +123,7 @@ export const ConcertPageComponent: React.FC = () => {
                             InputLabelProps={{
                                 shrink: true,
                             }}
-                        />
+                            />
                     </div>
 
                 </div>
@@ -103,4 +140,5 @@ export const ConcertPageComponent: React.FC = () => {
             </div>
         </div>
     )
+}
 }

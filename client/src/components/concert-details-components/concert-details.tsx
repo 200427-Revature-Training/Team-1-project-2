@@ -6,7 +6,6 @@ import * as concertEventRemote from '../../remotes/event-remote';
 
 export const ConcertDetailsComponent: React.FC = () => {
     const [name, setName] = useState('');
-    const [genre, setGenre] = useState('');
     const [band, setBand] = useState('');
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
@@ -30,6 +29,7 @@ export const ConcertDetailsComponent: React.FC = () => {
             setCity(response.data.place.city);
             setState(response.data.place.state)
             setImage(response.data.picture);
+            setBand(response.data.bands);
             const date = new Date(response.data.date)
             setDate(date.toLocaleDateString());
             
@@ -49,11 +49,7 @@ export const ConcertDetailsComponent: React.FC = () => {
                 </div>
                <div className="col-4">
                    <br></br>
-                   <h4>Genre</h4>
-                   <ul className="myList">
-                       <p>{genre}</p>
-                   </ul>
-                   <h4>Band</h4>
+                   <h4>Bands</h4>
                    <ul className="myList">
                         <p>{band}</p>
                    </ul>

@@ -43,15 +43,15 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
 
     const addEventHandler = async () => {
-        const payload:ConcertEventModel = {
-            eId:0,
-            city:concertCity,
-            state:concertState,
-            eBandList:concertBands,
-            eDate:concertDate,
-            eName:concertName,
-            sourceImage:concertImage,
-            description:concertDescription
+        const payload: ConcertEventModel = {
+            eId: 0,
+            city: concertCity,
+            state: concertState,
+            eBandList: concertBands,
+            eDate: concertDate,
+            eName: concertName,
+            sourceImage: concertImage,
+            description: concertDescription
         }
         concertEventRemote.addConcertEvent(payload);
     }
@@ -69,11 +69,11 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
-    
+
     const sortDate = (a: any, b: any) => {
         return a.eDate < b.eDate ? 1 : -1;
     }
-    
+
     const sortFx = (a: any, b: any) => {
         const aState = a.place.state.toLowerCase();
         const bState = b.place.state.toLowerCase();
@@ -81,7 +81,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         const sSearch = stateSearch.toLowerCase();
         const cSearch = citySearch.toLowerCase();
         if (aState === sSearch) {
-            
+
             if (bState === sSearch && bCity === cSearch) {
                 return 1;
             }
@@ -91,16 +91,16 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         } else if (!(bState === sSearch || bCity === cSearch)) {
             return -1;
         }
-        
+
         else {
             return 0;
         }
     }
-    
+
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
         const con = response.data;
-        const fixedDates = con.map(c=>{
+        const fixedDates = con.map(c => {
             c.date = new Date(c.date);
             return c;
         })
@@ -153,8 +153,9 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                             }}
                         />
                     </div>
-                    <div className="text-right col-3">
-                        <br></br>
+                    <br></br>
+                    <div className="my-feed-container">
+
                         {addManageButtons()}
                     </div>
                 </div>
