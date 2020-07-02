@@ -2,16 +2,13 @@ package com.revature.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "bands", schema = "events")
+@Table(name = "events.bands")
 public class Band {
 
 	@Id
@@ -22,9 +19,7 @@ public class Band {
 	@Column(name = "picture_url")
 	private String picture;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "genre_id")
-	private Genre genre;
+	private String genre;
 
 	@Column(name = "featured_song")
 	private String song;
@@ -34,7 +29,7 @@ public class Band {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Band(int id, String name, String picture, Genre genre, String song) {
+	public Band(int id, String name, String picture, String genre, String song) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -67,11 +62,11 @@ public class Band {
 		this.picture = picture;
 	}
 
-	public Genre getGenre() {
+	public String getGenre() {
 		return genre;
 	}
 
-	public void setGenre(Genre genre) {
+	public void setGenre(String genre) {
 		this.genre = genre;
 	}
 
@@ -129,4 +124,11 @@ public class Band {
 		return true;
 	}
 
+	@Override
+	public String toString() {
+		return "Band [id=" + id + ", name=" + name + ", picture=" + picture + ", genre=" + genre + ", song=" + song
+				+ "]";
+	}
+
+	
 }

@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 
 @Entity
-@Table(name = "songs", schema = "events")
+@Table(name = "events.songs")
 public class Song {
 	@Id
 	@GeneratedValue

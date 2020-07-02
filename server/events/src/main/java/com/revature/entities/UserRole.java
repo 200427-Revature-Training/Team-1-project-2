@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_roles", schema = "events")
+@Table(name = "events.user_roles")
 public class UserRole {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
