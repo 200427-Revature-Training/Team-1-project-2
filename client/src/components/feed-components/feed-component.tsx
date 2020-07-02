@@ -75,8 +75,9 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
                     <img onClick={handleClick} className="card-img-top" src={props.concertEvents.picture} alt="Card image cap" />
                     <div className="card-body">
                         <h5 className="card-title">{props.concertEvents.name}</h5>
-                        <p className="card-text">{props.concertEvents.place.city}</p>
-                        <p className="card-text">{props.concertEvents.place.state}</p>
+                        <p className="card-text">{props.concertEvents.place.city}, {props.concertEvents.place.state}</p>
+        <p className="card-text">{props.concertEvents.description}</p>
+        <p className="card-text">Bands preforming: {props.concertEvents.bands}</p>
                         <p className="card-text">{props.concertEvents.date.toLocaleDateString()}</p>
                         <div>
                         </div>
