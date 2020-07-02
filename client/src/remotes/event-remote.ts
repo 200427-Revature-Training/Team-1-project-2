@@ -25,23 +25,22 @@ export const getEventByUserId = async (uid:string)=>{
 }
 
 // working on it
-export const addConcertEvent = async (concert:ConcertEventModel) => {
+export const addConcertEvent = async (concert:any) => {
     console.log('adding event event remote')
     const concertEvent:EventInterface = {
-        id: 0,
         name: concert.eName,
         date: concert.eDate.toISOString(),
-        picture: 'this image',//concert.sourceImage,
+        picture: concert.sourceImage,
         description: concert.description,
-        song:'this song',
+        song:concert.featuredSong,
         place : {
-            id:1,
-            zipCode:44444,
+            id:concert.placeId,
+            zipCode:concert.zipCode,
             city: concert.city,
             state: concert.state,
-            streetAddress:'your moms house',
+            streetAddress:concert.streetAddress,
         },
-        bands:'team 1, team 2'//concert.eBandList
+        bands:concert.eBandList
     }
     const response = await internalAxios.post<EventInterface[]>('/events', concertEvent);
     return response;
@@ -49,7 +48,6 @@ export const addConcertEvent = async (concert:ConcertEventModel) => {
 
 interface EventInterface
 {
-    id: number,
     name: string,
     date: string,
     picture: string,
