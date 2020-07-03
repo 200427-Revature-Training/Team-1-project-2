@@ -2,17 +2,7 @@ import { ConcertEventModel } from '../data-models/event-model';
 import { internalAxios } from './internal-axios';
 
 export const getAllEvents = async () => {
-    
-    //const response = await internalAxios.get<ConcertEventModel[]>('/events');
     return internalAxios.get('/events');
-    
-    // return response.data;
-}
-
-// not tested
-export const getAllUserEvents = async () => {
-    const response = await internalAxios.get<ConcertEventModel[]>('/events/id');
-    return response;
 }
 
 export const getEventById = async (eid:string) => {
@@ -31,7 +21,6 @@ export const removeUserEvent = async (uid:number,eid:number)=>{
 }
 
 export const addConcertEvent = async (concert:any) => {
-    console.log('adding event event remote')
     const concertEvent:EventInterface = {
         id:0,
         name: concert.eName,
@@ -48,14 +37,13 @@ export const addConcertEvent = async (concert:any) => {
 }
 
 export const updateConcertEvent = async (concert:any) => {
-    console.log('adding event event remote')
     const concertEvent:EventInterface = {
         id:concert.id,
         name: concert.eName,
         date: concert.eDate.toISOString(),
         picture: concert.sourceImage,
         description: concert.description,
-        song:concert.featuredSong,
+        song:concert.song,
         city: concert.city,
         state: concert.state,
         bands:concert.eBandList
