@@ -9,7 +9,6 @@ interface ModalComponents {
     setters: {
         setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     };
-
 }
 
 export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
@@ -21,9 +20,6 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
     const [concertImage, setConcertImage] = useState('');
     const [bandName, setBandName] = useState('');
     const [concertDescription, setConcertDescription] = useState('');
-    const [placeId, setPlaceID] = useState('');
-    const [zipcode, setZipCode] = useState('');
-    const [streetAddress, setStreetAddress] = useState('');
     const [featuredSong, setFeaturedSong] = useState('');
 
     /*
@@ -41,10 +37,8 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
             sourceImage: concertImage,
             description: concertDescription,
             song: featuredSong,
-            placeId: placeId,
             city: concertCity,
             state: concertState,
-            streetAddress:streetAddress,
             eBandList: bandName
         }
  
@@ -57,9 +51,6 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
         setConcertDescription('');
         setConcertDate(new Date());
         setBandName('');
-        setPlaceID('');
-        setZipCode('');
-        setStreetAddress('');
         setFeaturedSong('');
 
         props.setters.setModalVisible(false);
@@ -170,36 +161,6 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="Place Id"
-                                label="Place Id"
-                                name="Place Id"
-                                autoComplete={placeId}
-                                value={placeId}
-                                autoFocus
-                                onChange={(e) => setPlaceID(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="Zip code"
-                                label="Zip code"
-                                name="Zip code"
-                                autoComplete={zipcode}
-                                value={zipcode}
-                                autoFocus
-                                onChange={(e) => setZipCode(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
                                 id="city"
                                 label="City"
                                 name="city"
@@ -222,21 +183,6 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
                                 value={concertState}
                                 autoFocus
                                 onChange={(e) => setConcertState(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="Address"
-                                label="Address"
-                                name="Address"
-                                autoComplete={streetAddress}
-                                value={streetAddress}
-                                autoFocus
-                                onChange={(e) => setStreetAddress(e.target.value)}
                             />
                         </div>
                         <div>

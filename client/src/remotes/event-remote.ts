@@ -39,13 +39,8 @@ export const addConcertEvent = async (concert:any) => {
         picture: concert.sourceImage,
         description: concert.description,
         song:concert.featuredSong,
-        place : {
-            id:concert.placeId,
-            zipCode:concert.zipCode,
-            city: concert.city,
-            state: concert.state,
-            streetAddress:concert.streetAddress,
-        },
+        city: concert.city,
+        state: concert.state,
         bands:concert.eBandList
     }
     const response = await internalAxios.post<EventInterface[]>('/events', concertEvent);
@@ -61,13 +56,8 @@ export const updateConcertEvent = async (concert:any) => {
         picture: concert.sourceImage,
         description: concert.description,
         song:concert.featuredSong,
-        place : {
-            id:concert.placeId,
-            zipCode:concert.zipCode,
-            city: concert.city,
-            state: concert.state,
-            streetAddress:concert.streetAddress,
-        },
+        city: concert.city,
+        state: concert.state,
         bands:concert.eBandList
     }
     const response = await internalAxios.put<EventInterface[]>('/events', concertEvent);
@@ -82,13 +72,8 @@ interface EventInterface
     picture: string,
     description: string,
     song: string,
-    place: {
-        id: number,
-        zipCode: number,
-        state: string,
-        city: string,
-        streetAddress: string
-    },
+    state: string,
+    city: string,
     bands: string
 }
 
