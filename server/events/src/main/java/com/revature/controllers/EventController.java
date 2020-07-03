@@ -55,7 +55,6 @@ public class EventController {
 	@PutMapping
 	public Event updateEvent(@RequestBody Event event)
 	{
-		System.out.println("hello?");
 		return eventService.update(event);
 	}
 }
