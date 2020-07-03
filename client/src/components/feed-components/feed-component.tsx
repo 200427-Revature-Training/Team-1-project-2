@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './feed.css'
 import { Button } from 'react-bootstrap'
-import { ConcertEventModel } from '../../data-models/event-model';
-import * as userRemote from '../../remotes/user-remote';
 import * as eventRemote from '../../remotes/event-remote'
 import { Redirect } from 'react-router';
 
@@ -41,13 +39,19 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         const eid = props.concertEvents.id;
         if (uid !== null) {
             const uidStr: number = +uid;
-            const response = await eventRemote.addUserEvent(uidStr, eid);
+             await eventRemote.addUserEvent(uidStr, eid);
             window.location.reload();
         }
     }
 
-    const removeConcerFromList = () => {
-
+    const removeConcerFromList = async () => {
+        const uid = localStorage.getItem('userId');
+        const eid = props.concertEvents.id;
+        if (uid !== null) {
+            const uidStr: number = +uid;
+             await eventRemote.removeUserEvent(uidStr, eid);
+            window.location.reload();
+        }
     }
 
     const renderButtons = () => {

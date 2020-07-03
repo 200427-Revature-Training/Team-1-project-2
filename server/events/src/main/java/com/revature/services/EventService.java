@@ -70,4 +70,10 @@ public class EventService {
 	public Event save(Event concertEvent) {
 		return eventRepository.save(concertEvent);
 	}
+
+	public void deleteUserEvent(User_Event ue) {
+		userEventRepository.delete(ue);
+		// TODO Auto-generated method stub
+		
+	}
 }

@@ -13,7 +13,6 @@ interface ModalComponents {
 
 export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
 
-    const [concert, setConcerts] = useState<any[]>([]);
     const [concertName, setConcertName] = useState('');
     const [concertDate, setConcertDate] = useState(new Date());
     const [concertState, setConcertState] = useState('');
@@ -26,14 +25,14 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
     const [streetAddress, setStreetAddress] = useState('');
     const [featuredSong, setFeaturedSong] = useState('');
 
+    /*
     const setConcertDateString = (input: string) => {
         const dNow = new Date(input);
         setConcertDate(dNow);
     }
-
+*/
     
     const createEventButton = async () => {
-        console.log('create the event' + concert.length);
        
         const payload: any = {
             eName: concertName,

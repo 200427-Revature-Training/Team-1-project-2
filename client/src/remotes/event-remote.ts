@@ -1,6 +1,5 @@
 import { ConcertEventModel } from '../data-models/event-model';
 import { internalAxios } from './internal-axios';
-import { User } from '../data-models/user-model';
 
 export const getAllEvents = async () => {
     
@@ -26,6 +25,9 @@ export const getEventByUserId = async (uid:string)=>{
 }
 export const addUserEvent = async (uid:number,eid:number)=>{
     return await internalAxios.post('/events/user',{'userID':uid,'eventID':eid});
+}
+export const removeUserEvent = async (uid:number,eid:number)=>{
+    return await internalAxios.delete('/events/user?uid='+uid+'&eid='+eid);
 }
 
 // working on it
