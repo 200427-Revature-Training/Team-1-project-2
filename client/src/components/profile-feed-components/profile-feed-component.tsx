@@ -53,7 +53,7 @@ export const ConcertPageComponent: React.FC = () => {
     //.filter(concert => concert.eDate >= searchConcertDate)
     const renderFeedComp = () => {
         return concert.map(concertEvent => {
-            return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent} homePage={false} yourShow={true}></FeedComponent>)
+            return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent} ></FeedComponent>)
         })
     }
     const getAllEvents = async () => {
