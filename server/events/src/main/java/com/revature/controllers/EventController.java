@@ -14,8 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Event;
-import com.revature.entities.User_Event_Input;
-import com.revature.entities.User_Event_DTO;
+import com.revature.entities.User_Event;
 import com.revature.services.EventService;
 
 @RestController
@@ -43,7 +42,7 @@ public class EventController {
 	}
 	
 	@PostMapping("/user")
-	void save(@RequestBody User_Event_Input ue) {
+	void save(@RequestBody User_Event ue) {
 		eventService.saveUserEvent(ue);
 		
 	}

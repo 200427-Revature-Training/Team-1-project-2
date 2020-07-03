@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Event;
-import com.revature.entities.User_Event_Input;
-import com.revature.entities.User_Event_DTO;
+import com.revature.entities.User_Event;
 import com.revature.repositories.EventRepository;
 import com.revature.repositories.UserEventRepository;
 
@@ -26,12 +26,25 @@ public class EventService {
 		return eventRepository.findAll();
 	}
 
-	public void saveUserEvent(User_Event_Input ue) {
+	public void saveUserEvent(User_Event ue) {
 		userEventRepository.save(ue);
 	}
 
 	public Collection<Event> getUserEventsAttended(int id) {
-		Collection<Event> list = eventRepository.getUserEventsAttended(id);
+		Collection<User_Event> list = userEventRepository.findAll();
+		System.out.println(list);
+		Collection<User_Event> list2 = new ArrayList<User_Event>();
+		for (User_Event ue : list) {
+			if (ue.getUserID() == id)
+				list2.add(ue);
+		}
+		System.out.println(list2);
+		Collection<Event> events = new ArrayList<Event>();
+		for (User_Event ue : list2) {
+			events.add(getEventByID(ue.getEventID()));
+		} 
+		return events;
+		//Collection<Event> list = userEventRepository.getUserEventsAttended(id);
 		/*
 		Collection<Event> list2 = new ArrayList<Event>();
 		Iterator<User_Event> iterator = list.iterator();
@@ -39,7 +52,7 @@ public class EventService {
 			list2.add(new Event(iterator.next().getEvent()));
 		}
 		*/
-		return list;
+		//return list;
 	}
 
 	public Event getEventByID(int id) {
