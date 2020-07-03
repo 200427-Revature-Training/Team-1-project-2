@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import com.revature.entities.Event;
-import com.revature.entities.User_Event_DTO;
 
 @Repository
 public interface EventRepository extends JpaRepository<Event, Integer> {
