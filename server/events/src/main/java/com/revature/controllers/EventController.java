@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Event;
+import com.revature.entities.User_Event_Input;
 import com.revature.entities.User_Event_DTO;
 import com.revature.services.EventService;
 
@@ -39,6 +40,12 @@ public class EventController {
 	@GetMapping("/user/{id}")
 	Collection<Event> getUserEventsAttended(@PathVariable int id) {
 		return eventService.getUserEventsAttended(id);
+	}
+	
+	@PostMapping("/user")
+	void save(@RequestBody User_Event_Input ue) {
+		eventService.saveUserEvent(ue);
+		
 	}
 
 	@GetMapping("/{id}")
