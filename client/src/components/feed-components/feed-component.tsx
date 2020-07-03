@@ -7,7 +7,6 @@ import * as eventRemote from '../../remotes/event-remote'
 import { Redirect } from 'react-router';
 
 interface FeedProps {
-
     concertEvents: any;
     yourConcert: any;
 }
