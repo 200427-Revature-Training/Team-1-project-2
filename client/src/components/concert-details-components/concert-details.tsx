@@ -95,6 +95,7 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
             setFeaturedSong(response.data.featuredSong);
            
            const tempModel =  {
+                id:response.data.id,
                 name: response.data.name,
                 date: response.data.date,
                 picture: response.data.picture,

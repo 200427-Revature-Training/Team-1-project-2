@@ -62,6 +62,8 @@ public class EventController {
 	@PutMapping
 	public Event updateEvent(@RequestBody Event event)
 	{
+		System.out.println("updatoing event " + event.getName());
+		System.out.println("updatoing event " + event);
 		return eventService.update(event);
 	}
 }

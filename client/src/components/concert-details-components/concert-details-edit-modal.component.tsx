@@ -41,10 +41,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
     const [streetAddress, setStreetAddress] = useState(props.concertModel.place.streetAddress);
     const [featuredSong, setFeaturedSong] = useState(props.concertModel.song);
 
-    const setConcertDateString = (input: string) => {
-        const dNow = new Date(input);
-        setConcertDate(dNow);
-    }
+   // const setConcertDateString = (input: string) => {
+   //     const dNow = new Date(input);
+    //    setConcertDate(dNow);
+    //}
 
     const createEventButton = async () => {
        
@@ -85,7 +85,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
 
     const date = concertDate;
     const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
-                   //         + "T" + ("0"+concertDate.getHours()).slice(-2) + ":" + ("0" + concertDate.getMinutes()).slice(-2);
+                           + "T" + ("0"+concertDate.getHours()).slice(-2) + ":" + ("0" + concertDate.getMinutes()).slice(-2);
 
  useEffect(() => {
         
