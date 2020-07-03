@@ -16,35 +16,22 @@ interface ModalComponents {
         picture: string,
         description: string,
         song:string,
-        place : {
-            id:number,
-            zipCode:number,
-            city: string,
-            state: string,
-            streetAddress:string,
-        },
+        city: string,
+        state: string,
         bands:string
     }
 }
 
 export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) => {
-//console.log("I am logging my props" + props.concertModel);
+
     const [concertName, setConcertName] = useState(props.concertModel.name);
     const [concertDate, setConcertDate] = useState(new Date());
-    const [concertState, setConcertState] = useState(props.concertModel.place.state);
-    const [concertCity, setConcertCity] = useState(props.concertModel.place.city);
+    const [concertState, setConcertState] = useState(props.concertModel.state);
+    const [concertCity, setConcertCity] = useState(props.concertModel.city);
     const [concertImage, setConcertImage] = useState(props.concertModel.picture);
     const [bandName, setBandName] = useState(props.concertModel.bands);
     const [concertDescription, setConcertDescription] = useState(props.concertModel.description);
-    const [placeId, setPlaceID] = useState(props.concertModel.place.id);
-    const [zipcode, setZipCode] = useState(props.concertModel.place.zipCode);
-    const [streetAddress, setStreetAddress] = useState(props.concertModel.place.streetAddress);
     const [featuredSong, setFeaturedSong] = useState(props.concertModel.song);
-
-   // const setConcertDateString = (input: string) => {
-   //     const dNow = new Date(input);
-    //    setConcertDate(dNow);
-    //}
 
     const createEventButton = async () => {
        
@@ -55,10 +42,8 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
             sourceImage: concertImage,
             description: concertDescription,
             song: featuredSong,
-            placeId: placeId,
             city: concertCity,
             state: concertState,
-            streetAddress:streetAddress,
             eBandList: bandName
         }
  
@@ -176,36 +161,6 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="Place Id"
-                                label="Place Id"
-                                name="Place Id"
-                                autoComplete={placeId.toString()}
-                                value={placeId}
-                                autoFocus
-                               
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="Zip code"
-                                label="Zip code"
-                                name="Zip code"
-                 
-                                value={zipcode}
-                                autoFocus
-                         
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
                                 id="city"
                                 label="City"
                                 name="city"
@@ -228,21 +183,6 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 value={concertState}
                                 autoFocus
                                 onChange={(e) => setConcertState(e.target.value)}
-                            />
-                        </div>
-                        <div>
-                            <TextField
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="Address"
-                                label="Address"
-                                name="Address"
-                                autoComplete={streetAddress}
-                                value={streetAddress}
-                                autoFocus
-                                onChange={(e) => setStreetAddress(e.target.value)}
                             />
                         </div>
                         <div>

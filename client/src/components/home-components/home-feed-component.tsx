@@ -71,6 +71,7 @@ const addManageButtons = () => {
     
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
+        console.log(response.data);
         const city = localStorage.getItem('userCity');
         const state = localStorage.getItem('userState');
         if (city !== null && state !== null) {
@@ -105,7 +106,9 @@ const addManageButtons = () => {
     const handleSelectState = (event: React.ChangeEvent<{ value: unknown }>) => {
         setStateSearch(event.target.value as string);
         };
+
     useEffect(() => {
+        renderFeedComponents();
         getAllEvents();
     }, []);
 
@@ -213,8 +216,6 @@ const addManageButtons = () => {
             <div className="my-feed-container">
                 {renderFeedComponents()}
             </div>
-
-
         </div>
     )
 }

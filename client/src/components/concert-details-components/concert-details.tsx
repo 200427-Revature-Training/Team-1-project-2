@@ -32,14 +32,9 @@ interface concertModel {
 */
  
 interface ModalComponentsProps {
-     states: { modalVisible: boolean; name: string; date:Date; image:string; description:string; song:string; band:string; city:string; state:string;
-                placeId:number; zipcode:number; streetAddress:string; featuredSong:string };
+     states: { modalVisible: boolean; };
     setters: {
-        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>; setName:React.Dispatch<React.SetStateAction<string>>; setDate:React.Dispatch<React.SetStateAction<Date>>;
-        setImage:React.Dispatch<React.SetStateAction<string>>; setDescription:React.Dispatch<React.SetStateAction<string>>; setSong:React.Dispatch<React.SetStateAction<string>>;
-        setBand:React.Dispatch<React.SetStateAction<string>>; setState:React.Dispatch<React.SetStateAction<string>>; setCity:React.Dispatch<React.SetStateAction<string>>;
-        setPlaceId:React.Dispatch<React.SetStateAction<string>>; setZipCode:React.Dispatch<React.SetStateAction<string>>; setStreetAddress:React.Dispatch<React.SetStateAction<string>>;
-        setFeaturedSong:React.Dispatch<React.SetStateAction<string>>;
+        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>; 
     };
 }
 
