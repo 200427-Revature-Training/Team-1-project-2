@@ -42,12 +42,13 @@ export const userRemoveEvent = async (payload:number) => {
 }
 
 // tell the server what concert to add to my list
+/*
 export const userAddEvent = async (payload:number) => {
     const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/add');
 
     return response.data;
 }
-
+*/
 interface UserLoginInterface{
         id: number,
         firstName: string,

@@ -16,7 +16,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const [concert, setConcerts] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [yourConcert,setYourConcerts]= useState<any[]>([]);
     const [citySearch, setCitySearch] = useState('');
     const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
@@ -58,7 +58,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const renderFeedComponents = () => {
         return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
-            return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
+            return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
 
@@ -97,6 +97,14 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return c;
         })
         setConcerts(fixedDates);
+        const id = localStorage.getItem('userId');
+        if (id !== null) {
+            const data = await concertEventRemote.getEventByUserId(id);
+            const ids = data.map(c => {
+                return c.id;
+            })
+            setYourConcerts(ids);
+        }
     }
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {

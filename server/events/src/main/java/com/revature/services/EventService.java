@@ -31,6 +31,10 @@ public class EventService {
 	}
 
 	public Collection<Event> getUserEventsAttended(int id) {
+		Collection <Event> events = eventRepository.getUserEventsAttended(id);
+		return events;
+	}
+		/*
 		Collection<User_Event> list = userEventRepository.findAll();
 		System.out.println(list);
 		Collection<User_Event> list2 = new ArrayList<User_Event>();
@@ -39,13 +43,10 @@ public class EventService {
 				list2.add(ue);
 		}
 		System.out.println(list2);
+		//Collection<Event> list = userEventRepository.getUserEventsAttended(id);
 		Collection<Event> events = new ArrayList<Event>();
 		for (User_Event ue : list2) {
 			events.add(getEventByID(ue.getEventID()));
-		} 
-		return events;
-		//Collection<Event> list = userEventRepository.getUserEventsAttended(id);
-		/*
 		Collection<Event> list2 = new ArrayList<Event>();
 		Iterator<User_Event> iterator = list.iterator();
 		while (iterator.hasNext()) {
@@ -53,7 +54,7 @@ public class EventService {
 		}
 		*/
 		//return list;
-	}
+
 
 	public Event getEventByID(int id) {
 		return eventRepository.findById(id).orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));
