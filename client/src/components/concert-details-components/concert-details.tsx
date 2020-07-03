@@ -50,10 +50,6 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
 
-    const [placeId, setPlaceID] = useState('');
-    const [zipcode, setZipCode] = useState('');
-    const [streetAddress, setStreetAddress] = useState('');
-    const [featuredSong, setFeaturedSong] = useState('');
 
     const [modalVisible, setModalVisible] = useState(false);
 
@@ -78,16 +74,25 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
             console.log(response.data);
             setName(response.data.name);
             setDescription(response.data.description);
-            setCity(response.data.place.city);
-            setState(response.data.place.state)
+            setCity(response.data.city);
+            setState(response.data.state)
             setImage(response.data.picture);
             setBand(response.data.bands);
             const date = new Date(response.data.date)
             setDate(date.toLocaleDateString());
-            setPlaceID(response.data.place.placeId);
-            setZipCode(response.data.place.zipCode);
-            setStreetAddress(response.data.place.streetAddress)
-            setFeaturedSong(response.data.featuredSong);
+            if (response.data.song.includes('watch')) {
+                const str = response.data.song.split("=");
+                const embed = "https://www.youtube.com/embed/" + str[1];
+                setSong(embed);
+            
+            }else if(response.data.song.includes('embed')){
+                setSong(response.data.song);
+            }
+             else {
+                const str = response.data.song.split("e/");
+                const embed = "https://www.youtube.com/embed/" + str[1];
+                setSong(embed);
+            }
            
            const tempModel =  {
                 id:response.data.id,
@@ -96,13 +101,8 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
                 picture: response.data.picture,
                 description: response.data.description,
                 song:response.data.featuredSong,
-                place : {
-                    id:response.data.place.id,
-                    zipCode:response.data.place.zipcode,
-                    city: response.data.place.city,
-                    state: response.data.place.state,
-                    streetAddress:response.data.place.streetAddress,
-                },
+                city:response.data.city,
+                state:response.data.state,
                 bands:response.data.bands
             }
             console.log('am i temp model' + tempModel);
