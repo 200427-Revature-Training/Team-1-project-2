@@ -78,7 +78,7 @@ export const login = async (payload:any) => {
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);
     localStorage.setItem('userState', response.data.state);
-    localStorage.setItem('userRoleId', response.data.role.id.toString());
+    localStorage.setItem('userRoleId', response.data.id.toString());
     }
     return response;
 }
