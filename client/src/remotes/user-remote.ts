@@ -74,7 +74,6 @@ export const login = async (payload:any) => {
     
     if (response.data){
    // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
-   console.log(response.data);
     localStorage.setItem('userId', response.data.id.toString());
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);
