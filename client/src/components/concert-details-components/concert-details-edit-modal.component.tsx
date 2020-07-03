@@ -26,20 +26,19 @@ interface ModalComponents {
     }
 }
 
-export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
+export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) => {
 
-    const [concert, setConcerts] = useState<any[]>([]);
-    const [concertName, setConcertName] = useState('');
-    const [concertDate, setConcertDate] = useState(new Date());
-    const [concertState, setConcertState] = useState('');
-    const [concertCity, setConcertCity] = useState('');
-    const [concertImage, setConcertImage] = useState('');
-    const [bandName, setBandName] = useState('');
-    const [concertDescription, setConcertDescription] = useState('');
-    const [placeId, setPlaceID] = useState('');
-    const [zipcode, setZipCode] = useState('');
-    const [streetAddress, setStreetAddress] = useState('');
-    const [featuredSong, setFeaturedSong] = useState('');
+    const [concertName, setConcertName] = useState(props.concertModel.name);
+    const [concertDate, setConcertDate] = useState(props.concertModel.date);
+    const [concertState, setConcertState] = useState(props.concertModel.place.state);
+    const [concertCity, setConcertCity] = useState(props.concertModel.place.city);
+    const [concertImage, setConcertImage] = useState(props.concertModel.picture);
+    const [bandName, setBandName] = useState(props.concertModel.bands);
+    const [concertDescription, setConcertDescription] = useState(props.concertModel.description);
+    const [placeId, setPlaceID] = useState(props.concertModel.place.id);
+    const [zipcode, setZipCode] = useState(props.concertModel.place.zipCode);
+    const [streetAddress, setStreetAddress] = useState(props.concertModel.place.streetAddress);
+    const [featuredSong, setFeaturedSong] = useState(props.concertModel.song);
 
     const setConcertDateString = (input: string) => {
         const dNow = new Date(input);
@@ -48,8 +47,6 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
 
     
     const createEventButton = async () => {
-        console.log('create the event' + concert.length);
-       
         const payload: any = {
             eName: concertName,
             eDate: concertDate,
@@ -72,8 +69,8 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
         setConcertDescription('');
         setConcertDate(new Date());
         setBandName('');
-        setPlaceID('');
-        setZipCode('');
+        setPlaceID(0);
+        setZipCode(0);
         setStreetAddress('');
         setFeaturedSong('');
 
@@ -188,10 +185,10 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
                                 id="Place Id"
                                 label="Place Id"
                                 name="Place Id"
-                                autoComplete={placeId}
+                                autoComplete={placeId.toString()}
                                 value={placeId}
                                 autoFocus
-                                onChange={(e) => setPlaceID(e.target.value)}
+                                onChange={(e) => setPlaceID(parseInt(e.target.value))}
                             />
                         </div>
                         <div>
@@ -203,10 +200,10 @@ export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
                                 id="Zip code"
                                 label="Zip code"
                                 name="Zip code"
-                                autoComplete={zipcode}
+                                autoComplete={zipcode.toString()}
                                 value={zipcode}
                                 autoFocus
-                                onChange={(e) => setZipCode(e.target.value)}
+                                onChange={(e) => setZipCode(parseInt(e.target.value))}
                             />
                         </div>
                         <div>

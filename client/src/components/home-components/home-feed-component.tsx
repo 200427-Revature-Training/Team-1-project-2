@@ -110,7 +110,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
 
     useEffect(() => {
-        getAllEvents();
+        //getAllEvents();
     }, []);
 
     return (
