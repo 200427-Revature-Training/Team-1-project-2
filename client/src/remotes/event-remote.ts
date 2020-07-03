@@ -23,6 +23,12 @@ export const getEventByUserId = async (uid:string)=>{
     const response = await internalAxios.get('events/user/'+uid)
     return response.data;
 }
+export const addUserEvent = async (uid:number,eid:number)=>{
+    return await internalAxios.post('/events/user',{'userID':uid,'eventID':eid});
+}
+export const removeUserEvent = async (uid:number,eid:number)=>{
+    return await internalAxios.delete('/events/user?uid='+uid+'&eid='+eid);
+}
 
 export const addConcertEvent = async (concert:any) => {
     console.log('adding event event remote')

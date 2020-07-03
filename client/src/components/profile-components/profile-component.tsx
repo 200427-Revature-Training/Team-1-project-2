@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import './profile.css'
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import { ProfileModal } from './profile-modal'
 import * as userRemote from '../../remotes/user-remote'
 
