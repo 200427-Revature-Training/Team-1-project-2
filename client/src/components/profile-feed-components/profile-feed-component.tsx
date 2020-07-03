@@ -12,8 +12,8 @@ export const ConcertPageComponent: React.FC = () => {
     const [citySearch, setCitySearch] = useState('');
     const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
-
-
+    const [yourConcert, setYourConcert] = useState([]);
+ 
     const sortFx = (a: any, b: any) => {
         const aState = a.place.state.toLowerCase();
         const bState = b.place.state.toLowerCase();
@@ -53,7 +53,7 @@ export const ConcertPageComponent: React.FC = () => {
     //.filter(concert => concert.eDate >= searchConcertDate)
     const renderFeedComp = () => {
         return concert.map(concertEvent => {
-            return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={false} yourShow={true}></FeedComponent>)
+            return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent} ></FeedComponent>)
         })
     }
     const getAllEvents = async () => {
@@ -70,6 +70,10 @@ export const ConcertPageComponent: React.FC = () => {
                 c.date = new Date(c.date);
                 return c;
             })
+            const list = data.map(c=>{
+                return c.id
+            })
+            setYourConcert(list);
             setConcert(fixedDates);
         }
 

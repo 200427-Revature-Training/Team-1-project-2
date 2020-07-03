@@ -24,6 +24,9 @@ export const getEventByUserId = async (uid:string)=>{
     const response = await internalAxios.get('events/user/'+uid)
     return response.data;
 }
+export const addUserEvent = async (uid:number,eid:number)=>{
+    return await internalAxios.post('/events/user',{'userID':uid,'eventID':eid});
+}
 
 // working on it
 export const addConcertEvent = async (concert:any) => {
