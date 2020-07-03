@@ -21,7 +21,8 @@ export const getEventById = async (eid:string) => {
 }
 
 export const getEventByUserId = async (uid:string)=>{
-    return internalAxios.get('events/user/'+uid);
+    const response = await internalAxios.get('events/user/'+uid)
+    return response.data;
 }
 
 // working on it
