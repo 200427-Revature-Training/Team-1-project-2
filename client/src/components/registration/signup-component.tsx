@@ -62,12 +62,14 @@ userName: "Hallstead"*/
             city:homeCity,
             state:homeState,
             picture:image,
-            genre:genre
+            genre:genre,
+            role:{id:1,role:'fan'}
         });
         localStorage.setItem("userId",response.data.id.toString());
         localStorage.setItem('userName', response.data.userName);
         localStorage.setItem('userCity', response.data.city);
         localStorage.setItem('userState', response.data.state);
+        localStorage.setItem('userRoleId',response.data.role.id);
         setSubmit(true);
     }
     if (submitted){
