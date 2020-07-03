@@ -47,9 +47,9 @@ const addManageButtons = () => {
     }
     
     const sortFx = (a: any, b: any) => {
-        const aState = a.place.state.toLowerCase();
-        const bState = b.place.state.toLowerCase();
-        const bCity = b.place.city.toLowerCase();
+        const aState = a.state.toLowerCase();
+        const bState = b.state.toLowerCase();
+        const bCity = b.city.toLowerCase();
         const sSearch = stateSearch.toLowerCase();
         const cSearch = citySearch.toLowerCase();
         if (aState === sSearch) {
