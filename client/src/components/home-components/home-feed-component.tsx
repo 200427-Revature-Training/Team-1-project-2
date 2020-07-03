@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import './home.css'
-import { ConcertEventModel } from '../../data-models/event-model'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { Button } from 'react-bootstrap'
 import * as concertEventRemote from '../../remotes/event-remote';
-import { Band } from '../../data-models/band';
 import { NewEventModalComponent } from './new-event-modal';
 import { TextField } from '@material-ui/core'
 
@@ -16,7 +14,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const [concert, setConcerts] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
-
+    const [yourConcert,setYourConcerts]= useState<any[]>([]);
     const [citySearch, setCitySearch] = useState('');
     const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
@@ -39,12 +37,13 @@ const addManageButtons = () => {
 
     const renderFeedComponents = () => {
         return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
-            return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
+
+            return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent}></FeedComponent>)
         })
     }
   
     const sortDate = (a: any, b: any) => {
-        return a.eDate < b.eDate ? 1 : -1;
+        return a.date < b.date ? 1 : -1;
     }
     
     const sortFx = (a: any, b: any) => {
@@ -72,12 +71,26 @@ const addManageButtons = () => {
     
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
+        const city = localStorage.getItem('userCity');
+        const state = localStorage.getItem('userState');
+        if (city !== null && state !== null) {
+            setCitySearch(city);
+            setStateSearch(state);
+        }
         const con = response.data;
         const fixedDates = con.map(c=>{
             c.date = new Date(c.date);
             return c;
         })
         setConcerts(fixedDates);
+        const id = localStorage.getItem('userId');
+        if (id !== null) {
+            const data = await concertEventRemote.getEventByUserId(id);
+            const ids = data.map(c => {
+                return c.id;
+            })
+            setYourConcerts(ids);
+        }
     }
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {

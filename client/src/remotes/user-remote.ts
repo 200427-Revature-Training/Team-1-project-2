@@ -30,6 +30,7 @@ export const getUserEvents = async () => {
 
 export const update = async (user:any) =>{
     const response = await internalAxios.put('/users',user)
+    return response;
 }
 
 
@@ -41,12 +42,13 @@ export const userRemoveEvent = async (payload:number) => {
 }
 
 // tell the server what concert to add to my list
+/*
 export const userAddEvent = async (payload:number) => {
     const response = await internalAxios.get<ConcertEventModel[]>('/user/concerts/add');
 
     return response.data;
 }
-
+*/
 interface UserLoginInterface{
         id: number,
         firstName: string,
@@ -70,9 +72,7 @@ interface UserLoginInterface{
 export const login = async (payload:any) => {
     const response = await internalAxios.post<UserLoginInterface>('/users/login', payload);
     
-    if (response.data)
-    console.log("loggin" , response.data);
-    {
+    if (response.data){
    // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
     localStorage.setItem('userId', response.data.id.toString());
     localStorage.setItem('userName', response.data.userName);

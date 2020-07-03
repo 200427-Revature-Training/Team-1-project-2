@@ -2,56 +2,43 @@ package com.revature.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_event", schema = "events")
+@IdClass(User_Event_ID.class)
 public class User_Event {
-
 	@Id
 	@Column(name = "user_id")
 	private int userID;
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "event_id")
-	private Event event;
-
-	public int getUserID() {
-		return userID;
-	}
-
-	public void setUserID(int userID) {
-		this.userID = userID;
-	}
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
-	public User_Event(int userID, Event event) {
-		super();
-		this.userID = userID;
-		this.event = event;
-	}
+	@Id
+	@Column(name = "event_id")
+	private int eventID;
 
 	public User_Event() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
+	public User_Event(int userID, int eventID) {
+		super();
+		this.userID = userID;
+		this.eventID = eventID;
+	}
+
+	@Override
+	public String toString() {
+		return "User_Event_Input [userID=" + userID + ", eventID=" + eventID + "]";
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((event == null) ? 0 : event.hashCode());
+		result = prime * result + eventID;
 		result = prime * result + userID;
 		return result;
 	}
@@ -65,19 +52,26 @@ public class User_Event {
 		if (getClass() != obj.getClass())
 			return false;
 		User_Event other = (User_Event) obj;
-		if (event == null) {
-			if (other.event != null)
-				return false;
-		} else if (!event.equals(other.event))
+		if (eventID != other.eventID)
 			return false;
 		if (userID != other.userID)
 			return false;
 		return true;
 	}
 
-	@Override
-	public String toString() {
-		return "User_Event [userID=" + userID + ", event=" + event + "]";
+	public int getUserID() {
+		return userID;
 	}
-	
+
+	public void setUserID(int userID) {
+		this.userID = userID;
+	}
+
+	public int getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(int eventID) {
+		this.eventID = eventID;
+	}
 }

@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Redirect, RouteComponentProps, withRouter } from 'react-router';
+import {  RouteComponentProps, withRouter } from 'react-router';
 import './login-page.css'
 import { Link } from 'react-router-dom';
 import * as userRemote from '../../remotes/user-remote';
 
 export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
 
-    let history = props.history;
     let [username, setUsername] = useState('');
     let [password, setPassword] = useState('');
 
@@ -17,7 +16,7 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
 
         const payload = {userName: username, password: password};
 
-        const response = await userRemote.login(payload).then(() => {
+        userRemote.login(payload).then(() => {
                 console.log('im login component');
                 // we need to get the data for the home page
 

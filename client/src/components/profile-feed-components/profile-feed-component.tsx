@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
-import { ConcertEventModel } from '../../data-models/event-model';
 import { TextField } from '@material-ui/core';
 import { Button } from 'react-bootstrap';
 import * as eventRemote from '../../remotes/event-remote';
@@ -12,8 +11,8 @@ export const ConcertPageComponent: React.FC = () => {
     const [citySearch, setCitySearch] = useState('');
     const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
-
-
+    const [yourConcert, setYourConcert] = useState([]);
+ 
     const sortFx = (a: any, b: any) => {
         const aState = a.place.state.toLowerCase();
         const bState = b.place.state.toLowerCase();
@@ -41,8 +40,9 @@ export const ConcertPageComponent: React.FC = () => {
         setSearchConcertDate(new Date(event.target.value.replace("T", "\ ")));
     }
 
-    const sortDate = (a: ConcertEventModel, b: ConcertEventModel) => {
-        return a.eDate < b.eDate ? 1 : -1;
+    const sortDate = (a: any, b: any) => {
+        console.log(a.date,b.date);
+        return a.date < b.date ? 1 : -1;
     }
 
 
@@ -50,10 +50,10 @@ export const ConcertPageComponent: React.FC = () => {
     const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0]
         + "T" + ("0" + searchConcertDate.getHours()).slice(-2) + ":" + ("0" + searchConcertDate.getMinutes()).slice(-2);
 
-    //.filter(concert => concert.eDate >= searchConcertDate)
+    
     const renderFeedComp = () => {
-        return concert.map(concertEvent => {
-            return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={false} yourShow={true}></FeedComponent>)
+        return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
+            return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent} ></FeedComponent>)
         })
     }
     const getAllEvents = async () => {
@@ -69,7 +69,11 @@ export const ConcertPageComponent: React.FC = () => {
             const fixedDates = data.map(c => {
                 c.date = new Date(c.date);
                 return c;
-            })
+            });
+            const list = data.map(c=>{
+                return c.id
+            });
+            setYourConcert(list);
             setConcert(fixedDates);
         }
 
