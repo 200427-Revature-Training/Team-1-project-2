@@ -30,10 +30,10 @@ export const removeUserEvent = async (uid:number,eid:number)=>{
     return await internalAxios.delete('/events/user?uid='+uid+'&eid='+eid);
 }
 
-// working on it
 export const addConcertEvent = async (concert:any) => {
     console.log('adding event event remote')
     const concertEvent:EventInterface = {
+        id:0,
         name: concert.eName,
         date: concert.eDate.toISOString(),
         picture: concert.sourceImage,
@@ -52,8 +52,31 @@ export const addConcertEvent = async (concert:any) => {
     return response;
 }
 
+export const updateConcertEvent = async (concert:any) => {
+    console.log('adding event event remote')
+    const concertEvent:EventInterface = {
+        id:concert.id,
+        name: concert.eName,
+        date: concert.eDate.toISOString(),
+        picture: concert.sourceImage,
+        description: concert.description,
+        song:concert.featuredSong,
+        place : {
+            id:concert.placeId,
+            zipCode:concert.zipCode,
+            city: concert.city,
+            state: concert.state,
+            streetAddress:concert.streetAddress,
+        },
+        bands:concert.eBandList
+    }
+    const response = await internalAxios.put<EventInterface[]>('/events', concertEvent);
+    return response;
+}
+
 interface EventInterface
 {
+    id:number,
     name: string,
     date: string,
     picture: string,

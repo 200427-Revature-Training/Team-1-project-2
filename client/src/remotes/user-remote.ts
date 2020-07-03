@@ -1,3 +1,4 @@
+
 import { internalAxios } from './internal-axios';
 import { ConcertEventModel } from '../data-models/event-model';
 
@@ -77,6 +78,7 @@ export const login = async (payload:any) => {
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);
     localStorage.setItem('userState', response.data.state);
+    localStorage.setItem('userRoleId', response.data.role.id.toString());
     }
     return response;
 }
