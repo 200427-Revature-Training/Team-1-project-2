@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import './home.css'
-import { ConcertEventModel } from '../../data-models/event-model'
 import { RouteComponentProps, withRouter } from 'react-router'
 import { Button } from 'react-bootstrap'
 import * as concertEventRemote from '../../remotes/event-remote';
-import { Band } from '../../data-models/band';
 import { NewEventModalComponent } from './new-event-modal';
 import { TextField } from '@material-ui/core'
 
@@ -64,7 +62,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
     }
 
     const sortDate = (a: any, b: any) => {
-        return a.eDate < b.eDate ? 1 : -1;
+        return a.date < b.date ? 1 : -1;
     }
 
     const sortFx = (a: any, b: any) => {
@@ -92,6 +90,12 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
+        const city = localStorage.getItem('userCity');
+        const state = localStorage.getItem('userState');
+        if (city !== null && state !== null) {
+            setCitySearch(city);
+            setStateSearch(state);
+        }
         const con = response.data;
         const fixedDates = con.map(c => {
             c.date = new Date(c.date);
