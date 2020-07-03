@@ -73,7 +73,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
             reader.readAsDataURL(event.target.files[0]);
             reader.onload = () => {
                 if (typeof reader.result == 'string') {
-                   // setConcertImage(reader.result);
+                    setConcertImage(reader.result);
                 }
             }
         }
@@ -126,7 +126,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={concertDescription}
                                 value={concertDescription}
                                 autoFocus
-        
+                                onChange={(e) => setConcertDescription(e.target.value)}
                             />
                         </div>
                         <div>
@@ -141,7 +141,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={bandName}
                                 value={bandName}
                                 autoFocus
-                               
+                               onChange={(e) => setBandName(e.target.value)}
                             />
                         </div>
                         <div>
