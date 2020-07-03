@@ -1,7 +1,6 @@
-import { User } from '../data-models/user-model';
+
 import { internalAxios } from './internal-axios';
 import { ConcertEventModel } from '../data-models/event-model';
-import { send } from 'process';
 
 export const getAllUsers = async () =>{
     return await internalAxios.get('/users');
@@ -70,15 +69,16 @@ interface UserLoginInterface{
 
 export const login = async (payload:any) => {
     const response = await internalAxios.post<UserLoginInterface>('/users/login', payload);
-    console.log("loggin" +response.data.role.id);
-
+    
     if (response.data)
+    console.log("loggin" , response.data);
     {
    // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
-    localStorage.setItem('userId', response.data.role.id.toString());
+    localStorage.setItem('userId', response.data.id.toString());
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);
     localStorage.setItem('userState', response.data.state);
+    localStorage.setItem('userRoleId', response.data.role.id.toString());
     }
     return response;
 }

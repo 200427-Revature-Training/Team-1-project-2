@@ -28,40 +28,21 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
       setModalVisible: setModalVisible
     }
 
-    //  const addConcert = (list: ConcertEventModel) => {
-    //      setConcerts([...concert, list])
-    //  }
+const addManageButtons = () => {
 
-/**
-    const addEventHandler = async () => {
-        const payload:ConcertEventModel = {
-            eId:0,
-            city:concertCity,
-            state:concertState,
-            eBandList:concertBands,
-            eDate:concertDate,
-            eName:concertName,
-            sourceImage:concertImage,
-            description:concertDescription
-        }
-        concertEventRemote.addConcertEvent(payload);
-    }
- */
-    const addManageButtons = () => {
-
-        // check authentification and manager role_id
-        const userId = localStorage.getItem("userId");
-        console.log('whats user id = ' + userId);
-        if (userId === '4')
-            return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
-    }
+    // check authentification and manager role_id
+    const userRoleId = localStorage.getItem("userRoleId");
+    console.log('whats user id = ' + userRoleId);
+    if (userRoleId === '4')
+        return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
+}
 
     const renderFeedComponents = () => {
         return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
             return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
-    
+  
     const sortDate = (a: any, b: any) => {
         return a.eDate < b.eDate ? 1 : -1;
     }
@@ -110,7 +91,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
 
     useEffect(() => {
-        //getAllEvents();
+        getAllEvents();
     }, []);
 
     return (

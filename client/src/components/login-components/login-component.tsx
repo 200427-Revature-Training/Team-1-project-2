@@ -27,7 +27,8 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
     }
 
     const getAllConcerts = async () => {
-        const userID = localStorage.getItem('userId')
+        const userID = localStorage.getItem('userId');
+        console.log('im getting concerts');
         const concerts = await userRemote.getAllEvents().then(() => {
             console.log('i got concerts');
         });

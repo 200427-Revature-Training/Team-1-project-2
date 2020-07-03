@@ -1,5 +1,5 @@
 import { Button, Modal } from 'react-bootstrap';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField } from '@material-ui/core';
 import * as concertEventRemote from '../../remotes/event-remote';
 
@@ -9,27 +9,28 @@ interface ModalComponents {
     setters: {
         setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     };
-    concertModel:   {
+     concertModel: {
+         id:number,
         name: string,
         date: Date,
         picture: string,
         description: string,
-        song: string,
-        place: {
-            id: number,
-            zipCode: number,
-            state: string,
+        song:string,
+        place : {
+            id:number,
+            zipCode:number,
             city: string,
-            streetAddress: string
+            state: string,
+            streetAddress:string,
         },
-        bands: string
+        bands:string
     }
 }
 
 export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) => {
-
+//console.log("I am logging my props" + props.concertModel);
     const [concertName, setConcertName] = useState(props.concertModel.name);
-    const [concertDate, setConcertDate] = useState(props.concertModel.date);
+    const [concertDate, setConcertDate] = useState(new Date());
     const [concertState, setConcertState] = useState(props.concertModel.place.state);
     const [concertCity, setConcertCity] = useState(props.concertModel.place.city);
     const [concertImage, setConcertImage] = useState(props.concertModel.picture);
@@ -45,9 +46,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
         setConcertDate(dNow);
     }
 
-    
     const createEventButton = async () => {
+       
         const payload: any = {
+            id:props.concertModel.id,
             eName: concertName,
             eDate: concertDate,
             sourceImage: concertImage,
@@ -60,19 +62,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
             eBandList: bandName
         }
  
-        concertEventRemote.addConcertEvent(payload);
-
-        setConcertCity('');
-        setConcertImage('');
-        setConcertName('');
-        setConcertState('');
-        setConcertDescription('');
-        setConcertDate(new Date());
-        setBandName('');
-        setPlaceID(0);
-        setZipCode(0);
-        setStreetAddress('');
-        setFeaturedSong('');
+        concertEventRemote.updateConcertEvent(payload);
 
         props.setters.setModalVisible(false);
     }
@@ -83,7 +73,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
             reader.readAsDataURL(event.target.files[0]);
             reader.onload = () => {
                 if (typeof reader.result == 'string') {
-                    setConcertImage(reader.result);
+                   // setConcertImage(reader.result);
                 }
             }
         }
@@ -95,13 +85,17 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
 
     const date = concertDate;
     const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
-                            + "T" + ("0"+concertDate.getHours()).slice(-2) + ":" + ("0" + concertDate.getMinutes()).slice(-2);
+                   //         + "T" + ("0"+concertDate.getHours()).slice(-2) + ":" + ("0" + concertDate.getMinutes()).slice(-2);
+
+ useEffect(() => {
+        
+}, []);
 
     return (
         <div>
             <Modal show={props.states.modalVisible} onHide={() => props.setters.setModalVisible(false)}>
                 <Modal.Header>
-                    <Modal.Title>New Concert Event</Modal.Title>
+                    <Modal.Title>Concert Event</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form>
@@ -132,7 +126,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={concertDescription}
                                 value={concertDescription}
                                 autoFocus
-                                onChange={(e) => setConcertDescription(e.target.value)}
+        
                             />
                         </div>
                         <div>
@@ -147,7 +141,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={bandName}
                                 value={bandName}
                                 autoFocus
-                                onChange={(e) => setBandName(e.target.value)}
+                               
                             />
                         </div>
                         <div>
@@ -169,7 +163,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                             <TextField
                                 id="datetime-local"
                                 type="datetime-local"
-                                value = {dateString}
+                       
                                 onChange={handleTimeChange}
                                 InputLabelProps={{
                                     shrink: true,
@@ -188,7 +182,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={placeId.toString()}
                                 value={placeId}
                                 autoFocus
-                                onChange={(e) => setPlaceID(parseInt(e.target.value))}
+                               
                             />
                         </div>
                         <div>
@@ -200,10 +194,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 id="Zip code"
                                 label="Zip code"
                                 name="Zip code"
-                                autoComplete={zipcode.toString()}
+                 
                                 value={zipcode}
                                 autoFocus
-                                onChange={(e) => setZipCode(parseInt(e.target.value))}
+                         
                             />
                         </div>
                         <div>
@@ -218,7 +212,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={concertCity}
                                 value={concertCity}
                                 autoFocus
-                                onChange={(e) => setConcertCity(e.target.value)}
+                               
                             />
                         </div>
                         <div>
@@ -259,7 +253,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <button className="btn btn-primary" onClick={() => createEventButton()}>Create Event</button>
+                    <button className="btn btn-primary" onClick={() => createEventButton()}>Update Event</button>
                 
                     <Button onClick={() => props.setters.setModalVisible(false)}>Close</Button>
                 </Modal.Footer>

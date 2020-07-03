@@ -1,9 +1,9 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import HomeComponent from '../home-components/home-feed-component';
-import { ConcertPageComponent } from '../concert-components/profile-feed-component';
+import { ConcertPageComponent } from '../profile-feed-components/profile-feed-component';
 import { ProfileComponent } from '../profile-components/profile-component';
-import { ConcertDetailsComponent } from '../concert-details-components/concert-details';
+import  ConcertDetailsComponent  from '../concert-details-components/concert-details';
 import {SignupComponent} from '../registration/signup-component'
 import  LoginComponent from '../login-components/login-component';
 import HeaderComponent from './header-component';

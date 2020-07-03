@@ -9,21 +9,7 @@ interface ModalComponents {
     setters: {
         setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
     };
-    concertModel:   {
-        name: string,
-        date: Date,
-        picture: string,
-        description: string,
-        song: string,
-        place: {
-            id: number,
-            zipCode: number,
-            state: string,
-            city: string,
-            streetAddress: string
-        },
-        bands: string
-    }
+
 }
 
 export const NewEventModalComponent: React.FC<ModalComponents> = (props) => {
