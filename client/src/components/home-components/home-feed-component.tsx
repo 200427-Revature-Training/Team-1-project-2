@@ -26,33 +26,14 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
       setModalVisible: setModalVisible
     }
 
-    //  const addConcert = (list: ConcertEventModel) => {
-    //      setConcerts([...concert, list])
-    //  }
+const addManageButtons = () => {
 
-/**
-    const addEventHandler = async () => {
-        const payload: ConcertEventModel = {
-            eId: 0,
-            city: concertCity,
-            state: concertState,
-            eBandList: concertBands,
-            eDate: concertDate,
-            eName: concertName,
-            sourceImage: concertImage,
-            description: concertDescription
-        }
-        concertEventRemote.addConcertEvent(payload);
-    }
- */
-    const addManageButtons = () => {
-
-        // check authentification and manager role_id
-        const userId = localStorage.getItem("userId");
-        console.log('whats user id = ' + userId);
-        if (userId === '4')
-            return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
-    }
+    // check authentification and manager role_id
+    const userRoleId = localStorage.getItem("userRoleId");
+    console.log('whats user id = ' + userRoleId);
+    if (userRoleId === '4')
+        return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
+}
 
     const renderFeedComponents = () => {
         return concert.filter(concert => concert.date >= searchConcertDate).sort(sortDate).sort(sortFx).map(concertEvent => {
@@ -60,11 +41,11 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return (<FeedComponent key={concertEvent.id} yourConcert = {yourConcert} concertEvents={concertEvent}></FeedComponent>)
         })
     }
-
+  
     const sortDate = (a: any, b: any) => {
         return a.date < b.date ? 1 : -1;
     }
-
+    
     const sortFx = (a: any, b: any) => {
         const aState = a.place.state.toLowerCase();
         const bState = b.place.state.toLowerCase();
@@ -72,7 +53,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         const sSearch = stateSearch.toLowerCase();
         const cSearch = citySearch.toLowerCase();
         if (aState === sSearch) {
-
+            
             if (bState === sSearch && bCity === cSearch) {
                 return 1;
             }
@@ -82,12 +63,12 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         } else if (!(bState === sSearch || bCity === cSearch)) {
             return -1;
         }
-
+        
         else {
             return 0;
         }
     }
-
+    
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
         const city = localStorage.getItem('userCity');
@@ -97,7 +78,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             setStateSearch(state);
         }
         const con = response.data;
-        const fixedDates = con.map(c => {
+        const fixedDates = con.map(c=>{
             c.date = new Date(c.date);
             return c;
         })
@@ -158,9 +139,8 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                             }}
                         />
                     </div>
-                    <br></br>
-                    <div className="my-feed-container">
-
+                    <div className="text-right col-3">
+                        <br></br>
                         {addManageButtons()}
                     </div>
                 </div>
