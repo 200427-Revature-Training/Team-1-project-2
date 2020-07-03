@@ -38,8 +38,7 @@ public class UserService {
 		if(user.getPassword().equals(tempUser.getPassword()))
 			return userRepository.login(userName);
 		else
-			return null;
-				
+			return null;	
 	}
 
 	public User update(User user) {

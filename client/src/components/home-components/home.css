@@ -2,10 +2,10 @@
 .my-feed-container{
     margin-right:5%;
     margin-left:5%;
-    display:flex;
+    display:inline-flex;
     height:90%;
     width:90%;
-
+    flex-wrap: wrap;
 }
 .feed-container{
     display:inline-block;

@@ -61,7 +61,10 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
             return <p className="card-text">Band name = {bList.name}</p>
             })
     }
-*/
+    */
+
+
+
     if (redirect) {
         return <Redirect to='concert/details/' />
     }

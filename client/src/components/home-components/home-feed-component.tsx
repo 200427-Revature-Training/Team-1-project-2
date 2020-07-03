@@ -13,48 +13,40 @@ import { TextField } from '@material-ui/core'
 
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
-    const [bandModelVisible, setBandModalVisible] = useState(false);
+
     const [concert, setConcerts] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
-    const [concertName, setConcertName] = useState('');
-    const [concertDate, setConcertDate] = useState(new Date());
-    const [concertState, setConcertState] = useState('');
-    const [concertCity, setConcertCity] = useState('');
-    const [concertBands, setConcertBands] = useState('');
-    const [concertImage, setConcertImage] = useState('');
-    const [bandName, setBandName] = useState('');
-    const [bandId, setBandID] = useState(0);
-    const [concertDescription, setConcertDescription] = useState('');
+
     const [citySearch, setCitySearch] = useState('');
     const [stateSearch, setStateSearch] = useState('');
     const [searchConcertDate, setSearchConcertDate] = useState(new Date());
+   
     const states = {
-        bandModelVisible: bandModelVisible, concert: concert, modalVisible: modalVisible, concertName: concertName, concertDate: concertDate, concertState: concertState, concertCity: concertCity,
-        concertBands: concertBands, concertImage: concertImage, bandName: bandName, bandId: bandId, concertDescription: concertDescription
+       modalVisible: modalVisible
     }
     const setters = {
-        setBandModalVisible: setBandModalVisible, setModalVisible: setModalVisible, setConcertName: setConcertName, setConcertDate: setConcertDate, setConcertState: setConcertState,
-        setConcertCity: setConcertCity, setConcertBands: setConcertBands, setConcertImage: setConcertImage, setBandName: setBandName, setBandID: setBandID, setConcertDescription: setConcertDescription
+      setModalVisible: setModalVisible
     }
 
     //  const addConcert = (list: ConcertEventModel) => {
     //      setConcerts([...concert, list])
     //  }
 
-
+/**
     const addEventHandler = async () => {
-        const payload:ConcertEventModel = {
-            eId:0,
-            city:concertCity,
-            state:concertState,
-            eBandList:concertBands,
-            eDate:concertDate,
-            eName:concertName,
-            sourceImage:concertImage,
-            description:concertDescription
+        const payload: ConcertEventModel = {
+            eId: 0,
+            city: concertCity,
+            state: concertState,
+            eBandList: concertBands,
+            eDate: concertDate,
+            eName: concertName,
+            sourceImage: concertImage,
+            description: concertDescription
         }
         concertEventRemote.addConcertEvent(payload);
     }
+ */
     const addManageButtons = () => {
 
         // check authentification and manager role_id
@@ -69,11 +61,11 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
             return (<FeedComponent key={concertEvent.id} concertEvents={concertEvent} homePage={true} yourShow={false}></FeedComponent>)
         })
     }
-    
+
     const sortDate = (a: any, b: any) => {
         return a.eDate < b.eDate ? 1 : -1;
     }
-    
+
     const sortFx = (a: any, b: any) => {
         const aState = a.place.state.toLowerCase();
         const bState = b.place.state.toLowerCase();
@@ -81,7 +73,7 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         const sSearch = stateSearch.toLowerCase();
         const cSearch = citySearch.toLowerCase();
         if (aState === sSearch) {
-            
+
             if (bState === sSearch && bCity === cSearch) {
                 return 1;
             }
@@ -91,16 +83,16 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
         } else if (!(bState === sSearch || bCity === cSearch)) {
             return -1;
         }
-        
+
         else {
             return 0;
         }
     }
-    
+
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
         const con = response.data;
-        const fixedDates = con.map(c=>{
+        const fixedDates = con.map(c => {
             c.date = new Date(c.date);
             return c;
         })
@@ -153,8 +145,9 @@ export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
                             }}
                         />
                     </div>
-                    <div className="text-right col-3">
-                        <br></br>
+                    <br></br>
+                    <div className="my-feed-container">
+
                         {addManageButtons()}
                     </div>
                 </div>

@@ -70,12 +70,12 @@ interface UserLoginInterface{
 
 export const login = async (payload:any) => {
     const response = await internalAxios.post<UserLoginInterface>('/users/login', payload);
-    console.log("loggin" +response.data.role.id);
-
+    
     if (response.data)
+    console.log("loggin" , response.data);
     {
    // localStorage.setItem('accessToken', response.data.accessToken.accessToken)
-    localStorage.setItem('userId', response.data.role.id.toString());
+    localStorage.setItem('userId', response.data.id.toString());
     localStorage.setItem('userName', response.data.userName);
     localStorage.setItem('userCity', response.data.city);
     localStorage.setItem('userState', response.data.state);
