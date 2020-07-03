@@ -11,24 +11,30 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Event;
 import com.revature.entities.User_Event;
+import com.revature.entities.User_Event_Input;
 import com.revature.repositories.EventRepository;
+import com.revature.repositories.UserEventRepository;
 
 @Service
 public class EventService {
 
 	@Autowired
 	EventRepository eventRepository;
+	
+	@Autowired
+	UserEventRepository userEventRepository;
 
 	public Collection<Event> getAllEvents() {
 		return eventRepository.findAll();
 	}
 
-	public Event save(Event event) {
-		return eventRepository.save(event);
+	public void saveUserEvent(User_Event_Input ue) {
+		userEventRepository.save(ue);
 	}
 
 	public Collection<Event> getUserEventsAttended(int id) {
 		Collection<User_Event> list = eventRepository.getUserEventsAttended(id);
+		System.out.println(list);
 		Collection<Event> list2 = new ArrayList<Event>();
 		Iterator<User_Event> iterator = list.iterator();
 		while (iterator.hasNext()) {
@@ -45,6 +51,10 @@ public class EventService {
 		if(event.getId() == 0) {
 			throw new HttpClientErrorException(HttpStatus.BAD_REQUEST); 
 		}
-		return save(event);
+		return eventRepository.save(event);
+	}
+
+	public Event save(Event concertEvent) {
+		return eventRepository.save(concertEvent);
 	}
 }
