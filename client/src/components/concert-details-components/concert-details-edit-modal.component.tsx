@@ -167,7 +167,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 autoComplete={concertCity}
                                 value={concertCity}
                                 autoFocus
-                               
+                                onChange={(e) => setConcertCity(e.target.value)}
                             />
                         </div>
                         <div>
