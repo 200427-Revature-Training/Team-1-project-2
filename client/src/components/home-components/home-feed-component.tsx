@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { FeedComponent } from '../feed-components/feed-component'
 import './home.css'
 import { RouteComponentProps, withRouter } from 'react-router'
-import { Button, FormControl, Form } from 'react-bootstrap'
+import { Button } from 'react-bootstrap'
 import * as concertEventRemote from '../../remotes/event-remote';
 import { NewEventModalComponent } from './new-event-modal';
 import { TextField, Select, MenuItem } from '@material-ui/core'
-
-// const concerts: ConcertEventModel[] = [];
 
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 

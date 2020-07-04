@@ -12,19 +12,7 @@ interface FeedProps {
 export const FeedComponent: React.FC<FeedProps> = (props) => {
 
     useEffect(() => {
-        // addButtonEvent();
-        //  removeButtonEvent();
     }, []);
-
-    /* const addButtonEvent = () => {
-         console.log('I am the add button event on feed component add event to my favorites now');
-         userRemote.userAddEvent(props.concertEvents.eId);
-     }
-     const removeButtonEvent = () => {
-         console.log('i am the remove button event in feed component remove this event from my favorites now');
-         userRemote.userRemoveEvent(props.concertEvents.eId);
-     }
-      */
 
     const [redirect, setRedirect] = useState(false);
 
@@ -65,16 +53,6 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         }
     }
 
-    /*const renderBands = () => {
-        console.log ('bands length = ' + props.concertEvents.eBandList.length);
-            return props.concertEvents.eBandList.map(bList => {
-            return <p className="card-text">Band name = {bList.name}</p>
-            })
-    }
-    */
-
-
-
     if (redirect) {
         return <Redirect to='concert/details/' />
     }
@@ -82,7 +60,7 @@ export const FeedComponent: React.FC<FeedProps> = (props) => {
         return (
             <div className="col-4">
                 <div className="card feed-card" >
-                    <img onClick={handleClick} className="card-img-top" src={props.concertEvents.picture} alt="Card image cap" />
+                    <img onClick={handleClick} className="card-img-top" src={props.concertEvents.picture} alt="Card caption" />
                     <div className="card-body">
                         <h5 className="card-title">{props.concertEvents.name}</h5>
                         <p className="card-text">{props.concertEvents.city}, {props.concertEvents.state}</p>

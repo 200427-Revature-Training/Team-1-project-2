@@ -5,6 +5,7 @@ import './header.css';
 
 
 const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
+  // unused should we delete it?
     const renderOnCurrentPath = (path:string)=>{
         return path === props.location.pathname ?
         <span className="sr-only">(current)</span>:<span></span>
@@ -14,9 +15,9 @@ const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
         props.history.push('/login');
     }
     const username = (localStorage.getItem('userName')) ? (localStorage.getItem('userName')) : 'Guest';
-    
+
     const renderButtons = () => {
-        if (username != 'Guest')
+        if (username !== 'Guest')
         {
             return (
                 <div>
