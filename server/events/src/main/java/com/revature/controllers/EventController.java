@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.Event;
+import com.revature.entities.User;
 import com.revature.entities.User_Event;
+import com.revature.entities.User_First_Last_Dto;
 import com.revature.services.EventService;
 
 @RestController
@@ -64,4 +66,5 @@ public class EventController {
 	{
 		return eventService.update(event);
 	}
+
 }

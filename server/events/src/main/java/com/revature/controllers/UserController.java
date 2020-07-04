@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.entities.User;
+import com.revature.entities.User_First_Last_Dto;
 import com.revature.services.UserService;
 
 
@@ -56,5 +57,9 @@ public class UserController {
 	public User updateUser(@RequestBody User user) {
 		
 		return userService.update(user);
+	}
+	@GetMapping("/eventsUsers/{id}")
+	public Collection<User_First_Last_Dto> getEventsUsers(@PathVariable int id){
+		return userService.getEventsUsers(id);
 	}
 }

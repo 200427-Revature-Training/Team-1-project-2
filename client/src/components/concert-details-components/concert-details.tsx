@@ -45,7 +45,7 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
     const [image, setImage]= useState('')
     const [description, setDescription] = useState('');
     const [song,setSong]= useState('');
-
+    const [nameLst, setNameLst]= useState([]);
     const [band, setBand] = useState('');
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
@@ -107,7 +107,12 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
             }
             console.log('am i temp model' + tempModel);
             setConcertModel(tempModel);
-        }
+            const eidNum = +eid;
+            const data = await concertEventRemote.getUsersByEvent(eidNum);
+            const nameList = data.map(u=>{
+                return u.first_name +' '+u.last_name})
+            setNameLst(nameList);
+            }
     }
 
     useEffect(() => {
@@ -121,7 +126,6 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
     const renderDetailComponent = () => {
         if (concertModel)
         {
-            console.log('am i here');
             return (
               <ConcertDetailsEditComponent setters={setters} states={states} concertModel={concertModel}></ConcertDetailsEditComponent>
                  )
@@ -154,6 +158,12 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
                    <h4>Date</h4>
                    <ul>
                        <p>{date}</p>
+                   </ul>
+                   <h4>Who's going? </h4>
+                   <ul className="myList">
+                       {nameLst.map(name=>(
+                           <li>{name}</li>
+                       ))}
                    </ul>
                    {addManagerButton()}
                </div>

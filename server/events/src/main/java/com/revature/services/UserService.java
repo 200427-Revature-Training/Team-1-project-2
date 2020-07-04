@@ -1,5 +1,6 @@
 package com.revature.services;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.User;
+import com.revature.entities.User_First_Last_Dto;
 import com.revature.repositories.UserRepository;
 
 @Service
@@ -60,5 +62,18 @@ public class UserService {
 		userRepository.save(u);
 		
 		return u;
+	}
+
+	public Collection<User_First_Last_Dto> getEventsUsers(int id) {
+		Collection<User> uList = userRepository.getEventsUsers(id);
+		Collection<User_First_Last_Dto> dto = new ArrayList<User_First_Last_Dto>();
+		for(User u : uList) {
+			User_First_Last_Dto uDto = new User_First_Last_Dto();
+			uDto.setFirst_name(u.getFirstName());
+			uDto.setLast_name(u.getLastName());
+			dto.add(uDto);
+		}
+		
+		return dto; 
 	}
 }

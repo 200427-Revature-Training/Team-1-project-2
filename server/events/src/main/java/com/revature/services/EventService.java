@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 
 import com.revature.entities.Event;
+import com.revature.entities.User;
 import com.revature.entities.User_Event;
+import com.revature.entities.User_First_Last_Dto;
 import com.revature.repositories.EventRepository;
 import com.revature.repositories.UserEventRepository;
 
@@ -76,4 +78,6 @@ public class EventService {
 		// TODO Auto-generated method stub
 		
 	}
+
+
 }

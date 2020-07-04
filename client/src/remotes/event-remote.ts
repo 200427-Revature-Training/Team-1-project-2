@@ -19,6 +19,11 @@ export const addUserEvent = async (uid:number,eid:number)=>{
 export const removeUserEvent = async (uid:number,eid:number)=>{
     return await internalAxios.delete('/events/user?uid='+uid+'&eid='+eid);
 }
+export const getUsersByEvent = async (uid:number)=>{
+    const response = await internalAxios.get('/users/eventsUsers/'+uid);
+    return response.data;
+
+}
 
 export const addConcertEvent = async (concert:any) => {
     const concertEvent:EventInterface = {
