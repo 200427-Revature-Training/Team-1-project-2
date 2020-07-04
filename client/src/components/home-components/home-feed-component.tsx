@@ -9,7 +9,6 @@ import { TextField, Select, MenuItem } from '@material-ui/core'
 
 export const HomeComponent: React.FC<RouteComponentProps> = (props) => {
 
-
     const [concert, setConcerts] = useState<any[]>([]);
     const [modalVisible, setModalVisible] = useState(false);
     const [yourConcert,setYourConcerts]= useState<any[]>([]);
@@ -28,7 +27,7 @@ const addManageButtons = () => {
 
     // check authentification and manager role_id
     const userRoleId = localStorage.getItem("userRoleId");
-    console.log('whats user id = ' + userRoleId);
+    // console.log('whats user id = ' + userRoleId);
     if (userRoleId === '4')
         return <Button className="text-right" onClick={() => setModalVisible(true)}>Add event</Button>
 }
@@ -69,7 +68,7 @@ const addManageButtons = () => {
     
     const getAllEvents = async () => {
         const response = await concertEventRemote.getAllEvents();
-        console.log(response.data);
+       // console.log(response.data);
         const city = localStorage.getItem('userCity');
         const state = localStorage.getItem('userState');
         if (city !== null && state !== null) {
@@ -108,6 +107,7 @@ const addManageButtons = () => {
     useEffect(() => {
         renderFeedComponents();
         getAllEvents();
+        addManageButtons();
     }, []);
 
     return (

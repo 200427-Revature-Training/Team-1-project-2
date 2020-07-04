@@ -1,7 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import  { HomeComponent } from '../../components/home-components/home-feed-component';
-import { RouteComponentProps } from 'react-router';
 
 
 const routeComponentPropsMock = {
@@ -15,5 +14,11 @@ describe('home-feed.component', () => {
 
        const wrapper = mount(<HomeComponent {...routeComponentPropsMock}/>)
        expect(wrapper).toBeDefined();
-   }) 
+   });
+
+   test('basic render test', () => {
+
+    const wrapper = mount(<HomeComponent {...routeComponentPropsMock}/>)
+    expect(wrapper).toBeDefined();
+  }) 
 });
