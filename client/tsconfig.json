@@ -21,6 +21,6 @@
     "jsx": "react"
   },
   "include": [
-    "src", "public/__tests__", "coverage/__tests__", "__tests__"
+    "src"
   ]
 }

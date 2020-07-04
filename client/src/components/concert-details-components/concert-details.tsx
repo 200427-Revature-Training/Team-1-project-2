@@ -67,11 +67,9 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
         
         const eid = localStorage.getItem("eventID");//pulls event id for specific concert from local storage
 
-        console.log(eid);
         if(eid){
 
             const response = await concertEventRemote.getEventById(eid)
-            console.log(response.data);
             setName(response.data.name);
             setDescription(response.data.description);
             setCity(response.data.city);
@@ -105,7 +103,7 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
                 state:response.data.state,
                 bands:response.data.bands
             }
-            console.log('am i temp model' + tempModel);
+            
             setConcertModel(tempModel);
             const eidNum = +eid;
             const data = await concertEventRemote.getUsersByEvent(eidNum);
