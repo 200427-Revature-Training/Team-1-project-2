@@ -13,6 +13,9 @@ import com.revature.entities.User;
 import com.revature.entities.User_First_Last_Dto;
 import com.revature.repositories.UserRepository;
 
+import de.mkammerer.argon2.Argon2;
+import de.mkammerer.argon2.Argon2Factory;
+
 @Service
 public class UserService {
 	
@@ -24,7 +27,23 @@ public class UserService {
 	}
 	
 	public User save(User user) {
-		return userRepository.save(user);
+		if(user.getPassword() != null) {
+            Argon2 argon2 = Argon2Factory.create();
+            char[] pass = user.getPassword().toCharArray();
+            try {
+                String hash = argon2.hash(10, 65536, 1, pass);
+                if (argon2.verify(hash, pass)) {
+                    user.setPassword(hash);
+                    userRepository.save(user);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //throw exception
+            } finally {
+                argon2.wipeArray(pass);
+            }
+        }
+        return user;
 	}
 
 	public User getUserById(int id) {
@@ -33,14 +52,25 @@ public class UserService {
 	}
 	
 	public User login(User user) {
-		String userName = user.getUserName();
-		System.out.println("I am trying to log in");
-		User tempUser = userRepository.login(userName);
-		System.out.println(tempUser.getPassword() + " == " + user.getPassword());
-		if(user.getPassword().equals(tempUser.getPassword()))
-			return userRepository.login(userName);
-		else
-			return null;	
+		
+		if(user.getUserName()!=null && user.getPassword()!=null) {
+            String userName = user.getUserName();
+            Argon2 argon2 = Argon2Factory.create();
+            try {
+                User tempUser = userRepository.login(userName);
+                if(tempUser.getPassword()!=null) {
+                    String hashedPass = tempUser.getPassword();
+                    if (argon2.verify(hashedPass, user.getPassword().toCharArray())) {
+                        return userRepository.login(userName);
+                    } else {
+                        return null;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
 	}
 
 	public User update(User user) {

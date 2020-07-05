@@ -50,6 +50,11 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 		</dependency>
+		<dependency>
+             <groupId>org.hibernate</groupId>
+             <artifactId>hibernate-validator</artifactId>
+             <version>6.0.13.Final</version>
+         </dependency>
 		<!-- Logging library -->
 		<dependency>
 			<groupId>log4j</groupId>
@@ -60,6 +65,11 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 		</dependency>
+		<dependency>
+             <groupId>de.mkammerer</groupId>
+             <artifactId>argon2-jvm</artifactId>
+             <version>2.7</version>
+         </dependency>
 	</dependencies>
 	<build>
 		<plugins>

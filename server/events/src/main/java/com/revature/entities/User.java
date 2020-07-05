@@ -7,8 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 
 
 @Entity
@@ -24,13 +27,17 @@ public class User {
 	
 	@Column(name = "last_name")
 	private String lastName;
+	
+	@NotBlank @Email @Column(name="email",unique=true, nullable=false)
 	private String email;
 	
-	@Column(name = "username")
+	@NotBlank @Column(name = "username",unique=true, nullable=false)
 	private String userName;
+	
+	@NotBlank @Column(name = "password", nullable=false)
 	private String password;
 	
-	@Column(name = "picture_url",length=65535, columnDefinition="TEXT")
+	@Lob @Column(name = "picture_url")
 	private String picture;
 	private String bio;
 	
@@ -53,10 +60,9 @@ public class User {
 
 	public User() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	public User(int id, String firstName, String lastName, String email, String userName, String password,
+	public User(int id, String firstName, String lastName, @NotBlank @Email String email, @NotBlank String userName, String password,
 			String picture, String bio, UserRole role, String band, String song, String city, String genre,
 			String state) {
 		super();

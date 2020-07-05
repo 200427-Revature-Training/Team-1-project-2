@@ -4,13 +4,12 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.Lob;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "events", schema = "events")
@@ -19,24 +18,28 @@ public class Event {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
+	@NotBlank
 	private String name;
+	
 	private Date date;
-
-	@Column(name = "picture_url")
+	
+	@Lob @Column(name = "picture_url")
 	private String picture;
+	
 	private String description;
 
 	@Column(name = "featured_song")
 	private String song;
 
-	
 	private String city;
 	private String state;
 	private String bands;
+
 	public Event() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+
 	public Event(int id, String name, Date date, String picture, String description, String song, String city,
 			String state, String bands) {
 		super();
@@ -50,11 +53,13 @@ public class Event {
 		this.state = state;
 		this.bands = bands;
 	}
+
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", name=" + name + ", date=" + date + ", picture=" + picture + ", description="
 				+ description + ", song=" + song + ", city=" + city + ", state=" + state + ", bands=" + bands + "]";
 	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -70,6 +75,7 @@ public class Event {
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -123,60 +129,77 @@ public class Event {
 			return false;
 		return true;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public Date getDate() {
 		return date;
 	}
+
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	public String getPicture() {
 		return picture;
 	}
+
 	public void setPicture(String picture) {
 		this.picture = picture;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getSong() {
 		return song;
 	}
+
 	public void setSong(String song) {
 		this.song = song;
 	}
+
 	public String getCity() {
 		return city;
 	}
+
 	public void setCity(String city) {
 		this.city = city;
 	}
+
 	public String getState() {
 		return state;
 	}
+
 	public void setState(String state) {
 		this.state = state;
 	}
+
 	public String getBands() {
 		return bands;
 	}
+
 	public void setBands(String bands) {
 		this.bands = bands;
 	}
 
-	
 }
