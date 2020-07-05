@@ -17,24 +17,10 @@ export const LoginComponent: React.FC<RouteComponentProps> = (props) => {
         const payload = {userName: username, password: password};
 
         userRemote.login(payload).then(() => {
-                console.log('im login component');
-                // we need to get the data for the home page
-
                 if(localStorage.getItem('userId'))
                     props.history.push('/home');
         })    
     }
-
-    const getAllConcerts = async () => {
-        const userID = localStorage.getItem('userId');
-        console.log('im getting concerts');
-        const concerts = await userRemote.getAllEvents().then(() => {
-            console.log('i got concerts');
-        });
-    }
-        //if the user somehow landed on the login screen and already has a valid role, redirect them to the landing page
-
-    
 
     return (
 

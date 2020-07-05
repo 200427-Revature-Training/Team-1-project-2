@@ -32,11 +32,12 @@ export const ProfileComponent: React.FC = () => {
     const load = async () => {
         const user = await userRemote.getUser();
         const userData = user.data;
-        // console.log(userData);
+        // console.log('whats user data profile component - ' +userData);
         setFirst(userData.firstName);
         setLast(userData.lastName)
         setBio(userData.bio);
         setEmail(userData.email);
+      //  console.log('user data band = ' + userData.band);
         setBand(userData.band);
         setHomeCity(userData.city);
         setGenre(userData.genre);
@@ -55,7 +56,7 @@ export const ProfileComponent: React.FC = () => {
         }
         setHomeState(userData.state);
         setImage(userData.picture);
-        console.log(userData)
+     //   console.log(userData)
     };
 
     if (!localStorage.getItem('userId')){

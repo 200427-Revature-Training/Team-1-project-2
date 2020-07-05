@@ -1,4 +1,3 @@
-import { ConcertEventModel } from '../data-models/event-model';
 import { internalAxios } from './internal-axios';
 
 export const getAllEvents = async () => {
