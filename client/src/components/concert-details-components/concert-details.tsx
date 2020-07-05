@@ -3,33 +3,7 @@ import './concert-details.css'
 import * as concertEventRemote from '../../remotes/event-remote';
 import { ConcertDetailsEditComponent } from './concert-details-edit-modal.component';
 import { Button } from 'react-bootstrap';
-import { RouteComponentProps, withRouter, Route } from 'react-router';
-
-/*
-interface ModalComponentsProps {
-    states: { modalVisible: boolean;}
-    setters: {
-        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    };
-    concert:any;
-}
-
-interface concertModel {
-    name: string,
-    date: Date,
-    picture: string,
-    description: string,
-    song:string,
-    place : {
-        id:number,
-        zipCode:number,
-        city: string,
-        state: string,
-        streetAddress:string,
-    },
-    bands:string
-}
-*/
+import { RouteComponentProps, withRouter } from 'react-router';
  
 interface ModalComponentsProps {
      states: { modalVisible: boolean; };
@@ -41,11 +15,11 @@ interface ModalComponentsProps {
 export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) => {
 
     const [name, setName] = useState('');
-    const [date,setDate]= useState('');
-    const [image, setImage]= useState('')
+    const [concertDate, setDate] = useState('');
+    const [image, setImage] = useState('')
     const [description, setDescription] = useState('');
-    const [song,setSong]= useState('');
-    const [nameLst, setNameLst]= useState([]);
+    const [song,setSong] = useState('');
+    const [nameLst, setNameLst] = useState([]);
     const [band, setBand] = useState('');
     const [state, setState] = useState('');
     const [city, setCity] = useState('');
@@ -56,10 +30,12 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
     const [concertModel, setConcertModel] = useState<any>();
  
     const states = {
-        modalVisible: modalVisible
+        modalVisible: modalVisible, name:name, concertDate:concertDate, image:image, description:description,
+        song:song, band:band, state:state, city:city
      }
      const setters = {
-       setModalVisible: setModalVisible
+       setModalVisible: setModalVisible, setName:setName, setDate:setDate, setDescription:setDescription,
+       setSong:setSong, setBand:setBand, setState:setState,setCity:setCity
      }
     
      
@@ -78,18 +54,21 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
             setBand(response.data.bands);
             const date = new Date(response.data.date)
             setDate(date.toLocaleDateString());
-            if (response.data.song.includes('watch')) {
+            if (response.data.song)
+            {
+                if ( response.data.song.includes('watch')) {
                 const str = response.data.song.split("=");
                 const embed = "https://www.youtube.com/embed/" + str[1];
                 setSong(embed);
             
-            }else if(response.data.song.includes('embed')){
-                setSong(response.data.song);
-            }
-             else {
-                const str = response.data.song.split("e/");
-                const embed = "https://www.youtube.com/embed/" + str[1];
-                setSong(embed);
+                }else if(response.data.song.includes('embed')){
+                    setSong(response.data.song);
+                }
+                else {
+                    const str = response.data.song.split("e/");
+                    const embed = "https://www.youtube.com/embed/" + str[1];
+                    setSong(embed);
+                }
             }
            
            const tempModel =  {
@@ -113,12 +92,25 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
             }
     }
 
+    const renderWhosGoing = () => {
+        let keyId = 0;
+            return (
+            <ul className="myList">
+                {nameLst.map(name=>
+                {
+                    return (
+                        <li key={keyId++}>{name}</li>
+                     );
+                    })}
+            </ul>
+     )
+    }
     useEffect(() => {
         getEvent();
     }, []);
 
     const addManagerButton = () => {
-        if (localStorage.getItem('userRoleId') == '4')
+        if (localStorage.getItem('userRoleId') === '4')
         return( <Button className="text-right" onClick={() => setModalVisible(true)}>Edit event</Button>);
     }
     const renderDetailComponent = () => {
@@ -137,7 +129,7 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
                <div className="col-3 profile-pic">
                    <br></br>
                     <h3>{name}</h3>
-                    <img src={image}/>
+                    <img src={image} alt="about event"/>
                 </div>
                <div className="col-4">
                    <br></br>
@@ -155,14 +147,10 @@ export const ConcertDetailsComponent: React.FC<RouteComponentProps> = (props) =>
                    </ul>
                    <h4>Date</h4>
                    <ul>
-                       <p>{date}</p>
+                       <p>{concertDate}</p>
                    </ul>
                    <h4>Who's going? </h4>
-                   <ul className="myList">
-                       {nameLst.map(name=>(
-                           <li>{name}</li>
-                       ))}
-                   </ul>
+                        {renderWhosGoing()}
                    {addManagerButton()}
                </div>
                <div className="col-5 iframe-container">

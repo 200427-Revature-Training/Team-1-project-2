@@ -25,36 +25,38 @@ export const ProfileComponent: React.FC = () => {
         setFirst: setFirst,setLast:setLast, setBio: setBio, setEmail: setEmail, setSong: setSong, setImage: setImage
     }
     useEffect(() => {
-        const load = async () => {
-            const user = await userRemote.getUser();
-            const userData = user.data;
-            console.log(userData);
-            setFirst(userData.firstName);
-            setLast(userData.lastName)
-            setBio(userData.bio);
-            setEmail(userData.email);
-            setBand(userData.band);
-            setHomeCity(userData.city);
-            setGenre(userData.genre);
-            if (userData.song.includes('watch')) {
-                const str = userData.song.split("=");
-                const embed = "https://www.youtube.com/embed/" + str[1];
-                setSong(embed);
-            
-            }else if(userData.song.includes('embed')){
-                setSong(userData.song);
-            }
-             else {
-                const str = userData.song.split("e/");
-                const embed = "https://www.youtube.com/embed/" + str[1];
-                setSong(embed);
-            }
-            setHomeState(userData.state);
-            setImage(userData.picture);
-            console.log(userData)
-        };
+
         load();
     }, []);
+
+    const load = async () => {
+        const user = await userRemote.getUser();
+        const userData = user.data;
+        // console.log(userData);
+        setFirst(userData.firstName);
+        setLast(userData.lastName)
+        setBio(userData.bio);
+        setEmail(userData.email);
+        setBand(userData.band);
+        setHomeCity(userData.city);
+        setGenre(userData.genre);
+        if (userData.song.includes('watch')) {
+            const str = userData.song.split("=");
+            const embed = "https://www.youtube.com/embed/" + str[1];
+            setSong(embed);
+        
+        }else if(userData.song.includes('embed')){
+            setSong(userData.song);
+        }
+         else {
+            const str = userData.song.split("e/");
+            const embed = "https://www.youtube.com/embed/" + str[1];
+            setSong(embed);
+        }
+        setHomeState(userData.state);
+        setImage(userData.picture);
+        console.log(userData)
+    };
 
     if (!localStorage.getItem('userId')){
         return (<section>
