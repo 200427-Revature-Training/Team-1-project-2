@@ -3,12 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { TextField, MenuItem, Select } from '@material-ui/core';
 import * as concertEventRemote from '../../remotes/event-remote';
 
-
 interface ModalComponents {
-    states: { modalVisible: boolean; };
-    setters: {
-        setModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
-    };
+    states: any;
+    setters: any;
      concertModel: {
          id:number,
         name: string,
@@ -24,28 +21,25 @@ interface ModalComponents {
 
 export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) => {
 
-    const [concertName, setConcertName] = useState(props.concertModel.name);
+    const [shouldSetState, setShouldSetState] = useState(false);
     const [concertDate, setConcertDate] = useState(new Date());
-    const [concertState, setConcertState] = useState(props.concertModel.state);
-    const [concertCity, setConcertCity] = useState(props.concertModel.city);
-    const [concertImage, setConcertImage] = useState(props.concertModel.picture);
-    const [bandName, setBandName] = useState(props.concertModel.bands);
-    const [concertDescription, setConcertDescription] = useState(props.concertModel.description);
-    const [featuredSong, setFeaturedSong] = useState(props.concertModel.song);
-
+    
     const createEventButton = async () => {
        
-        const payload: any = {
-            id:props.concertModel.id,
-            eName: concertName,
-            eDate: concertDate,
-            sourceImage: concertImage,
-            description: concertDescription,
-            song: featuredSong,
-            city: concertCity,
-            state: concertState,
-            eBandList: bandName
-        }
+    const datetoSend = (shouldSetState) ?  concertDate : props.states.concertDate;
+
+    setShouldSetState(false);
+    const payload: any = {
+        id:props.concertModel.id,
+        eName: props.states.name,
+        eDate:datetoSend,
+        sourceImage: props.states.image,
+        description: props.states.description,
+        song: props.states.song,
+        city: props.states.city,
+        state: props.states.state,
+        eBandList: props.states.band
+    }
  
         concertEventRemote.updateConcertEvent(payload);
 
@@ -58,24 +52,23 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
             reader.readAsDataURL(event.target.files[0]);
             reader.onload = () => {
                 if (typeof reader.result == 'string') {
-                    setConcertImage(reader.result);
+                    props.setters.setImage(reader.result);
                 }
             }
         }
     };
 
     const handleSelectState = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setConcertState(event.target.value as string);
+        props.setters.setState(event.target.value as string);
         };
 
     const handleTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setConcertDate(new Date(event.target.value.replace("T","\ ")));
+        setShouldSetState(true);
+        setConcertDate(new Date(event.target.value.replace("T",'\ ')));
+        props.setters.setDate((event.target.value.replace("T",'\ ')))
+     
     }
-
-    const date = concertDate;
-    const dateString = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().split("T")[0] 
-                           + "T" + ("0"+concertDate.getHours()).slice(-2) + ":" + ("0" + concertDate.getMinutes()).slice(-2);
-
+    
  useEffect(() => {
         
 }, []);
@@ -97,10 +90,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 id="Name"
                                 label="Name Of Event"
                                 name="Name"
-                                autoComplete={concertName}
-                                value={concertName}
+                                autoComplete={props.states.name}
+                                value={props.states.name}
                                 autoFocus
-                                onChange={(e) => setConcertName(e.target.value)}
+                                onChange={(e) => props.setters.setName(e.target.value)}
                             />
                         </div>
                         <div>
@@ -112,10 +105,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 id="Description"
                                 label="Description"
                                 name="Description"
-                                autoComplete={concertDescription}
-                                value={concertDescription}
+                                autoComplete={props.states.description}
+                                value={props.states.description}
                                 autoFocus
-                                onChange={(e) => setConcertDescription(e.target.value)}
+                                onChange={(e) => props.setters.setDescription(e.target.value)}
                             />
                         </div>
                         <div>
@@ -127,10 +120,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 id="Bands"
                                 label="Bands"
                                 name="Bands"
-                                autoComplete={bandName}
-                                value={bandName}
+                                autoComplete={props.states.band}
+                                value={props.states.band}
                                 autoFocus
-                               onChange={(e) => setBandName(e.target.value)}
+                               onChange={(e) => props.setters.setBand(e.target.value)}
                             />
                         </div>
                         <div>
@@ -142,10 +135,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 id="Featured Song"
                                 label="Featured Song"
                                 name="Featured Song"
-                                autoComplete={featuredSong}
-                                value={featuredSong}
+                                autoComplete={props.states.featuredSong}
+                                value={props.states.featuredSong}
                                 autoFocus
-                                onChange={(e) => setFeaturedSong(e.target.value)}
+                                onChange={(e) => props.setters.setSong(e.target.value)}
                             />
                         </div>
                         <div>
@@ -168,10 +161,10 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                                 id="city"
                                 label="City"
                                 name="city"
-                                autoComplete={concertCity}
-                                value={concertCity}
+                                autoComplete={props.states.concertCity}
+                                value={props.states.concertCity}
                                 autoFocus
-                                onChange={(e) => setConcertCity(e.target.value)}
+                                onChange={(e) => props.setters.setCity(e.target.value)}
                             />
                         </div>
                         <div>
@@ -179,7 +172,7 @@ export const ConcertDetailsEditComponent: React.FC<ModalComponents> = (props) =>
                         <br></br>
                                     <Select
                                         className='removeMargin'
-                                        value={concertState}
+                                        value={props.states.concertState}
                                         onChange={(handleSelectState)}
                                         displayEmpty
                                         inputProps={{ 'aria-label': 'Without label' }}
