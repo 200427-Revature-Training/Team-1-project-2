@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
@@ -22,19 +23,23 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "first_name")
+	@Valid
+	@NotBlank(message = "First name is required") @Column(name = "first_name")
 	private String firstName;
 	
 	@Column(name = "last_name")
 	private String lastName;
 	
-	@NotBlank @Email @Column(name="email",unique=true, nullable=false)
+	@Valid
+	@NotBlank @Email(message = "Should be valid email") @Column(name="email",unique=true, nullable=false)
 	private String email;
 	
-	@NotBlank @Column(name = "username",unique=true, nullable=false)
+	@Valid
+	@NotBlank(message = "Username is required") @Column(name = "username",unique=true, nullable=false)
 	private String userName;
 	
-	@NotBlank @Column(name = "password", nullable=false)
+	@Valid
+	@NotBlank(message = "Must create a password") @Column(name = "password", nullable=false)
 	private String password;
 	
 	@Lob @Column(name = "picture_url")
@@ -57,6 +62,14 @@ public class User {
 	private String genre;
 	
 	private String state;
+	
+	@ValidUserRegistration
+	public User(String firstName, String userName, String email, String password) {
+		this.firstName = firstName;
+		this.userName = userName;
+		this.email = email;
+		this.password = password;
+	}
 
 	public User() {
 		super();

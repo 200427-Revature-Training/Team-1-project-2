@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Optional;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -22,8 +25,31 @@ public class UserService {
 	@Autowired
 	UserRepository userRepository;
 	
-	public Collection<User> getAllUsers(){
+	public Collection<@NotNull User> getAllUsers(){
 		return userRepository.findAll();
+	}
+	
+	public void createNewUser(@Valid User user) {
+		if(user.getPassword() != null) {
+            Argon2 argon2 = Argon2Factory.create();
+            char[] pass = user.getPassword().toCharArray();
+            try {
+                String hash = argon2.hash(10, 65536, 1, pass);
+                if (argon2.verify(hash, pass)) {
+                    user.setPassword(hash);
+                    try {
+                    	userRepository.save(user);
+                    } catch (Exception e) {
+                    	e.printStackTrace();
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                //throw exception
+            } finally {
+                argon2.wipeArray(pass);
+            }
+        }
 	}
 	
 	public User save(User user) {
@@ -34,7 +60,11 @@ public class UserService {
                 String hash = argon2.hash(10, 65536, 1, pass);
                 if (argon2.verify(hash, pass)) {
                     user.setPassword(hash);
-                    userRepository.save(user);
+                    try {
+                    	userRepository.save(user);
+                    } catch (Exception e) {
+                    	e.printStackTrace();
+                    }
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -46,6 +76,7 @@ public class UserService {
         return user;
 	}
 
+	@Valid
 	public User getUserById(int id) {
 		return userRepository.findById(id)
 				.orElseThrow(() -> new HttpClientErrorException(HttpStatus.NOT_FOUND));

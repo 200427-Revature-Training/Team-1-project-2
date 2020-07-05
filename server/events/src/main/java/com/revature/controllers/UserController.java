@@ -33,11 +33,17 @@ public class UserController {
 	public Collection<User> getAllUsers(){
 		return userService.getAllUsers();
 	}
-
+/*
 	@PostMapping
 	public User saveUser(@RequestBody User user) {
 		System.out.println(user);
 		return userService.save(user);
+	}*/
+	
+	@PostMapping
+	public void createNewUser(@RequestBody User user) {
+		System.out.println(user);
+		userService.createNewUser(user);
 	}
 
 	@GetMapping("/{id}")

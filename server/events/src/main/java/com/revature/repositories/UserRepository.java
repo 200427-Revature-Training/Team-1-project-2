@@ -3,7 +3,9 @@ package com.revature.repositories;
 import java.util.Collection;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.revature.entities.User;
@@ -21,4 +23,10 @@ public interface UserRepository extends JpaRepository<User, Integer>{
 	//@Query(value="select u.first_name ,u.last_name from events.user_event ue JOIN events.users u ON ue.user_id = u.id WHERE ue.event_id  = ?1", nativeQuery=true)
 	@Query(value="select u.id ,u.first_name, u.last_name,u.email,u.username,u.password, u.picture_url,u.bio ,u.role_id,u.favorite_band,u.favorite_song,u.city  ,u.favorite_genre    ,u.state  from events.user_event ue JOIN events.users u ON ue.user_id = u.id WHERE ue.event_id  = ?1" ,nativeQuery=true)
 	Collection<User> getEventsUsers(int id);
+	
+	@Modifying
+	@Query(value="insert into User (firstName, userName, email, password) values (:firstName, :userName, :email, :password)",nativeQuery = true)
+	User createNewUser(@Param("firstName") String firstName, @Param("userName") String userName, @Param("email") String email, @Param("password") String password);
+	
+	
 }
