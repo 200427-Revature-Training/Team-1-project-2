@@ -62,19 +62,12 @@ public class User {
 	private String genre;
 	
 	private String state;
-	
-	@ValidUserRegistration
-	public User(String firstName, String userName, String email, String password) {
-		this.firstName = firstName;
-		this.userName = userName;
-		this.email = email;
-		this.password = password;
-	}
 
 	public User() {
 		super();
 	}
 
+	@ValidUserRegistration
 	public User(int id, String firstName, String lastName, @NotBlank @Email String email, @NotBlank String userName, String password,
 			String picture, String bio, UserRole role, String band, String song, String city, String genre,
 			String state) {

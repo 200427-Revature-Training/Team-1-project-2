@@ -11,8 +11,8 @@ public class ValidUserValidator implements ConstraintValidator<ValidUserRegistra
 	@Override
 	public boolean isValid(User user, ConstraintValidatorContext context) {
 		
-		if(user == null ) {
-			return true;
+		if(user == null) {
+			return false;
 		}
 		
 		if(!(user instanceof User) ) {
