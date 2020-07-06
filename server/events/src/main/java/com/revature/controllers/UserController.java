@@ -36,8 +36,8 @@ public class UserController {
 
 	@PostMapping
 	public User saveUser(@RequestBody User user) {
-		System.out.println(user);
-		return userService.save(user);
+		System.out.println("create new user" + user);
+		return userService.createNewUser(user);
 	}
 
 	@GetMapping("/{id}")
