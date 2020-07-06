@@ -3,9 +3,9 @@ import { Form } from 'react-bootstrap';
 import { MenuItem, Select, FormControl } from '@material-ui/core';
 import './signup.css';
 import * as userRemote from '../../remotes/user-remote'
-import { Redirect } from 'react-router';
+import { RouteComponentProps, withRouter } from 'react-router';
 
-export const SignupComponent: React.FC = () => {
+export const SignupComponent: React.FC<RouteComponentProps> = (props) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -49,8 +49,9 @@ userName: "Hallstead"*/
 
         }
     };
+
     const post = async () => {
-        const response = await userRemote.postUser({
+        userRemote.postUser({
             firstName:first,
             lastName:last,
             email:email,
@@ -64,17 +65,12 @@ userName: "Hallstead"*/
             picture:image,
             genre:genre,
             role:{id:1,role:'fan'}
+        }).then(() => {
+            props.history.push('/login');
         });
-        localStorage.setItem("userId",response.data.id.toString());
-        localStorage.setItem('userName', response.data.userName);
-        localStorage.setItem('userCity', response.data.city);
-        localStorage.setItem('userState', response.data.state);
-        localStorage.setItem('userRoleId',response.data.role.id);
-        setSubmit(true);
+
+
     }
-    if (submitted){
-        return (<Redirect to='/profile'/>)
-    }else{
 
         return (
             <section>
@@ -200,4 +196,5 @@ userName: "Hallstead"*/
         </section>
     );
 }
-}
+
+export default withRouter(SignupComponent);
