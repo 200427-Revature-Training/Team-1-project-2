@@ -20,6 +20,7 @@ export const SignupComponent: React.FC<RouteComponentProps> = (props) => {
     const [band, setBand] = useState('');
     const [genre, setGenre] = useState('');
     const [submitted, setSubmit] = useState(false);
+    const [disabled, setDisabled] = useState(false);
     /*id: 1, firstName: "Jordon", lastName: "Hill", email: "Hallstead2@gmail.com", userName: "Hallstead", …}
 band: null
 bio: "I like hotdogs."
@@ -51,29 +52,37 @@ userName: "Hallstead"*/
     };
 
     const post = async () => {
-        userRemote.postUser({
-            firstName:first,
-            lastName:last,
-            email:email,
-            userName:username,
-            password:password,
-            bio:bio,
-            band:band,
-            song:song,
-            city:homeCity,
-            state:homeState,
-            picture:image,
-            genre:genre,
-            role:{id:1,role:'fan'}
-        }).then(() => {
-            props.history.push('/login');
+        setDisabled(true);
+        const response = await userRemote.postUser({
+            firstName: first,
+            lastName: last,
+            email: email,
+            userName: username,
+            password: password,
+            bio: bio,
+            band: band,
+            song: song,
+            city: homeCity,
+            state: homeState,
+            picture: image,
+            genre: genre,
+            role: { id: 1, role: 'fan' }
         });
+        console.log(response);
+        if (response.data.id.toString() && response.data.userName && response.data.city
+            && response.data.state && response.data.role.id) {
 
-
+            localStorage.setItem("userId", response.data.id.toString());
+            localStorage.setItem('userName', response.data.userName);
+            localStorage.setItem('userCity', response.data.city);
+            localStorage.setItem('userState', response.data.state);
+            localStorage.setItem('userRoleId', response.data.role.id);
+            props.history.push('/profile');
+        }
     }
 
-        return (
-            <section>
+    return (
+        <section>
             <h1>User Registration</h1>
             <div className="col center">
                 <div className='container signup-contain'>
@@ -125,7 +134,7 @@ userName: "Hallstead"*/
                                 onChange={handleSelectState}
                                 displayEmpty
                                 inputProps={{ 'aria-label': 'Without label' }}
-                                >
+                            >
                                 <MenuItem value="" disabled>Type</MenuItem>
                                 <MenuItem value={'AL'}>Alabama</MenuItem>
                                 <MenuItem value={'AK'}>ALaska</MenuItem>
@@ -189,7 +198,7 @@ userName: "Hallstead"*/
                         <input type="file" onChange={handleImage} />
                     </Form>
                     <br></br>
-                    <button className="btn-primary btn" onClick={post} >Submit</button>
+                    <button disabled={disabled} className="btn-primary btn" onClick={post} >Submit</button>
                     <div></div>
                 </div>
             </div>

@@ -55,7 +55,7 @@ public class UserService {
             }
         }
 	
-			return null;
+			return user;
 	}
 
 	public User getUserById(int id) {
