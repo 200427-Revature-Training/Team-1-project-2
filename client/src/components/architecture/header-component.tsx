@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import './header.css';
 
 
-const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
+export const HeaderComponent: React.FC<RouteComponentProps> = (props) => {
   // unused should we delete it?
     const renderOnCurrentPath = (path:string)=>{
         return path === props.location.pathname ?

@@ -41,7 +41,7 @@ export const ConcertPageComponent: React.FC = () => {
     }
 
     const sortDate = (a: any, b: any) => {
-        console.log(a.date,b.date);
+       // console.log(a.date,b.date);
         return a.date < b.date ? 1 : -1;
     }
 
