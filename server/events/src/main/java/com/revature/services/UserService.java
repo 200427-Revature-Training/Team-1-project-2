@@ -40,7 +40,7 @@ public class UserService {
                 if (argon2.verify(hash, pass)) {
                     user.setPassword(hash);
                     try {
-                    	userRepository.save(user);
+                    	return userRepository.save(user);
                     } catch (Exception e) {
                     	e.printStackTrace();
                   
